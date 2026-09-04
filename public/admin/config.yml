@@ -25,6 +25,7 @@ collections:
     delete: true
     nested:
       depth: 5
+      subfolders: true
     meta:
       path:
         widget: string
