@@ -1,12 +1,16 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import AutoImport from 'astro-auto-import';
+import mermaid from 'astro-mermaid';
 
 export default defineConfig({
   // Your GitHub Pages URL
   site: 'https://docs.timothyjohnsonwrites.com',
 
   integrations: [
+    mermaid({ 
+      autoTheme: true
+    }),
     AutoImport({
       imports: [
         {

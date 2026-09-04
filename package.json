@@ -12,6 +12,8 @@
   "dependencies": {
     "@astrojs/starlight": "latest",
     "astro": "latest",
-    "astro-auto-import": "^0.6.0"
+    "astro-auto-import": "^0.6.0",
+    "astro-mermaid": "^2.1.0",
+    "mermaid": "^11.17.2"
   }
 }
