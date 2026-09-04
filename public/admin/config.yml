@@ -25,7 +25,6 @@ collections:
     delete: true
     slug: "{{slug}}"
     nested:
-      subfolders: true
       depth: 5
     summary: "{{title}} ({{sidebar.order | default: '-'}})"
     sortable_fields: ["sidebar.order", "title", "commit_date"]
