@@ -23,9 +23,13 @@ collections:
     format: "frontmatter"
     create: true
     delete: true
-    slug: "{{slug}}"
     nested:
       depth: 5
+    meta:
+      path:
+        widget: string
+        label: 'Path'
+        index_file: 'index'
     summary: "{{title}} ({{sidebar.order | default: '-'}})"
     sortable_fields: ["sidebar.order", "title", "commit_date"]
     
