@@ -42,34 +42,7 @@ show_preview_links: true
       - label: "Hidden from Sidebar"
         name: "hidden"
         widget: "boolean"
-        default: false
-      - label: "Sidebar Badge"
-        name: "badge"
-        widget: "object"
         required: false
-        fields:
-          - label: "Badge Text"
-            name: "text"
-            widget: "string"
-          - label: "Variant"
-            name: "variant"
-            widget: "select"
-            options: ["note", "tip", "caution", "danger", "success"]
-            default: "tip"
-  - label: "Table of Contents"
-    name: "tableOfContents"
-    widget: "object"
-    required: false
-    collapsed: true
-    fields:
-      - label: "Min Heading Level"
-        name: "minHeadingLevel"
-        widget: "number"
-        default: 2
-      - label: "Max Heading Level"
-        name: "maxHeadingLevel"
-        widget: "number"
-        default: 3
   - label: "Body Content"
     name: "body"
     widget: "markdown"
@@ -77,9 +50,6 @@ show_preview_links: true
     editor_components:
       - image
       - code-block
-      - quote
-      - bulleted-list
-      - numbered-list
       - aside
       - steps
       - filetree
