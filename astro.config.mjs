@@ -26,7 +26,7 @@ export default defineConfig({
       ],
     }),
     starlight({
-      title: 'Knowledge Base',
+      title: 'Docs-as-Code Blueprint',
       favicon: '/tjw_logo.png',
       defaultLocale: 'root',
       head: [
