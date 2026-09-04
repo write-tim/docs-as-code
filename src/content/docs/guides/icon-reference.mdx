@@ -1,36 +1,72 @@
 ---
-title: Icon Reference
-description: An overview of all the icons available in Starlight.
+title: Icon Reference & Catalog
+description: Complete visual catalog of all built-in Starlight icons available for your documentation.
 sidebar:
   label: ''
   order: 6
   hidden: false
 ---
 
-Starlight provides a set of built-in icons that you can display in your content using the `<Icon>` component.
+import { Icon, Aside, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 
-## Use icons
+Starlight includes a rich built-in icon set that you can embed anywhere using the `<Icon>` component, or pass into attributes like `icon="rocket"` on cards and asides.
 
-Icons can be displayed using the [`<Icon>`](/components/icons/) component.
-They are also often used in other components, such as [cards](/components/cards/) or settings like [hero actions](/reference/frontmatter/#hero).
+## Built-In Icon Catalog
 
-## `StarlightIcon` type
+| Icon | Name / Identifier | Usage Example |
+| :---: | :--- | :--- |
+| <Icon name="rocket" /> | `rocket` | `<Icon name="rocket" />` |
+| <Icon name="star" /> | `star` | `<Icon name="star" />` |
+| <Icon name="information" /> | `information` | `<Icon name="information" />` |
+| <Icon name="warning" /> | `warning` | `<Icon name="warning" />` |
+| <Icon name="pencil" /> | `pencil` | `<Icon name="pencil" />` |
+| <Icon name="document" /> | `document` | `<Icon name="document" />` |
+| <Icon name="setting" /> | `setting` | `<Icon name="setting" />` |
+| <Icon name="link" /> | `link` | `<Icon name="link" />` |
+| <Icon name="external" /> | `external` | `<Icon name="external" />` |
+| <Icon name="download" /> | `download` | `<Icon name="download" />` |
+| <Icon name="cloud-download" /> | `cloud-download` | `<Icon name="cloud-download" />` |
+| <Icon name="moon" /> | `moon` | `<Icon name="moon" />` |
+| <Icon name="sun" /> | `sun` | `<Icon name="sun" />` |
+| <Icon name="clock" /> | `clock` | `<Icon name="clock" />` |
+| <Icon name="laptop" /> | `laptop` | `<Icon name="laptop" />` |
+| <Icon name="desktop" /> | `desktop` | `<Icon name="desktop" />` |
+| <Icon name="mobile-android" /> | `mobile-android` | `<Icon name="mobile-android" />` |
+| <Icon name="window" /> | `window` | `<Icon name="window" />` |
+| <Icon name="database" /> | `database` | `<Icon name="database" />` |
+| <Icon name="server" /> | `server` | `<Icon name="server" />` |
+| <Icon name="code-branch" /> | `code-branch` | `<Icon name="code-branch" />` |
+| <Icon name="open-book" /> | `open-book` | `<Icon name="open-book" />` |
+| <Icon name="notes" /> | `notes` | `<Icon name="notes" />` |
+| <Icon name="magnifier" /> | `magnifier` | `<Icon name="magnifier" />` |
+| <Icon name="bars" /> | `bars` | `<Icon name="bars" />` |
+| <Icon name="translate" /> | `translate` | `<Icon name="translate" />` |
 
-Use the `StarlightIcon` TypeScript type to reference the names of [Starlight’s built-in icons](#all-icons).
+## How to Use Icons in Your Content
 
-```ts {2} /icon: (StarlightIcon)/
-// src/icon.ts
-import type { StarlightIcon } from '@astrojs/starlight/types';
+<Steps>
+1. **Import the Component:** Include `import { Icon } from '@astrojs/starlight/components';` at the top of your `.mdx` file.
+2. **Render Inline:** Call the component anywhere in your body copy: `<Icon name="rocket" />`.
+3. **Pass Attributes:** Customize size, color, or accessibility labels like `<Icon name="star" color="accent" label="Favorite" />`.
+</Steps>
 
-function getIconLabel(icon: StarlightIcon) {
-	// …
-}
-```
+## Behind the Curtain
 
-## All icons
+<Tabs>
+  <TabItem icon="seti:html" label="1. Rendered Specimen">
+    <div style="display: flex; gap: 1rem; align-items: center;">
+      <Icon name="rocket" size="1.5rem" />
+      <span>Deploying production builds safely via CI/CD.</span>
+    </div>
+  </TabItem>
+  <TabItem icon="seti:markdown" label="2. Underlying MDX Code">
+    ````mdx
+    import { Icon } from '@astrojs/starlight/components';
 
-A list of all available icons is shown below with their associated names. Click an icon to copy its name to your clipboard.
-
-import IconsList from '~/components/icons-list.astro';
-
-<IconsList labels={{ copied: 'Copied!' }} />
+    <Icon name="rocket" size="1.5rem"/> Deploying production builds safely via CI/CD.
+    ````
+  </TabItem>
+  <TabItem icon="seti:config" label="3. Sveltia CMS Authoring">
+    Icons can be referenced inside component shortcodes or rendered natively via MDX blocks within the CMS editor.
+  </TabItem>
+</Tabs>
