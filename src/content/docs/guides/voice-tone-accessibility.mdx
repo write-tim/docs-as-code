@@ -1,0 +1,43 @@
+---
+title: Voice, Tone & Accessibility
+description: Guidelines for writing clear, approachable, and accessible software documentation.
+sidebar:
+  label: ''
+  order: 1
+  hidden: false
+  badge: null
+tableOfContents: null
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+Great software user documentation doesn't just explain how a system works; it guides the user with clarity and empathy. This guide outlines the core principles for maintaining a consistent voice across our content strategy.
+
+## Active Voice and Direct Action
+
+Always write in the active voice. It is more concise, easier to translate, and clearly identifies who is performing the action. 
+
+*   **Do:** "Click the **Save** button to apply your changes."
+*   **Don't:** "The changes can be applied by clicking the Save button."
+
+When outlining step-by-step procedures, start each step with a strong imperative verb.
+
+## The Author Persona
+
+Our tone should be approachable, confident, and highly readable. We want to sound like a knowledgeable colleague helping you troubleshoot at your desk.
+
+*   **Be concise, not robotic:** Avoid overly clinical jargon when a simple word will do.
+*   **Validate the user's effort:** When documenting complex workflows, it is okay to acknowledge the complexity, but always follow up with a clear path forward.
+*   **Avoid colloquialisms:** Slang and idioms do not translate well for global audiences. Keep the instructions literal.
+
+## Accessibility (a11y) Standards
+
+Documentation is only effective if everyone can read it. Accessibility is a strict requirement for every published article.
+
+*   **Meaningful Link Text:** Never use "Click here." Hyperlinks must describe the destination (e.g., "Read the [API Authentication Guide](#)").
+*   **Descriptive Alt Text:** Every image must include `alt` text that describes the function or data shown in the screenshot, not just its literal appearance.
+*   **Semantic Structure:** Do not skip heading levels (e.g., jumping from `##` to `####`). Screen readers rely on a strict heading hierarchy to navigate the page.
+
+<Aside type="tip">
+When writing alt text for UI screenshots, focus on the action the user needs to take rather than describing every element in the window.
+</Aside>
