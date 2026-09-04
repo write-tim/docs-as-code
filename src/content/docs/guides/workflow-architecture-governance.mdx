@@ -1,0 +1,48 @@
+---
+title: Workflow Architecture & Governance
+description: The official process for drafting, reviewing, and publishing documentation.
+sidebar:
+  label: Workflow Governance
+  order: 3
+  hidden: false
+  badge: null
+tableOfContents: null
+---
+
+import { Aside, Steps } from '@astrojs/starlight/components';
+
+Our documentation operates on a strict **Docs-as-Code** philosophy. This means our written content is treated with the exact same rigor, version control, and review processes as our software codebase.
+
+There are two supported paths for authoring content: the visual **Sveltia CMS** (recommended for standard updates) and the **Local IDE** (recommended for deep structural changes). Both paths ultimately follow the exact same Git workflow.
+
+## The Publishing Pipeline
+
+Every new article or major update must go through the following lifecycle before reaching the live site:
+
+<Steps>
+
+1.  **Drafting:** 
+    Authors create or edit `.mdx` files either via the Sveltia CMS dashboard or locally in their IDE (like VS Code).
+    
+2.  **Version Control (Branching):**
+    Never commit directly to the `main` branch. All work must be done on a semantic feature branch (e.g., `docs/add-sso-guide` or `fix/typo-in-faq`). 
+    *(Note: Sveltia CMS handles this automatically when you use the "Editorial Workflow" setting).*
+
+3.  **Pull Request (PR) & Review:**
+    Once the draft is complete, open a Pull Request against the `main` branch. At least one peer review is required. Reviewers will check for technical accuracy, Voice & Tone compliance, and proper component usage.
+
+4.  **Continuous Integration (CI):**
+    Our Render pipeline will automatically build a staging preview of your branch. If the build fails (e.g., due to a missing frontmatter title or broken Markdown), the PR cannot be merged until the errors are resolved.
+
+5.  **Merge & Deploy:**
+    Once approved, the PR is merged into `main`. Render automatically detects this merge and deploys the new documentation to the live site within minutes.
+
+</Steps>
+
+<Aside type="caution">
+**Frontmatter is strictly enforced.** Our CI pipeline uses Zod schemas to validate metadata. If you attempt to publish an article without a `title`, the build will fail immediately to protect the live site.
+</Aside>
+
+## Content Audits
+
+To ensure our Knowledge Base doesn't become a graveyard of outdated information, every article must be reviewed at least once every 6 months. If a feature is deprecated in the software, its corresponding documentation must be removed or archived in the same deployment cycle.
