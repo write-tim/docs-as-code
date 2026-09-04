@@ -1,0 +1,26 @@
+---
+title: Component Usage
+description: Strict standards for utilizing custom UI components in our documentation.
+sidebar:
+  label: ''
+  order: 1
+  hidden: false
+  badge: null
+tableOfContents: null
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+To maintain a clean and readable user experience, all documentation authors must adhere to these component standards.
+
+## The Aside Component
+
+The `<Aside>` component is used to draw the reader's attention to critical information. Do not overuse it. If a page has more than three asides, consider rewriting the core text.
+
+*   **Tip (Green):** Use for shortcuts, best practices, or optional enhancements.
+*   **Caution (Yellow):** Use when an action might disrupt a workflow or cause minor data loss.
+*   **Danger (Red):** Use strictly for irreversible, destructive actions (e.g., deleting a repository).
+
+<Aside type="danger">
+Never use a Danger aside for stylistic emphasis. It is strictly reserved for critical warnings.
+</Aside>
