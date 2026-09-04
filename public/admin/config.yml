@@ -3,7 +3,7 @@ backend:
   repo: write-tim/docs-as-code # Replace with your repo (username/repo-name)
   branch: main
   site_domain: docs.timothyjohnsonwrites.com
-  base_url: https://my-auth-service.onrender.com
+  base_url: https://sveltia-gatekeeper.onrender.com
   auth_endpoint: auth
   # Sveltia supports GitHub OAuth via Decap/Netlify auth gateways or Cloudflare Workers
 
