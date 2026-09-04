@@ -1,0 +1,18 @@
+
+export default new Map([
+["src/content/docs/components/asides.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fcomponents%2Fasides.mdx&astroContentModuleFlag=true")],
+["src/content/docs/components/cards.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fcomponents%2Fcards.mdx&astroContentModuleFlag=true")],
+["src/content/docs/components/expressive-code.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fcomponents%2Fexpressive-code.mdx&astroContentModuleFlag=true")],
+["src/content/docs/components/file-trees.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fcomponents%2Ffile-trees.mdx&astroContentModuleFlag=true")],
+["src/content/docs/components/steps.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fcomponents%2Fsteps.mdx&astroContentModuleFlag=true")],
+["src/content/docs/components/tabs.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fcomponents%2Ftabs.mdx&astroContentModuleFlag=true")],
+["src/content/docs/guides/authoring-and-publishing.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fguides%2Fauthoring-and-publishing.mdx&astroContentModuleFlag=true")],
+["src/content/docs/guides/ci-cd-pipelines.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fguides%2Fci-cd-pipelines.mdx&astroContentModuleFlag=true")],
+["src/content/docs/guides/docs-as-code.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fguides%2Fdocs-as-code.mdx&astroContentModuleFlag=true")],
+["src/content/docs/guides/formatting-and-components.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fguides%2Fformatting-and-components.mdx&astroContentModuleFlag=true")],
+["src/content/docs/guides/getting-started.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fguides%2Fgetting-started.mdx&astroContentModuleFlag=true")],
+["src/content/docs/guides/search-and-organization.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fguides%2Fsearch-and-organization.mdx&astroContentModuleFlag=true")],
+["src/content/docs/guides/tech-stack.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fguides%2Ftech-stack.mdx&astroContentModuleFlag=true")],
+["src/content/docs/guides/using-the-faq-accordion.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fguides%2Fusing-the-faq-accordion.mdx&astroContentModuleFlag=true")],
+["src/content/docs/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Findex.mdx&astroContentModuleFlag=true")]]);
+		

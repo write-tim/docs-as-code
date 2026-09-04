@@ -1,0 +1,90 @@
+---
+title: Procedural Steps
+description: Learn how to format multi-step procedures using the Starlight Steps component and Sveltia CMS.
+sidebar:
+  order: 1
+  badge:
+    text: Core
+    variant: tip
+---
+
+import { Steps, Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+The `<Steps>` component is used to guide users through sequential tasks. It visually elevates standard numbered lists with styled circular indicators and a connecting vertical timeline line, making complex workflows easier to track.
+
+<Aside type="tip" title="When to use Steps">
+Use the `<Steps>` component only when **order is strictly required** to complete a task successfully (e.g., software installation, account configuration). For lists where the order does not matter, use standard unordered bullet points.
+</Aside>
+
+## Behind the Curtain
+
+Explore the live specimen, the raw markup required to build it, and instructions for authoring this component inside Sveltia CMS.
+
+<Tabs>
+  <TabItem label="1. Rendered Specimen" icon="laptop">
+    *This is exactly how the component renders to the end user reading the documentation.*
+    
+    <br/>
+    
+    ### How to configure GitHub OAuth
+    
+    <Steps>
+    1. **Fork the repository** on GitHub to your organization or personal account.
+       * *Ensure you include all branches if you plan to use GitHub Pages.*
+    
+    2. **Configure your OAuth provider** in GitHub Developer Settings.
+       * Set the Homepage URL to your production domain.
+       * Set the Authorization callback URL to include `/auth/callback`.
+    
+    3. **Launch Sveltia CMS** by navigating to `https://yoursite.com/admin/` in your browser.
+    
+    4. **Submit your pull request** to trigger automated CI/CD validation.
+    </Steps>
+  </TabItem>
+
+  <TabItem label="2. Underlying MDX Code" icon="seti:markdown">
+    *This is the raw Markdown/MDX that generates the live specimen. Notice how it wraps a standard Markdown numbered list.*
+
+    ```mdx
+    ### How to configure GitHub OAuth
+    
+    <Steps>
+    1. **Fork the repository** on GitHub to your organization or personal account.
+       * *Ensure you include all branches if you plan to use GitHub Pages.*
+    
+    2. **Configure your OAuth provider** in GitHub Developer Settings.
+       * Set the Homepage URL to your production domain.
+       * Set the Authorization callback URL to include `/auth/callback`.
+    
+    3. **Launch Sveltia CMS** by navigating to `[https://yoursite.com/admin/](https://yoursite.com/admin/)` in your browser.
+    
+    4. **Submit your pull request** to trigger automated CI/CD validation.
+    </Steps>
+    ```
+  </TabItem>
+
+  <TabItem label="3. Sveltia CMS Authoring" icon="setting">
+    *How writers add this component using the Sveltia CMS visual interface.*
+
+    Because this site is configured with custom editor components in `public/admin/index.html` and utilizes `astro-auto-import`, writers do not need to write import statements or raw HTML tags.
+    
+    **In Rich Text Mode:**
+    1. Click the **+** (Add Block) button in the editor toolbar.
+    2. Select **Starlight Steps** from the dropdown menu.
+    3. Type your procedure using standard numbers (`1.`, `2.`, `3.`) inside the block. The CMS will automatically wrap it in the required tags upon saving.
+
+    **In Raw Markdown Mode:**
+    Simply type `<Steps>`, create a standard Markdown numbered list, and close it with `</Steps>`. 
+  </TabItem>
+</Tabs>
+
+---
+
+## Technical Writing Guidelines
+
+When drafting procedures for this knowledge base, adhere to the following stylistic rules:
+
+* **Start with an imperative verb:** Each step should begin with an action word (e.g., *Click*, *Enter*, *Select*).
+* **Bold UI elements:** If a user needs to interact with a specific button, menu, or text field, bold its name (e.g., Click **Save Settings**).
+* **Keep steps atomic:** A single step should ideally represent a single user action. If a step contains more than two actions, break it down.
+* **Format sub-steps as bullets:** If a step requires minor sub-actions or context (like Step 1 and 2 in the specimen above), use an indented unordered list.

@@ -1,0 +1,50 @@
+name: Deploy PR Preview
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, closed]
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'astro.config.mjs'
+      - 'package.json'
+
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  preview:
+    name: Build & Preview
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write       # Pushes preview files to the gh-pages branch
+      pull-requests: write  # Posts the preview link comment on the PR
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        if: github.event.action != 'closed'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        if: github.event.action != 'closed'
+        run: npm ci
+
+      - name: Build Starlight with Preview Base Path
+        if: github.event.action != 'closed'
+        # Overrides Astro base path so CSS, JS, and links resolve in the subfolder
+        run: npm run build -- --base /pr-preview/pr-${{ github.event.number }}/
+
+      - name: Deploy or Destroy Preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./dist
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          action: auto

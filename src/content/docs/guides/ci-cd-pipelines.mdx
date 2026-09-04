@@ -1,0 +1,112 @@
+---
+title: Quality Automation (CI/CD)
+description: Explore how GitHub Actions, Vale, and Lychee automate prose linting, broken link detection, and preview deployments.
+sidebar:
+  order: 3
+---
+
+import { Aside, Tabs, TabItem, Steps, Code } from '@astrojs/starlight/components';
+
+In a traditional documentation workflow, quality control is manual, error-prone, and relies entirely on human review. Typos slip into production, external hyperlinks rot over time, and formatting inconsistencies degrade the professional quality of the knowledge base.
+
+This architecture replaces manual auditing with **automated quality gates**. Using GitHub Actions, every single pull request is automatically tested for prose style, link integrity, and build validity before a human ever clicks "Merge."
+
+---
+
+## The Automated Pipeline Architecture
+
+Whenever a contributor pushes code or submits changes via Sveltia CMS, GitHub Actions fires off three parallel verification jobs:
+
+<Steps>
+  1. **Prose Linting (Vale)**
+     Scans all Markdown and MDX files against the Google Developer Style Guide to catch passive voice, jargon, and spelling inconsistencies.
+  2. **Link Integrity Check (Lychee)**
+     Crawls every internal and external hyperlink across the site to ensure zero 404 errors or broken URLs exist.
+  3. **Preview Deployment (Astro Build)**
+     Performs a full static build of the site to verify that MDX components, frontmatter schemas, and content collections compile cleanly.
+</Steps>
+
+---
+
+## Behind the Configuration
+
+Explore the implementation files that drive these quality checks behind the scenes.
+
+<Tabs>
+  <TabItem label="1. Vale (Prose Linter)" icon="seti:config">
+    *Enforcing editorial standards using `.vale.ini`.*
+
+    Vale analyzes natural language text just like a compiler analyzes source code. Our configuration points to the Google Style Guide to ensure concise, active, and accessible technical writing.
+
+    ```ini title=".vale.ini"
+    StylesPath = .vale/styles
+    MinAlertLevel = warning
+
+    [*.mdx]
+    BasedOnStyles = Google
+    
+    # Custom overrides
+    Google.We = suggestion
+    ```
+  </TabItem>
+
+  <TabItem label="2. Lychee (Link Checker)" icon="seti:config">
+    *Preventing link rot using `lychee.toml`.*
+
+    Lychee is a fast, async link checker written in Rust. It scans all generated HTML output during CI to verify that referenced resources are online and responsive.
+
+    ```toml title="lychee.toml"
+    verbose = true
+    accept = [200, 429]
+    timeout = 10
+    exclude_all_private = true
+    ```
+  </TabItem>
+
+  <TabItem label="3. GitHub Actions CI" icon="github">
+    *Orchestrating the pipeline via `.github/workflows/ci.yml`.*
+
+    ```yaml title=".github/workflows/ci.yml"
+    name: Docs CI & Quality Gates
+
+    on:
+      pull_request:
+        branches: [ main ]
+      push:
+        branches: [ main ]
+
+    jobs:
+      validate:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout Repository
+            uses: actions/checkout@v4
+
+          - name: Set up Node.js
+            uses: actions/setup-node@v4
+            with:
+              node-version: 20
+              cache: 'npm'
+
+          - name: Install Dependencies
+            run: npm ci
+
+          - name: Build Static Site
+            run: npm run build
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+## Why Automated Guardrails Matter
+
+Implementing these pipelines transforms documentation maintenance from a reactive chore into a proactive system:
+
+* **Eliminating Editorial Fatigue:** Writers don't need to manually proofread for passive voice or style compliance; Vale handles it objectively.
+* **Zero Dead Links:** Technical manuals lose credibility the moment a link fails. Lychee guarantees that every reference remains functional.
+* **Confidence in Merges:** Because the CI build acts as a strict gatekeeper, broken MDX tags or invalid frontmatter schemas can *never* accidentally make it into production.
+
+<Aside type="tip">
+You can inspect the complete workflow files inside the `.github/workflows/` directory of the project repository to view the full pipeline configuration.
+</Aside>

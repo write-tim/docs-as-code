@@ -1,0 +1,103 @@
+backend:
+  name: github
+  repo: write-tim/docs-as-code-example # Replace with your repo (username/repo-name)
+  branch: main
+  site_domain: docs.timothyjohnsonwrites.com
+  # Sveltia supports GitHub OAuth via Decap/Netlify auth gateways or Cloudflare Workers
+
+# Media assets configuration
+media_folder: "src/assets/images"
+public_folder: "@/assets/images"
+
+# Enable Sveltia CMS specific features
+show_preview_links: true
+
+collections:
+  - name: "docs"
+    label: "Documentation"
+    label_singular: "Documentation Page"
+    folder: "src/content/docs"
+    extension: "mdx"
+    format: "frontmatter"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    nested:
+      subfolders: true
+      depth: 5
+    summary: "{{title}} ({{sidebar.order | default: '-'}})"
+    sortable_fields: ["sidebar.order", "title", "commit_date"]
+    
+    fields:
+      - label: "Title"
+        name: "title"
+        widget: "string"
+        required: true
+        hint: "The main page H1 heading and browser title."
+
+      - label: "Description"
+        name: "description"
+        widget: "string"
+        required: false
+        hint: "Used for search indexing and social meta tags."
+
+      - label: "Sidebar Navigation"
+        name: "sidebar"
+        widget: "object"
+        required: false
+        collapsed: true
+        fields:
+          - label: "Sidebar Label"
+            name: "label"
+            widget: "string"
+            required: false
+            hint: "Override the title displayed in the sidebar."
+          - label: "Sort Order"
+            name: "order"
+            widget: "number"
+            value_type: "int"
+            required: false
+            hint: "Numerical weight (lower numbers appear first)."
+          - label: "Hidden from Sidebar"
+            name: "hidden"
+            widget: "boolean"
+            default: false
+          - label: "Sidebar Badge"
+            name: "badge"
+            widget: "object"
+            required: false
+            fields:
+              - label: "Badge Text"
+                name: "text"
+                widget: "string"
+              - label: "Variant"
+                name: "variant"
+                widget: "select"
+                options: ["note", "tip", "caution", "danger", "success"]
+                default: "tip"
+
+      - label: "Table of Contents"
+        name: "tableOfContents"
+        widget: "object"
+        required: false
+        collapsed: true
+        fields:
+          - label: "Min Heading Level"
+            name: "minHeadingLevel"
+            widget: "number"
+            default: 2
+          - label: "Max Heading Level"
+            name: "maxHeadingLevel"
+            widget: "number"
+            default: 3
+
+      - label: "Body Content"
+        name: "body"
+        widget: "markdown"
+        required: true
+        editor_components:
+          - aside
+          - steps
+          - filetree
+          - badge
+          - tabs

@@ -1,0 +1,100 @@
+---
+title: Expressive Code
+description: Learn how to enhance code blocks with file names, line highlights, and diffs using Starlight's Expressive Code integration.
+sidebar:
+  order: 6
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+Code blocks in Starlight are powered by the Expressive Code engine. You do not need to import a special component; standard Markdown code fences are automatically upgraded with copy buttons, syntax highlighting, file titles, line markers, and visual diffs.
+
+## Behind the Curtain
+
+Explore the live specimens, the raw Markdown required to build them, and instructions for authoring code blocks inside Sveltia CMS.
+
+<Tabs>
+  <TabItem icon="laptop" label="1. Rendered Specimen">
+    *Below are two common code block use cases: highlighting specific lines in a named file, and showing a code diff (additions and deletions).*
+    
+    <br/>
+
+    ### File Titles & Line Highlights
+    
+    ```javascript title="astro.config.mjs" {4-6}
+    import { defineConfig } from 'astro/config';
+    import starlight from '@astrojs/starlight';
+
+    export default defineConfig({
+      site: 'https://docs.timothyjohnsonwrites.com',
+      trailingSlash: 'always',
+    });
+    ```
+
+    ### Code Diffs (Additions & Deletions)
+
+    ```diff title="package.json"
+      "dependencies": {
+    -   "astro": "^3.0.0",
+    +   "astro": "^4.0.0",
+    +   "astro-auto-import": "^0.4.2"
+      }
+    ```
+  </TabItem>
+
+  <TabItem icon="seti:markdown" label="2. Underlying MDX Code">
+    *Notice how the meta string immediately following the language declaration (e.g., `javascript` or `diff`) controls the title and line highlighting.*
+
+    ````mdx
+    ### File Titles & Line Highlights
+    
+    ```javascript title="astro.config.mjs" {4-6}
+    import { defineConfig } from 'astro/config';
+    import starlight from '@astrojs/starlight';
+
+    export default defineConfig({
+      site: '[https://docs.timothyjohnsonwrites.com](https://docs.timothyjohnsonwrites.com)',
+      trailingSlash: 'always',
+    });
+    ```
+
+    ### Code Diffs (Additions & Deletions)
+
+    ```diff title="package.json"
+      "dependencies": {
+    -   "astro": "^3.0.0",
+    +   "astro": "^4.0.0",
+    +   "astro-auto-import": "^0.4.2"
+      }
+    ```
+    ````
+  </TabItem>
+
+  <TabItem icon="setting" label="3. Sveltia CMS Authoring">
+    *How writers add this component using the Sveltia CMS interface.*
+
+    **In Rich Text Mode:**
+    1. Click the **+** (Add Block) button in the editor toolbar.
+    2. Select **Code Block**.
+    3. Select your programming language from the dropdown. 
+    *Note: The visual widget does not natively support advanced meta strings like `title=` or line highlighting `{}`.*
+
+    **In Raw Markdown Mode (Recommended):**
+    For technical documentation, it is almost always better to write code blocks in Raw Markdown mode. 
+    1. Type three backticks followed by the language (e.g., ` ```bash `).
+    2. Add `title="filename.ext"` to name the file.
+    3. Add `{1-3, 5}` to highlight specific lines.
+    4. Paste your code on the next line, and close with three backticks.
+  </TabItem>
+</Tabs>
+
+---
+
+## Technical Writing Guidelines
+
+When adding code blocks to this knowledge base, adhere to the following stylistic rules:
+
+* **Always Specify a Language:** Never leave a code block language blank. Use `text` or `plaintext` if there is no specific syntax to highlight. This ensures accessibility and proper rendering.
+* **Use File Titles Contextually:** If the user is expected to copy-paste the code into a specific file, include `title="filename.ext"` so they know exactly where it belongs.
+* **Highlight What Changed:** If you are showing a massive 50-line configuration file just to demonstrate a 2-line change, use line highlights (e.g., `{24-25}`) so the reader doesn't have to hunt for the relevant information.
+* **Use Diff Syntax for Upgrades:** When writing migration guides or troubleshooting articles, use the `diff` language with `-` (red) and `+` (green) symbols to clearly demonstrate what the user must delete and what they must add.

@@ -1,0 +1,67 @@
+---
+title: Docs-as-Code Philosophy
+description: Explore the core philosophy behind treating technical documentation like software using Git, Markdown, and automated CI/CD pipelines.
+sidebar:
+  order: 1
+---
+
+import { Aside, Card, CardGrid, Steps } from '@astrojs/starlight/components';
+
+Documentation is code. That is the foundational premise of this architecture. When you treat documentation with the same engineering rigor as application code—housed in Git repositories, written in human-readable Markdown/MDX, and validated via automated CI/CD pipelines—you eliminate the friction that causes knowledge bases to rot.
+
+This site operates as a live specimen of that philosophy: a high-performance static site built with **Astro** and **Starlight**, coupled with a Git-backed visual CMS (**Sveltia**) so non-technical subject matter experts (SMEs) can contribute without touching a terminal.
+
+---
+
+## Why Docs-as-Code?
+
+Traditional enterprise documentation often lives in siloed, proprietary tools (like Confluence or massive monolithic CMS platforms) where styling is inconsistent, version control is an afterthought, and contributions require navigating clunky WYSIWYG interfaces. 
+
+Docs-as-Code flips that paradigm by aligning technical writing with modern software engineering workflows:
+
+<CardGrid>
+  <Card title="Single Source of Truth" icon="git">
+    Content lives alongside the application source code or in dedicated repositories, tracked line-by-line using Git history, branches, and pull requests.
+  </Card>
+  <Card title="Decoupled Authoring" icon="seti:html">
+    Writers author in lightweight Markdown or via a clean Git-backed UI, while static site generators handle enterprise-grade styling and performance.
+  </Card>
+  <Card title="Automated Quality Gates" icon="approve-check">
+    Prose linting, broken link checking, and schema validations happen automatically in the background before a single word goes live.
+  </Card>
+  <Card title="Zero Vendor Lock-In" icon="laptop">
+    Your content is stored as open-standard plain-text files (`.md` / `.mdx`). You own your data entirely and can migrate hosting platforms at will.
+  </Card>
+</CardGrid>
+
+---
+
+## The Workflow Lifecycle
+
+Moving from an idea to published documentation follows a predictable, transparent engineering lifecycle:
+
+<Steps>
+  1. **Authoring & Editing**
+     Writers draft content either locally in an IDE using Markdown or via the web-based Sveltia CMS interface.
+  2. **Branching & Pull Requests**
+     Changes are committed to feature branches. Opening a pull request automatically triggers a preview deployment for review.
+  3. **Automated Quality Checks**
+     GitHub Actions run prose linters (Vale) and link integrity checkers (Lychee) against the proposed changes.
+  4. **Merge & Deploy**
+     Once approved and checks pass, merging into the `main` branch triggers an automated build that publishes globally via CDN.
+</Steps>
+
+---
+
+## Bridging the Gap: Engineers + SMEs
+
+One of the historic challenges of Docs-as-Code has been accessibility. While engineers love Git and Markdown, subject matter experts—such as product managers, customer success leads, and executives—often struggle with terminal commands and pull requests.
+
+This project solves that divide through **Sveltia CMS**:
+
+* **For Engineers:** Complete control over components, styling, routing, and automated pipelines using Astro and GitHub.
+* **For SMEs:** A clean, zero-config web interface that commits changes directly back to the Git repository as clean Markdown files behind the scenes.
+
+<Aside type="tip">
+You can explore the live CMS configuration and authoring guide in the **Sveltia CMS Manual** section of the sidebar to see how this dual-audience workflow is configured.
+</Aside>

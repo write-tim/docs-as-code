@@ -1,0 +1,86 @@
+---
+title: File Trees
+description: Learn how to visualize directory structures and repository architectures using the Starlight FileTree component.
+sidebar:
+  order: 4
+---
+
+import { FileTree, Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+The `<FileTree>` component is used to display folder structures, file hierarchies, and project architectures. It transforms standard indented Markdown lists into visual, IDE-like directory trees, automatically adding the correct file and folder icons based on file extensions.
+
+## Behind the Curtain
+
+Explore the live specimen, the raw markup required to build it, and instructions for authoring this component inside Sveltia CMS.
+
+<Tabs>
+  <TabItem label="1. Rendered Specimen" icon="laptop">
+    *Below is an example of a repository structure. Notice how bold text is used to highlight a specific file, and standard Markdown comments provide inline context.*
+
+    <br/>
+
+    <FileTree>
+    - public/
+      - admin/
+        - **config.yml** # Sveltia CMS backend configuration
+        - index.html
+    - src/
+      - content/
+        - docs/
+          - index.mdx
+          - components/
+            - file-trees.mdx
+      - assets/
+    - astro.config.mjs
+    - package.json
+    </FileTree>
+  </TabItem>
+
+  <TabItem label="2. Underlying MDX Code" icon="seti:markdown">
+    *Starlight interprets standard Markdown lists. It recognizes folder structures via indentation and file types via their extensions (e.g., `.yml`, `.mdx`, `.mjs`).*
+
+    ```mdx
+    <FileTree>
+    - public/
+      - admin/
+        - **config.yml** # Sveltia CMS backend configuration
+        - index.html
+    - src/
+      - content/
+        - docs/
+          - index.mdx
+          - components/
+            - file-trees.mdx
+      - assets/
+    - astro.config.mjs
+    - package.json
+    </FileTree>
+    ```
+  </TabItem>
+
+  <TabItem label="3. Sveltia CMS Authoring" icon="setting">
+    *How writers add this component using the Sveltia CMS visual interface.*
+
+    We configured a custom `filetree` widget in `public/admin/index.html` so writers can generate these diagrams simply by typing out lists.
+
+    **In Rich Text Mode:**
+    1. Click the **+** (Add Block) button in the editor toolbar.
+    2. Select **Starlight File Tree** from the dropdown menu.
+    3. Type your file structure into the widget using standard Markdown list syntax with hyphens (`-`). 
+    4. Use the spacebar to indent sub-folders and files to create the nested hierarchy.
+
+    **In Raw Markdown Mode:**
+    Use the `<FileTree>` wrapper tag and write a standard indented markdown list inside it. 
+  </TabItem>
+</Tabs>
+
+---
+
+## Technical Writing Guidelines
+
+When documenting project structures in this knowledge base, adhere to the following stylistic rules:
+
+* **Highlight the Target:** If a procedure asks a user to edit a specific file within a larger tree, use **bold text** (`**filename.ext**`) to draw their eye directly to that file.
+* **Prune the Tree:** Do not show the entire repository architecture unless absolutely necessary. Omit irrelevant folders (like `node_modules/`, `.git/`, or unrelated feature directories) to keep the diagram focused on the task at hand.
+* **Use Inline Comments:** If a file's purpose isn't obvious from its name, add a brief explanation on the same line after a hash symbol (e.g., `# This controls routing`).
+* **Always Include Extensions:** Starlight determines which icon to render based on the file extension. Always write out `.js`, `.json`, `.mdx`, etc., rather than just the file name.

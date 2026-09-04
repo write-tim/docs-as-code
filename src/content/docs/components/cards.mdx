@@ -1,0 +1,96 @@
+---
+title: Cards & LinkCards
+description: Learn how to group information and highlight next steps using the Starlight Card, CardGrid, and LinkCard components.
+sidebar:
+  order: 5
+---
+
+import { Card, CardGrid, LinkCard, Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+Cards are structural layout elements used to highlight features, group related concepts, or guide users to subsequent articles. Starlight provides three interrelated components for this: `<Card>` (for static information), `<LinkCard>` (for navigation), and `<CardGrid>` (for layout alignment).
+
+## Behind the Curtain
+
+Explore the live specimens, the raw markup required to build them, and instructions for authoring these components inside Sveltia CMS.
+
+<Tabs>
+  <TabItem label="1. Rendered Specimen" icon="laptop">
+    *Below are examples of static feature cards and interactive link cards, both wrapped in a grid layout.*
+    
+    <br/>
+
+    ### Static Feature Cards
+    <CardGrid>
+      <Card title="Information Architecture" icon="open-book">
+        Cards are excellent for introducing high-level concepts at the beginning of a section.
+      </Card>
+      <Card title="Visual Consistency" icon="star">
+        They utilize Starlight's built-in icon set to maintain a uniform design language.
+      </Card>
+    </CardGrid>
+
+    ### Navigation Link Cards
+    <CardGrid>
+      <LinkCard 
+        title="Explore the Docs-as-Code Guide" 
+        description="Learn the philosophy behind Git-backed documentation." 
+        href="/guides/docs-as-code/" 
+      />
+      <LinkCard 
+        title="View Starlight Icon Reference" 
+        description="See all available icons you can use inside cards." 
+        href="https://starlight.astro.build/guides/components/#icons" 
+      />
+    </CardGrid>
+  </TabItem>
+
+  <TabItem label="2. Underlying MDX Code" icon="seti:markdown">
+    *Notice how `<CardGrid>` automatically handles the responsive column layout. The `stagger` prop (e.g., `<CardGrid stagger>`) can also be added to offset the second column visually.*
+
+    ```mdx
+    ### Static Feature Cards
+    <CardGrid>
+      <Card icon="open-book" title="Information Architecture">
+        Cards are excellent for introducing high-level concepts at the beginning of a section.
+      </Card>
+      
+      <Card icon="star" title="Visual Consistency">
+        They utilize Starlight's built-in icon set to maintain a uniform design language.
+      </Card>
+    </CardGrid>
+
+    ### Navigation Link Cards
+    <CardGrid>
+      <LinkCard description="Learn the philosophy behind Git-backed documentation." href="/guides/docs-as-code/" title="Explore the Docs-as-Code Guide"/>
+      
+      <LinkCard description="See all available icons you can use inside cards." href="[https://starlight.astro.build/guides/components/#icons](https://starlight.astro.build/guides/components/#icons)" title="View Starlight Icon Reference"/>
+    </CardGrid>
+    ```
+  </TabItem>
+
+  <TabItem label="3. Sveltia CMS Authoring" icon="setting">
+    *How writers add this component using the Sveltia CMS interface.*
+
+    Unlike Asides or Steps, which are frequent mid-article elements, Cards are structural layout tools. Because we configured `astro-auto-import` in `astro.config.mjs`, authors can type these directly into the raw editor without needing complex CMS widgets or `import` statements.
+
+    **In Raw Markdown Mode:**
+    1. Type `<CardGrid>` to open the layout block.
+    2. Add your individual `<Card>` or `<LinkCard>` tags inside the grid.
+    3. Ensure you close the block with `</CardGrid>`.
+    
+    > **Pro Tip:** For `<LinkCard>`, you can link to relative internal pages (e.g., `href="/components/steps/"`) or external URLs (e.g., `href="https://github.com"`).
+  </TabItem>
+</Tabs>
+
+---
+
+## Technical Writing Guidelines
+
+When utilizing cards in this knowledge base, adhere to the following stylistic rules:
+
+* **Use the Right Card:** 
+  * Use `<Card>` if the content is purely informational and the user isn't expected to click it.
+  * Use `<LinkCard>` if the entire purpose of the card is to route the user to another page.
+* **Keep Descriptions Brief:** The `description` prop on a `<LinkCard>` or the body text of a `<Card>` should be a maximum of two concise sentences. 
+* **End of Article Routing:** `<LinkCard>` is highly recommended at the very bottom of procedural articles (under a "Next Steps" or "Related Guides" heading) to keep readers moving through the documentation.
+* **Pair with Grids:** Always wrap adjacent cards in a `<CardGrid>`. Without the grid wrapper, cards will stack at 100% width on large screens, which disrupts reading flow.

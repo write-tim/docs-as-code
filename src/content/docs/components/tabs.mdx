@@ -1,0 +1,89 @@
+---
+title: Tabs & Switchers
+description: Learn how to group related alternative content using the Starlight Tabs component.
+sidebar:
+  order: 3
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+The `<Tabs>` component is used to group related, alternative pieces of content so users can select the context that applies to them. It is ideal for toggling between operating systems, package managers, or programming languages without forcing the reader to scroll past irrelevant instructions.
+
+## Behind the Curtain
+
+Explore the live specimen, the raw markup required to build it, and instructions for authoring this component inside Sveltia CMS.
+
+<Tabs>
+  <TabItem label="1. Rendered Specimen" icon="laptop">
+    *Below is an example of a two-tab switcher commonly used for OS-specific instructions.*
+
+    <br/>
+
+    <Tabs>
+      <TabItem label="macOS" icon="apple">
+        **Install via Homebrew:**
+        
+        ```bash
+        brew install vale
+        ```
+      </TabItem>
+      <TabItem label="Windows" icon="windows">
+        **Install via Chocolatey:**
+        
+        ```powershell
+        choco install vale
+        ```
+      </TabItem>
+    </Tabs>
+  </TabItem>
+
+  <TabItem label="2. Underlying MDX Code" icon="seti:markdown">
+    *Notice how each `<TabItem>` requires a `label` prop. The `icon` prop is optional but highly recommended for visual scanning.*
+
+    ```mdx
+    <Tabs>
+      <TabItem icon="apple" label="macOS">
+        **Install via Homebrew:**
+        
+        ```bash
+        brew install vale
+        ```
+      </TabItem>
+      
+      <TabItem icon="windows" label="Windows">
+        **Install via Chocolatey:**
+        
+        ```powershell
+        choco install vale
+        ```
+      </TabItem>
+    </Tabs>
+    ```
+  </TabItem>
+
+  <TabItem label="3. Sveltia CMS Authoring" icon="setting">
+    *How writers add this component using the Sveltia CMS visual interface.*
+
+    We configured a streamlined two-tab custom widget in `public/admin/index.html` to handle the most common technical writing use cases (e.g., Mac vs. Windows or npm vs. pnpm).
+
+    **In Rich Text Mode:**
+    1. Click the **+** (Add Block) button in the editor toolbar.
+    2. Select **Starlight Tabs (2 Tabs)** from the dropdown menu.
+    3. Fill in the **Tab 1 Label** (e.g., "macOS") and type its corresponding content.
+    4. Fill in the **Tab 2 Label** (e.g., "Windows") and type its corresponding content.
+
+    **In Raw Markdown Mode:**
+    You can manually write out the `<Tabs>` and `<TabItem>` tags. This is necessary if you need *more* than two tabs, or if you want to add custom icons (like `icon="apple"`), as the visual CMS widget is optimized specifically for rapid, text-based dual tabs.
+  </TabItem>
+</Tabs>
+
+---
+
+## Technical Writing Guidelines
+
+When utilizing tabs in this knowledge base, adhere to the following stylistic rules:
+
+* **Parallel Content Only:** Tabs should *only* be used for mutually exclusive alternatives (e.g., "If you are on Mac, read this; if on Windows, read this"). Never use tabs to break up sequential steps.
+* **Keep Labels Short:** Tab labels should be concise (1-2 words). Avoid long phrases like "Instructions for Windows Users." Just write "Windows."
+* **Don't Hide Core Concepts:** If an explanation applies to all users regardless of their OS or tool, put it *above* or *below* the `<Tabs>` block. Do not duplicate shared context inside every single tab.
+* **Default to the Standard:** If there is a highly preferred or standard method (e.g., `npm` vs `yarn`), place it as the first tab so it renders open by default.

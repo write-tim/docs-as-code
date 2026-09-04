@@ -1,0 +1,71 @@
+---
+title: Living Docs-as-Code Design System
+description: A documentation site about writing documentation. Explore modern Docs-as-Code workflows, live component specimens, and Git-backed authoring with Sveltia CMS.
+template: splash
+hero:
+  tagline: A documentation site about writing documentation. Explore modern Docs-as-Code workflows, inspect live MDX component specimens side-by-side with source code, and see how Sveltia CMS bridges Git and visual authoring.
+  image:
+    file: ../../assets/tjw_logo.png
+  actions:
+    - text: Explore Component Library
+      link: /components/steps/
+      icon: puzzle
+      variant: primary
+    - text: Docs-as-Code Workflow
+      link: /guides/docs-as-code/
+      icon: right-arrow
+      variant: secondary
+    - text: Back to Portfolio
+      link: https://timothyjohnsonwrites.com
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+## What This Site Demonstrates
+
+<CardGrid stagger>
+  <Card title="Behind the Curtain Specs" icon="puzzle">
+    Every UI component—steps, tabs, callouts, and file trees—is presented as a live rendered specimen alongside the raw MDX markup and Sveltia CMS configuration required to produce it.
+  </Card>
+
+  <Card title="Decoupled Git Authoring" icon="laptop">
+    Demonstrates how Sveltia CMS provides a clean, visual content management interface for technical writers while preserving pure Markdown/MDX files and Git version control under the hood.
+  </Card>
+
+  <Card title="Automated Quality Gates" icon="approve-check-circle">
+    Quality assurance treated as code. Pull requests are automatically validated using **Vale** for prose linting, **Lychee** for link integrity, and **Zod** schemas for frontmatter typing.
+  </Card>
+
+  <Card title="Modern Jamstack Delivery" icon="rocket">
+    Built on **Astro + Starlight** for high performance, zero unnecessary client-side JavaScript, native dark mode, built-in search, and effortless static deployment via GitHub Pages.
+  </Card>
+</CardGrid>
+
+---
+
+## Quick Navigation
+
+<CardGrid>
+  <LinkCard
+    title="Procedural Steps (<Steps>)"
+    description="Inspect how sequential task workflows are styled, rendered, and authored."
+    href="/components/steps/"
+  />
+  <LinkCard
+    title="Callouts & Asides (<Aside>)"
+    description="Learn how to configure notes, tips, warnings, and danger callouts in Starlight and Sveltia."
+    href="/components/asides/"
+  />
+  <LinkCard
+    title="CI/CD Pipelines & Linting"
+    description="See how GitHub Actions enforce style guidelines, catch 404s, and generate preview builds."
+    href="/guides/ci-cd-pipelines/"
+  />
+  <LinkCard
+    title="Sveltia CMS Configuration"
+    description="Walk through setting up collections, authentication, and custom shortcode components."
+    href="/cms/sveltia-setup/"
+  />
+</CardGrid>

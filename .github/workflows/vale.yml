@@ -1,0 +1,32 @@
+name: Prose Linting (Vale)
+
+on:
+  pull_request:
+    paths:
+      - 'src/content/docs/**'
+      - '.vale.ini'
+
+concurrency:
+  group: vale-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  prose:
+    name: Lint Prose
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # Grants permission to leave review annotations on PR lines
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run Vale
+        uses: errata-ai/vale-action@v2
+        with:
+          files: 'src/content/docs'
+          reporter: github-pr-review # Inline annotations on changed lines
+          fail_on_error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,89 @@
+---
+title: Callouts & Asides
+description: Learn how to format notes, tips, warnings, and dangers using the Starlight Aside component.
+sidebar:
+  order: 2
+---
+
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+The `<Aside>` component (often referred to as an admonition or callout) is used to draw attention to supplementary information, warnings, or helpful shortcuts without disrupting the main narrative flow of the document.
+
+## Behind the Curtain
+
+Explore the live specimens of all four aside variants, the raw markup required to build them, and instructions for authoring this component inside Sveltia CMS.
+
+<Tabs>
+  <TabItem label="1. Rendered Specimen" icon="laptop">
+    *Below are the four available variants of the Aside component, including an example of how to override the default label with a custom title.*
+    
+    <br/>
+    
+    <Aside type="note">
+      **Default (Note):** Used for general information, context, or trivia that is helpful but not critical to completing a task.
+    </Aside>
+
+    <Aside type="tip">
+      **Tip:** Used for shortcuts, best practices, or alternative ways to accomplish a workflow more efficiently.
+    </Aside>
+
+    <Aside type="caution">
+      **Caution:** Used to warn the user about potential edge cases, minor data loss, or tricky steps where mistakes commonly happen.
+    </Aside>
+
+    <Aside type="danger" title="Do not skip this step">
+      **Danger (with custom title):** Used for critical warnings, permanent data loss, or severe security risks.
+    </Aside>
+  </TabItem>
+
+  <TabItem label="2. Underlying MDX Code" icon="seti:markdown">
+    *Notice how the `type` attribute changes the color and icon. The `title` attribute is optional and overrides the default uppercase label.*
+
+    ```mdx
+    <Aside type="note">
+      **Default (Note):** Used for general information, context, or trivia that is helpful but not critical to completing a task.
+    </Aside>
+
+    <Aside type="tip">
+      **Tip:** Used for shortcuts, best practices, or alternative ways to accomplish a workflow more efficiently.
+    </Aside>
+
+    <Aside type="caution">
+      **Caution:** Used to warn the user about potential edge cases, minor data loss, or tricky steps where mistakes commonly happen.
+    </Aside>
+
+    <Aside title="Do not skip this step" type="danger">
+      **Danger (with custom title):** Used for critical warnings, permanent data loss, or severe security risks.
+    </Aside>
+    ```
+  </TabItem>
+
+  <TabItem label="3. Sveltia CMS Authoring" icon="setting">
+    *How writers add this component using the Sveltia CMS visual interface.*
+
+    Thanks to the custom `aside` widget registered in `public/admin/index.html`, writers can insert these blocks visually without memorizing the component props.
+    
+    **In Rich Text Mode:**
+    1. Click the **+** (Add Block) button in the editor toolbar.
+    2. Select **Starlight Aside / Callout** from the dropdown menu.
+    3. Use the visual dropdown to select the **Type** (`note`, `tip`, `caution`, `danger`).
+    4. (Optional) Enter a custom **Title**.
+    5. Type your Markdown content into the **Callout Content** field.
+
+    **In Raw Markdown Mode:**
+    Use standard JSX tags: `<Aside type="caution" title="Optional Title">Your content here.</Aside>`
+  </TabItem>
+</Tabs>
+
+---
+
+## Technical Writing Guidelines
+
+When utilizing callouts in this knowledge base, adhere to the following stylistic rules:
+
+* **Avoid Callout Fatigue:** Do not stack multiple asides directly on top of each other. If a page consists primarily of callouts, that information belongs in the main body text instead.
+* **Keep it Concise:** An aside should rarely be longer than two sentences. If you need paragraphs of explanation, weave it into the main narrative.
+* **Use the Right Severity:** 
+  * Never use `danger` for simple tips just to grab visual attention. 
+  * Reserve `danger` strictly for irreversible actions (e.g., deleting a database, exposing a secret key).
+* **Write Action-Oriented Titles:** If you override the default title (e.g., "Note" or "Caution"), make the custom title descriptive and actionable (e.g., `title="Back up your files first"` instead of `title="Important"`).

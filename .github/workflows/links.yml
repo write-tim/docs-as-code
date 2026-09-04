@@ -1,0 +1,53 @@
+name: Link Checker (Lychee)
+
+on:
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'public/**'
+      - 'astro.config.mjs'
+      - 'package.json'
+      - '.lychee.toml'
+  schedule:
+    # Run every Monday at 08:00 UTC to catch external bitrot
+    - cron: '0 8 * * 1'
+  workflow_dispatch:
+
+concurrency:
+  group: lychee-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  link-checker:
+    name: Check Links
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write # Allows Lychee to post an issue/PR comment with broken links
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site output
+        run: npm run build
+
+      - name: Run Lychee Link Checker
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # Scan all HTML files in dist and raw docs
+          args: --config .lychee.toml './dist/**/*.html'
+          # Fail the PR check if broken links are detected
+          fail: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
