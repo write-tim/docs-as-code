@@ -1,5 +1,5 @@
 ---
-title: Component Usage
+title: Component Standards
 description: Strict standards for utilizing custom UI components in our documentation.
 sidebar:
   label: ''
@@ -9,18 +9,50 @@ sidebar:
 tableOfContents: null
 ---
 
-import { Aside } from '@astrojs/starlight/components';
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 
-To maintain a clean and readable user experience, all documentation authors must adhere to these component standards.
+Consistency is the key to a world-class user experience. To maintain a clean and readable interface, all authors must adhere to these structural standards when using Astro Starlight components and native Markdown.
 
 ## The Aside Component
 
-The `<Aside>` component is used to draw the reader's attention to critical information. Do not overuse it. If a page has more than three asides, consider rewriting the core text.
+The `<Aside>` component draws the reader's attention to critical information. **Rule of thumb: If a page has more than three asides, the core text needs to be rewritten.**
 
-*   **Tip (Green):** Use for shortcuts, best practices, or optional enhancements.
-*   **Caution (Yellow):** Use when an action might disrupt a workflow or cause minor data loss.
-*   **Danger (Red):** Use strictly for irreversible, destructive actions (e.g., deleting a repository).
+*   **Tip (Green):** Use for workflow shortcuts, best practices, or optional enhancements.
+*   **Caution (Yellow):** Use when an action might disrupt a workflow, cause minor data loss, or requires specific prerequisites.
+*   **Danger (Red):** Use strictly for irreversible, destructive actions (e.g., deleting a repository or dropping a database).
 
 <Aside type="danger">
-Never use a Danger aside for stylistic emphasis. It is strictly reserved for critical warnings.
+Never use a Danger aside for stylistic emphasis. It is strictly reserved for critical warnings that impact system stability.
 </Aside>
+
+## Code Formatting
+
+Documentation often requires mixing plain English with technical syntax. Use the appropriate formatting for the context:
+
+### Inline Code
+Use single backticks (` `) for inline code when referencing file names, UI button labels, or short variables within a sentence (e.g., open the `config.yml` file).
+
+### Fenced Code Blocks
+Use triple backticks for multi-line scripts or terminal commands. Always specify the language for proper syntax highlighting.
+
+<Tabs>
+  <TabItem label="Do" icon="check">
+    ```javascript
+    // Always include the language tag (e.g., javascript, bash, yaml)
+    const greeting = "Hello, world!";
+    ```
+  </TabItem>
+  <TabItem label="Don't" icon="close">
+    ```
+    Don't leave the language tag blank. It breaks the syntax highlighting!
+    ```
+  </TabItem>
+</Tabs>
+
+## Image & Media Guidelines
+
+Images should clarify complex UI interactions, not replace well-written text.
+
+1.  **Keep it Focused:** Crop screenshots to the relevant UI element. Do not upload full-desktop screenshots unless the overall context is strictly necessary.
+2.  **File Formats:** Use `.png` for crisp UI screenshots and `.webp` or `.jpg` for larger, complex images.
+3.  **No Text in Images:** Never embed critical instructions directly inside an image graphic. Screen readers cannot parse it, and it cannot be easily translated.
