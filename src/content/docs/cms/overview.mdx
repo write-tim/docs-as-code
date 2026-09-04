@@ -1,0 +1,54 @@
+---
+title: Sveltia CMS Overview
+description: Learn how Sveltia CMS provides a Git-backed, zero-backend visual authoring interface for non-technical contributors.
+sidebar:
+  order: 1
+---
+
+import { Aside, Card, CardGrid, Steps } from '@astrojs/starlight/components';
+
+While engineers are comfortable authoring Markdown inside IDEs and pushing changes via pull requests, subject matter experts (SMEs), product managers, and technical writers often require a clean graphical interface. 
+
+To bridge this gap without compromising our **Docs-as-Code** architecture, this site integrates **Sveltia CMS**—a lightning-fast, Git-backed content management system built with Svelte.
+
+---
+
+## Why Sveltia CMS?
+
+Unlike traditional enterprise CMS platforms (such as WordPress or Contentful) that require a hosted database, server infrastructure, and complex API layers, Sveltia operates entirely inside the browser as a **static single-page application (SPA)**.
+
+<CardGrid>
+  <Card title="Zero Backend Required" icon="laptop">
+    There is no database to maintain or server to patch. The CMS communicates directly with the GitHub API via OAuth.
+  </Card>
+  <Card title="Direct-to-Git Commits" icon="git">
+    Every save, edit, or image upload is committed directly back to the GitHub repository as clean Markdown or MDX files.
+  </Card>
+  <Card title="Lightning Fast" icon="star">
+    Built with modern web standards and optimized for speed, rendering large documentation collections instantly.
+  </Card>
+  <Card title="WYSIWYG & Raw Editing" icon="seti:markdown">
+    Contributors can toggle seamlessly between a clean rich-text preview interface and raw Markdown/MDX code.
+  </Card>
+</CardGrid>
+
+---
+
+## How the Authoring Loop Works
+
+When an SME logs into the CMS, the underlying workflow mirrors a professional software release cycle without exposing the user to git commands:
+
+<Steps>
+  1. **Authentication**
+     The user logs in securely using their GitHub credentials via the Git Gateway / OAuth provider.
+  2. **Content Modification**
+     The user edits an existing guide, creates a new component specimen, or uploads an optimized image.
+  3. **Automated Branching & Commit**
+     When the user clicks "Publish," Sveltia CMS automatically creates a dedicated patch branch, commits the file changes, and opens a Pull Request.
+  4. **CI/CD Validation**
+     GitHub Actions instantly runs our quality gates (Vale, Lychee, and Astro build checks) against the proposed changes.
+</Steps>
+
+<Aside type="tip">
+In the next section, we will break down the exact `config.yml` architecture that maps our Astro content collections directly to Sveltia's visual editing fields.
+</Aside>

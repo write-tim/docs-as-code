@@ -1,0 +1,74 @@
+---
+title: Authoring Workflow & Best Practices
+description: Learn best practices for drafting, reviewing, and publishing documentation using Sveltia CMS without breaking formatting standards.
+sidebar:
+  order: 3
+---
+
+import { Aside, Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+While Sveltia CMS provides a clean, visual interface for content creation, maintaining a high-tier Docs-as-Code knowledge base requires discipline. Because every save directly modifies underlying Markdown and MDX files in your Git repository, following consistent authoring patterns ensures your pages render cleanly and pass all automated CI checks.
+
+---
+
+## Daily Authoring Lifecycle
+
+When a subject matter expert or writer contributes to the knowledge base, they follow a streamlined four-step publishing routine:
+
+<Steps>
+  1. **Log In to the Admin Panel**
+     Navigate to your deployment URL (`/admin/`) and authenticate securely using your GitHub account.
+  2. **Select or Create a Document**
+     Choose an existing article from the *Architecture Guides* or *Component Library* collections, or click **New Article** to start fresh.
+  3. **Draft with Structure**
+     Input your frontmatter metadata (`title`, `description`) and compose the core content using the rich-text editor or raw Markdown mode.
+  4. **Publish & Trigger PR**
+     Click **Publish**. Sveltia CMS automatically commits the changes to a new branch and opens a pull request for automated review.
+</Steps>
+
+---
+
+## Authoring Dos and Don'ts
+
+To prevent build failures and keep styling uniform across the entire documentation site, keep these core rules in mind:
+
+<CardGrid>
+  <Card title="DO: Keep Titles Concise" icon="approve-check">
+    Ensure article titles are clear and descriptive. The title automatically populates the page header and the site sidebar navigation.
+  </Card>
+  <Card title="DON'T: Break Frontmatter" icon="close">
+    Never delete or alter required frontmatter fields like `title` or `description`. Missing fields will cause the Astro content schema validation to fail in CI.
+  </Card>
+  <Card title="DO: Use Markdown for Formatting" icon="seti:markdown">
+    Rely on standard Markdown headers (`##`, `###`), bullet points, and blockquotes rather than hardcoding HTML elements.
+  </Card>
+  <Card title="DON'T: Bypass Code Blocks" icon="warning">
+    When including code snippets, always specify the programming language (e.g., ```javascript) so syntax highlighting renders correctly.
+  </Card>
+</CardGrid>
+
+---
+
+## Handling Media Assets
+
+Images and diagrams are critical for effective technical documentation. Sveltia CMS handles media uploads seamlessly through its built-in asset manager:
+
+<Tabs>
+  <TabItem icon="seti:image" label="Uploading Images">
+    * Dropping images directly into the CMS.
+    
+    When you upload an image via the media field, Sveltia automatically places the asset inside your project's `src/assets/` folder. This allows Astro's image optimization pipeline to compress, resize, and convert the graphic into modern formats (like WebP) during build time.
+  </TabItem>
+
+  <TabItem icon="setting" label="Image Best Practices">
+    * Optimizing for web and accessibility.
+    
+    * **Use Descriptive Filenames:** Name files logically (e.g., `sveltia-dashboard-preview.png` instead of `screenshot_123.png`).
+    * **Keep File Sizes Reasonable:** Compress large screenshots before uploading to maintain fast page load speeds.
+    * **Alt Text:** Always provide descriptive alternative text if embedding images via raw Markdown for screen reader accessibility.
+  </TabItem>
+</Tabs>
+
+<Aside type="tip">
+After publishing a change through the CMS, you can monitor the status of your automated quality checks (Vale and Lychee) directly inside the generated GitHub Pull Request.
+</Aside>

@@ -1,0 +1,66 @@
+---
+title: "Frontmatter Schemas with Zod"
+description: "Enforce strict type safety and validate document metadata using Astro content collections."
+sidebar:
+  order: 1
+---
+
+import { Aside, Tabs, TabItem, Code } from '@astrojs/starlight/components';
+
+In a traditional documentation setup, frontmatter typos or missing metadata fields (like a missing description or invalid author tag) only surface as runtime layout glitches or broken sidebars. 
+
+This project leverages **Astro Content Collections** powered by **Zod** to treat documentation metadata with the same strict type safety as application code. If an author submits a draft via Sveltia CMS with missing required fields or invalid types, the build fails safely during CI before ever reaching production.
+
+---
+
+## The Content Configuration File
+
+All collections are registered and validated inside a single configuration file located at `src/content.config.ts`.
+
+<Tabs>
+  <TabItem label="src/content.config.ts" icon="seti:typescript">
+    *Defining strict validation schemas using Zod.*
+
+    ```typescript
+    import { defineCollection, z } from 'astro:content';
+    import { docsLoader } from '@astrojs/starlight/loaders';
+    import { docsSchema } from '@astrojs/starlight/schema';
+
+    export const collections = {
+      docs: defineCollection({
+        loader: docsLoader(),
+        schema: docsSchema({
+          extend: z.object({
+            // Custom metadata fields mapped to Sveltia CMS
+            category: z.string().optional(),
+            lastUpdatedBy: z.string().optional(),
+          }),
+        }),
+      }),
+    };
+    ```
+  </TabItem>
+
+  <TabItem label="How It Connects to Sveltia" icon="setting">
+    *Bridging validation between authoring and build.*
+
+    Every field defined within the Zod schema maps directly to the form widgets configured in Sveltia CMS (`config.yml`). When authors create or edit content, the schema guarantees that:
+    * Required metadata keys are always present.
+    * Data types (strings, arrays, booleans) match expected inputs.
+    * Unexpected or legacy fields are flagged or filtered out.
+  </TabItem>
+</Tabs>
+
+---
+
+## Benefits of Schema-Driven Docs
+
+Enforcing schema validation at build time provides three major architectural advantages:
+
+* **Zero Runtime Failures:** Starlight relies heavily on accurate frontmatter for routing, sidebars, and SEO metadata. Zod ensures those references are bulletproof.
+* **Automated Contract for Writers:** Sveltia CMS and Zod act as a strict contract between the fields writers fill out and the static engine rendering the site.
+* **Instant Feedback:** When running local builds or CI pipelines, any malformed frontmatter throws an explicit error pointing directly to the offending file.
+
+<Aside type="tip">
+If you introduce a new custom metadata field to your documentation templates, always update your `src/content.config.ts` schema first so Astro and Sveltia CMS recognize the new input type.
+</Aside>

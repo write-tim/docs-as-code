@@ -1,0 +1,84 @@
+---
+title: CMS Configuration (config.yml)
+description: Explore the underlying configuration file that maps Sveltia CMS fields directly to Astro content collections and Zod schemas.
+sidebar:
+  order: 2
+---
+
+import { Tabs, TabItem, Aside, Code } from '@astrojs/starlight/components';
+
+The bridge between Sveltia CMS's visual interface and our Astro codebase is the **`config.yml`** file. Located in the public directory (`public/admin/config.yml`), this file defines every collection, folder path, and form field available to authors.
+
+To prevent content drift, the fields defined in this configuration map directly to the **Zod schemas** defined in our Astro content collection config (`src/content.config.ts`).
+
+---
+
+## The Configuration Architecture
+
+Explore the directory setup and the underlying YAML configuration that powers the CMS admin panel.
+
+<Tabs>
+  <TabItem label="1. Admin Directory Structure" icon="seti:folder">
+    *Where the CMS entry point lives in your project.*
+
+    ```text
+    public/
+      admin/
+        index.html      # Loads the Sveltia CMS SPA script
+        config.yml      # Defines collections, fields, and Git backend
+    ```
+  </TabItem>
+
+  <TabItem label="2. config.yml Code" icon="seti:yaml">
+    *Mapping Markdown collections and frontmatter fields.*
+
+    ```yaml
+    backend:
+      name: github
+      repo: write-tim/sveltia-docs-test
+      branch: main
+
+    media_folder: src/assets
+    public_folder: /src/assets
+
+    collections:
+      - name: guides
+        label: Architecture Guides
+        folder: src/content/docs/guides
+        create: true
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Description, widget: string }
+          - { name: body, label: Body, widget: markdown }
+
+      - name: components
+        label: Component Library
+        folder: src/content/docs/components
+        create: true
+        fields:
+          - { name: title, label: Title, widget: string }
+          - { name: description, label: Description, widget: string }
+          - { name: body, label: Body, widget: markdown }
+    ```
+  </TabItem>
+
+  <TabItem label="3. Connecting to Astro Zod" icon="setting">
+    *Ensuring strict type safety between the CMS and Astro.*
+
+    When authors submit content through Sveltia CMS, Astro's content collection schema validates the incoming frontmatter. If a required field (like `description`) is missing, the build fails safely in CI rather than throwing a runtime error in production.
+  </TabItem>
+</Tabs>
+
+---
+
+## Field Types & Customization
+
+Sveltia CMS supports a wide array of form widgets that make content authoring intuitive for non-technical users:
+
+* **`string`**: Used for single-line text fields like article titles and meta descriptions.
+* **`markdown`**: Renders a full rich-text editor (supporting bold, lists, links, and code blocks) while maintaining clean underlying Markdown syntax.
+* **`image`**: Uploads media assets directly into the `src/assets` folder, allowing Astro to automatically optimize images during build time.
+
+<Aside type="tip">
+You can access the live CMS interface locally by starting your dev server (`npm run dev`) and navigating to **`http://localhost:4321/admin/`**.
+</Aside>

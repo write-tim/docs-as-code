@@ -77,24 +77,30 @@ export default defineConfig({
           link: 'https://timothyjohnsonwrites.com',
         },
         {
-          label: 'Architecture & Workflow',
+          label: '1. Architecture & Philosophy',
           items: [
-            { label: 'Docs-as-Code Philosophy', slug: 'guides/docs-as-code' },
-            { label: 'Tech Stack & Git Flow', slug: 'guides/tech-stack' },
-            { label: 'Quality Automation (CI/CD)', slug: 'guides/ci-cd-pipelines' },
+            { label: 'The Docs-as-Code Manifesto', slug: 'guides/docs-as-code' },
+            { label: 'Tech Stack Overview', slug: 'guides/tech-stack' },
+            { label: 'System Flow (Local to CDN)', slug: 'guides/system-flow' },
           ],
         },
-        // UPDATED: Autogenerate commands must now be wrapped inside an `items` array
         {
-          label: 'Component Library (Behind the Curtain)',
+          label: '2. Component Library (Behind the Curtain)',
           items: [
             { autogenerate: { directory: 'components' } }
           ],
         },
         {
-          label: 'Sveltia CMS Manual',
+          label: '3. Sveltia CMS Manual',
           items: [
             { autogenerate: { directory: 'cms' } }
+          ],
+        },
+        {
+          label: '4. Automation & Quality Gates',
+          items: [
+            { label: 'Frontmatter Schemas with Zod', slug: 'guides/zod-schemas' },
+            { label: 'Quality Pipelines (CI/CD)', slug: 'guides/ci-cd-pipelines' },
           ],
         },
       ],

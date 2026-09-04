@@ -1,0 +1,54 @@
+---
+title: System Flow (Local to CDN)
+description: Trace the end-to-end lifecycle of documentation changes from initial edit to global edge distribution.
+sidebar:
+  order: 3
+---
+
+import { Steps, Aside, Card, CardGrid } from '@astrojs/starlight/components';
+
+A robust Docs-as-Code pipeline relies on a predictable, fully automated lifecycle. Whether an engineer commits via a local terminal or a subject matter expert saves via Sveltia CMS, every change follows an identical, rigorous path from inception to production.
+
+---
+
+## The End-to-End Lifecycle
+
+The diagram below outlines the five major milestones a documentation update traverses before reaching readers:
+
+<Steps>
+  1. **Authoring & Commit**
+     The author writes content in Markdown/MDX, either locally in an IDE or through the browser-based Sveltia CMS interface, and commits to a feature branch.
+  2. **Version Control & PR Creation**
+     The branch is pushed to GitHub, automatically triggering a Pull Request against the `main` production branch.
+  3. **Automated Quality Gates**
+     GitHub Actions spins up a clean runner environment to execute prose linting (Vale), link integrity checks (Lychee), and a static site build validation.
+  4. **Human Review & Merge**
+     Once automated checks pass and reviewers approve the changes, the PR is merged into `main`.
+  5. **Global Edge Deployment**
+     The merge triggers a production build that publishes the compiled static assets globally via a high-performance content delivery network (CDN).
+</Steps>
+
+---
+
+## Architectural Touchpoints
+
+Every stage of this journey is guarded by automated tools designed to eliminate human error and manual overhead:
+
+<CardGrid>
+  <Card title="Version Control (Git)" icon="git">
+    Maintains a pristine historical record of every line ever written, enabling atomic rollbacks if an error slips through.
+  </Card>
+  <Card title="CI/CD Runners (GitHub Actions)" icon="approve-check">
+    Acts as an impartial judge, blocking broken builds, dead links, and style violations before they affect users.
+  </Card>
+  <Card title="Static Optimization (Astro)" icon="laptop">
+    Pre-renders high-performance HTML/CSS and optimizes images at build time, eliminating runtime server latency.
+  </Card>
+  <Card title="Edge Distribution (CDN)" icon="star">
+    Serves static assets from servers physically closest to the reader for instantaneous load times worldwide.
+  </Card>
+</CardGrid>
+
+<Aside type="note">
+Because the entire output is static, there is zero database latency, no server vulnerabilities to patch, and infinite scalability under heavy traffic spikes.
+</Aside>

@@ -1,0 +1,80 @@
+---
+title: "Custom Editor Components (Shortcodes)"
+description: "Learn how to register custom editor components and shortcodes in Sveltia CMS."
+sidebar:
+  order: 5
+---
+
+import { Aside, Tabs, TabItem, Code } from '@astrojs/starlight/components';
+
+While standard Markdown covers basic text formatting, technical documentation often relies on custom components like Starlight's `<Aside>` or `<Badge>`. To make these available to non-technical writers, Sveltia CMS allows developers to register **Custom Editor Components** via its JavaScript API.
+
+---
+
+## The Custom Component Architecture
+
+Custom editor components bridge the gap between the visual editor and raw MDX. They allow editors to interact with a structured form inside the CMS, which then serializes cleanly into your custom shortcode or MDX syntax in the underlying file.
+
+Registering a component involves defining three core elements:
+1. **Fields:** The form inputs presented to the author in the CMS UI.
+2. **Pattern Matching (`RegExp`):** How the CMS parses existing shortcodes out of the raw Markdown file.
+3. **Serialization (`toBlock` / `fromBlock`):** Functions that convert between form field states and MDX markup.
+
+---
+
+## Registering an Aside Shortcode
+
+To give editors visual control over callout boxes, you can register a custom component inside your CMS initialization script (`public/admin/index.html`):
+
+<Tabs>
+  <TabItem label="CMS Initialization Script" icon="seti:javascript">
+    *Registering the component via `CMS.registerEditorComponent`.*
+
+    ```javascript
+    CMS.registerEditorComponent({
+      id: 'aside',
+      label: 'Aside Callout',
+      fields: [
+        {
+          name: 'type',
+          label: 'Aside Type',
+          widget: 'select',
+          options: ['note', 'tip', 'caution', 'danger']
+        },
+        {
+          name: 'content',
+          label: 'Content',
+          widget: 'markdown'
+        }
+      ],
+      pattern: /^<Aside type="(.*?)">([\s\S]*?)<\/Aside>$/,
+      fromBlock: function(match) {
+        return {
+          type: match[1],
+          content: match[2]
+        };
+      },
+      toBlock: function(obj) {
+        return `<Aside type="${obj.type}">\n${obj.content}\n</Aside>`;
+      },
+      toPreview: function(obj) {
+        return `<div class="aside-${obj.type}"><strong>${obj.type.toUpperCase()}</strong>: ${obj.content}</div>`;
+      }
+    });
+    ```
+  </TabItem>
+
+  <TabItem label="Resulting MDX Output" icon="seti:markdown">
+    *How the component saves into your document files.*
+
+    ```mdx
+    <Aside type="tip">
+    Always test your custom shortcodes locally before deploying the admin panel to production.
+    </Aside>
+    ```
+  </TabItem>
+</Tabs>
+
+<Aside type="tip">
+Once registered, custom components appear automatically under the **Insert** dropdown menu in the Sveltia CMS rich-text editor, enabling authors to drop complex layouts into pages safely without writing raw code.
+</Aside>

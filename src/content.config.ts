@@ -7,7 +7,6 @@ export const collections = {
     loader: docsLoader(),
     schema: docsSchema({
       extend: z.object({
-        // Add any custom metadata fields you defined in Sveltia config.yml
         category: z.string().optional(),
         lastUpdatedBy: z.string().optional(),
       }),

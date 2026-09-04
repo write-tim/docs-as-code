@@ -1,0 +1,50 @@
+---
+title: Badges & Status Indicators
+description: Learn how to use Starlight's Badge component to highlight metadata, status levels, and feature versions.
+sidebar:
+  order: 8
+---
+
+import { Badge, Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+Badges are compact visual indicators used to highlight document status, feature availability, version requirements, or categorical metadata inline without cluttering your prose.
+
+---
+
+## Behind the Curtain
+
+<Tabs>
+  <TabItem label="1. Rendered Specimen" icon="seti:html">
+    *How badges render visually on the live site.*
+
+    * Standard: <Badge text="v1.0.0" variant="note" />
+    * Production State: <Badge text="Stable" variant="success" />
+    * Best Practice: <Badge text="Recommended" variant="tip" />
+    * Deprecation Warning: <Badge text="Legacy" variant="caution" />
+    * Breaking Notice: <Badge text="Critical" variant="danger" />
+  </TabItem>
+
+  <TabItem label="2. Underlying MDX Code" icon="seti:markdown">
+    *The raw code required to generate the badge elements.*
+
+    ```mdx
+    import { Badge } from '@astrojs/starlight/components';
+
+    <Badge text="v1.0.0" variant="note"/>
+    <Badge text="Stable" variant="success"/>
+    <Badge text="Recommended" variant="tip"/>
+    <Badge text="Legacy" variant="caution"/>
+    <Badge text="Critical" variant="danger"/>
+    ```
+  </TabItem>
+
+  <TabItem label="3. Sveltia CMS Authoring" icon="setting">
+    *How badges are managed through the CMS.*
+
+    Because badges are typically embedded inside tables or headings, technical writers can insert them via custom shortcodes or custom CMS editor components configured in `public/admin/index.html`.
+  </TabItem>
+</Tabs>
+
+<Aside type="tip">
+Use badges sparingly within running body text. They are most effective when placed in tables, component headers, or sidebar summaries to quickly guide the reader's eye.
+</Aside>

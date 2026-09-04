@@ -1,0 +1,52 @@
+---
+title: Typography & Standard Markdown
+description: Explore Starlight's native rendering for standard Markdown elements, including headings, tables, blockquotes, and lists.
+sidebar:
+  order: 1
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+
+While specialized components add interactive flair to technical documentation, clean typography and standard Markdown form the bedrock of any readable knowledge base. Starlight applies an opinionated, highly legible typographic scale optimized for technical content.
+
+---
+
+## Behind the Curtain
+
+<Tabs>
+  <TabItem label="1. Rendered Specimen" icon="seti:html">
+    *How the formatted typography renders on the live page.*
+
+    ## Heading Level 2 (Section Break)
+    
+    Here is a standard paragraph containing **bold emphasis**, *italicized text*, and an inline code variable like `site.config.mjs`.
+
+    > "Documentation is the lifeblood of software engineering. If it isn't documented, functionally, it doesn't exist."
+    > 
+    > — *Technical Writing Axiom*
+  </TabItem>
+
+  <TabItem label="2. Underlying MDX Code" icon="seti:markdown">
+    *The raw Markdown markup required to generate the specimen.*
+
+    ```markdown
+    ## Heading Level 2 (Section Break)
+    
+    Here is a standard paragraph containing **bold emphasis**, *italicized text*, and an inline code variable like `site.config.mjs`.
+
+    > "Documentation is the lifeblood of software engineering. If it isn't documented, functionally, it doesn't exist."
+    > 
+    > — *Technical Writing Axiom*
+    ```
+  </TabItem>
+
+  <TabItem label="3. Sveltia CMS Authoring" icon="setting">
+    *How subject matter experts format text in the visual CMS.*
+
+    In Sveltia CMS, authors use the rich-text markdown editor toolbar or switch to raw Markdown mode. Headings, blockquotes, and text styling render instantly in the visual preview pane before committing changes back to Git.
+  </TabItem>
+</Tabs>
+
+<Aside type="tip">
+Always rely on standard Markdown formatting for primary text before reaching for complex custom components. Clean text paired with proper headings ensures maximum accessibility for screen readers.
+</Aside>
