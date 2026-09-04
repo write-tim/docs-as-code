@@ -66,7 +66,7 @@ export default defineConfig({
         },
       ],
       editLink: {
-        baseUrl: 'https://github.com/write-tim/sveltia-docs-test/edit/main/',
+        baseUrl: 'https://github.com/write-tim/docs-as-code/edit/main/',
       },
       credits: true,
       customCss: [
@@ -74,8 +74,8 @@ export default defineConfig({
       ],
       sidebar: [
         {
-          label: 'Back to Portfolio',
-          link: 'https://timothyjohnsonwrites.com',
+          label: 'Home',
+          link: '/',
         },
         {
           label: '1. Architecture & Philosophy',

@@ -1,0 +1,51 @@
+---
+title: FAQ Accordions
+description: How to add interactive, collapsible FAQ sections to your articles.
+sidebar:
+  order: 9
+---
+
+import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import FAQ from '../../../components/FAQ.astro';
+
+Our documentation includes a custom, reusable `<FAQ>` component that allows you to create interactive, collapsible accordion menus[cite: 5]. This is perfect for organizing long troubleshooting pages or grouping common billing questions[cite: 5].
+
+---
+
+## Behind the Curtain: FAQ Component
+
+<Tabs>
+  <TabItem label="1. Rendered Specimen" icon="seti:html">
+    *How the interactive accordion renders on the live site.*
+
+    <FAQ title="What is your refund policy?">
+    We offer a full refund within the first **30 days** of your subscription. 
+
+    To request a refund, please contact Support.
+    </FAQ>
+  </TabItem>
+
+  <TabItem label="2. Underlying MDX Code" icon="seti:markdown">
+    *The raw component syntax required to generate the accordion.*
+
+    ```mdx
+    import FAQ from '../../../components/FAQ.astro';
+
+    <FAQ title="What is your refund policy?">
+    We offer a full refund within the first **30 days** of your subscription. 
+
+    To request a refund, please contact Support.
+    </FAQ>
+    ```
+  </TabItem>
+
+  <TabItem label="3. Sveltia CMS Authoring" icon="setting">
+    *How authors insert FAQs within the CMS.*
+
+    To use the FAQ component in your article, you must first import it at the top of your document, and then wrap your content in the `<FAQ>` tags[cite: 5]. Provide the question inside the `title=""` attribute, and place the answer between the opening and closing tags[cite: 5]. You can use standard Markdown (like bolding, lists, and links) inside the answer[cite: 5]!
+  </TabItem>
+</Tabs>
+
+<Aside type="caution">
+Because this is a custom component, add this exact line to the very top of your article: `import FAQ from '../../../components/FAQ.astro';`[cite: 5]. Ensure the relative path matches the folder depth of your current document!
+</Aside>

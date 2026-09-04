@@ -1,0 +1,52 @@
+---
+title: Search & Sidebar Optimization
+description: Best practices for naming files, ordering the sidebar, and optimizing articles for Pagefind search.
+sidebar:
+  order: 7
+---
+
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Astro Starlight manages sidebar navigation dynamically and powers internal search indexing via **Pagefind**. This guide explains how to optimize your content so users can find exactly what they need with zero backend latency.
+
+---
+
+## How Search Works
+
+Search is powered by Pagefind, a search library that runs entirely locally in the user's browser. It indexes content during the static site build step, ensuring instant results without relying on external databases.
+
+### Search Optimization Checklist
+
+To ensure your articles rank properly in the internal search, follow these authoring best practices:
+
+* **Descriptive Titles:** Use action-oriented titles like *How to Configure SSO* instead of *SSO Settings*.
+* **Keyword-Rich Descriptions:** Pagefind gives extra weight to the frontmatter `description` field. Always include one.
+* **Semantic Headings:** Always use proper Markdown headers (`##`, `###`). Pagefind anchors search results directly to individual section headings, allowing users to jump directly to the relevant step.
+* **Synonyms in Introductory Text:** Include common alternate phrasing in the opening paragraph (e.g., mentioning "API tokens" alongside "API keys").
+
+---
+
+## Customizing Sidebar Sorting
+
+By default, Starlight sorts auto-generated sidebar articles alphabetically by file name. To customize the display order and label in the sidebar, use the `sidebar` object in your frontmatter:
+
+<Tabs>
+  <TabItem label="Frontmatter Code" icon="seti:markdown">
+    ```yaml
+    ---
+    title: Managing User Roles and Permissions
+    description: How to assign access levels to your team.
+    sidebar:
+      order: 10
+      label: User Roles
+    ---
+    ```
+  </TabItem>
+  <TabItem label="Sveltia CMS" icon="setting">
+    In Sveltia CMS, these fields are available in the right-hand settings pane under the **Sidebar** toggle. You can set the numerical order and type in a shorter label directly in the UI.
+  </TabItem>
+</Tabs>
+
+<Aside type="tip">
+Using a shorter `label` in the sidebar keeps the navigation clean, while keeping the full `title` optimized for search and page headings.
+</Aside>
