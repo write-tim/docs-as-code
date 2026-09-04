@@ -101,6 +101,12 @@ export default defineConfig({
             { autogenerate: { directory: 'automation' } }
           ],
         },
+        {
+          label: '5. Style Guide & Standards',
+          items: [
+            { autogenerate: { directory: 'guides' } }
+          ],
+        },
       ],
     }),
   ],
