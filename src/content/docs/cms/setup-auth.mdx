@@ -33,7 +33,7 @@ The authentication flow relies on a secure token exchange between the browser CM
 To enable authentication for your repository, you must register an OAuth application within your GitHub organization or personal account settings:
 
 <Tabs>
-  <TabItem label="1. Register Application" icon="github">
+  <TabItem icon="github" label="1. Register Application">
     *Navigate to GitHub Settings > Developer Settings > OAuth Apps > New OAuth App.*
 
     * **Application Name:** `Sveltia Docs CMS (Local/Production)`
@@ -41,12 +41,12 @@ To enable authentication for your repository, you must register an OAuth applica
     * **Authorization Callback URL:** `https://api.netlify.com/auth/done` (or your chosen OAuth gateway provider URL)
   </TabItem>
 
-  <TabItem label="2. Environment Variables" icon="seti:config">
+  <TabItem icon="seti:config" label="2. Environment Variables">
     *Securing your Client ID and Client Secret.*
 
     Your deployment host (such as Netlify, Vercel, or a custom OAuth server) requires two environment variables to handle the handshake securely:
 
-    ```env
+    ```ini
     OAUTH_CLIENT_ID=your_github_oauth_client_id
     OAUTH_CLIENT_SECRET=your_github_oauth_client_secret
     ```

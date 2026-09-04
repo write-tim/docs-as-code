@@ -28,6 +28,7 @@ export default defineConfig({
     starlight({
       title: 'Knowledge Base',
       favicon: '/tjw_logo.png',
+      defaultLocale: 'root',
       head: [
         // 1. Load the Google Analytics script
         {
@@ -56,7 +57,7 @@ export default defineConfig({
         { 
           icon: 'github', 
           label: 'GitHub', 
-          href: 'https://github.com/write-tim/sveltia-docs-test' 
+          href: 'https://github.com/write-tim' 
         },
         { 
           icon: 'linkedin', 
@@ -79,9 +80,7 @@ export default defineConfig({
         {
           label: '1. Architecture & Philosophy',
           items: [
-            { label: 'The Docs-as-Code Manifesto', slug: 'guides/docs-as-code' },
-            { label: 'Tech Stack Overview', slug: 'guides/tech-stack' },
-            { label: 'System Flow (Local to CDN)', slug: 'guides/system-flow' },
+            { autogenerate: { directory: 'philosophy' } }
           ],
         },
         {
@@ -99,8 +98,7 @@ export default defineConfig({
         {
           label: '4. Automation & Quality Gates',
           items: [
-            { label: 'Frontmatter Schemas with Zod', slug: 'guides/zod-schemas' },
-            { label: 'Quality Pipelines (CI/CD)', slug: 'guides/ci-cd-pipelines' },
+            { autogenerate: { directory: 'automation' } }
           ],
         },
       ],
