@@ -5,7 +5,7 @@ sidebar:
   order: 10
 ---
 
-import { Aside, Steps } from '@astrojs/starlight/components';
+import { Aside, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 
 Static images of architecture flows get outdated the moment you push a code change. To keep our documentation living and breathing, this site utilizes **Mermaid.js** integrated directly through `astro-mermaid`. 
 
@@ -16,29 +16,53 @@ Instead of opening a design tool like Figma or Visio, our diagrams are written a
 To render a flowchart, wrap your syntax inside a standard Markdown code block and label the language as `mermaid`. 
 
 <Steps>
-1.  **Define the Direction:** 
-    Start your block by declaring the layout flow (e.g., `graph TD` for Top-to-Down, or `graph LR` for Left-to-Right).
-2.  **Declare Your Nodes:**
-
-    Give each node a unique letter identifier and wrap its display text in the appropriate shape brackets:
-
-    *   `A[Square Box]` for standard components.
-    *   `B(Rounded Pill)` for entry/exit points.
-    *   `C{Diamond}` for conditional decision gates.
-
-3.  **Connect the Flow:**
-    Use arrows (`-->`) and optional text pipes (`-->|action|`) to map out the system logic.
+1. **Define the Direction:** 
+   Start your block by declaring the layout flow (e.g., `graph TD` for Top-to-Down, or `graph LR` for Left-to-Right).
+2. **Declare Your Nodes:**
+   Give each node a unique letter identifier and wrap its display text in the appropriate shape brackets:
+   * `A[Square Box]` for standard components.
+   * `B(Rounded Pill)` for entry/exit points.
+   * `C{Diamond}` for conditional decision gates.
+3. **Connect the Flow:**
+   Use arrows (`-->`) and optional text pipes (`-->|action|`) to map out the system logic.
 </Steps>
 
-## Example: The Publishing Pipeline Source Code
+## Behind the Curtain
 
-Here is the exact code block used to render the publishing architecture diagram you see on our governance page:
+<Tabs>
+  <TabItem icon="seti:html" label="1. Rendered Specimen">
+    *How the compiled SVG flowchart renders on the live documentation page.*
 
-```mermaid
-graph TD;
-    A[Local VS Code] -->|git push| C(GitHub Repository);
-    B[Sveltia CMS] -->|Direct Commit| C;
-    C -->|Webhook Trigger| D{Render CI/CD};
-    D -- Invalid Frontmatter --> E[Build Fails Safely];
-    D -- Passes Zod Schema --> F[Deploy to Live Site];
-```
+    ```mermaid
+    graph TD;
+        A[Local VS Code] -->|git push| C(GitHub Repository);
+        B[Sveltia CMS] -->|Direct Commit| C;
+        C -->|Webhook Trigger| D{Render CI/CD};
+        D -- Invalid Frontmatter --> E[Build Fails Safely];
+        D -- Passes Zod Schema --> F[Deploy to Live Site];
+    ```
+  </TabItem>
+  <TabItem icon="seti:markdown" label="2. Underlying MDX Code">
+    *The raw markdown and mermaid syntax used in the source file.*
+
+    ````mdx
+    ```mermaid
+    graph TD;
+        A[Local VS Code] -->|git push| C(GitHub Repository);
+        B[Sveltia CMS] -->|Direct Commit| C;
+        C -->|Webhook Trigger| D{Render CI/CD};
+        D -- Invalid Frontmatter --> E[Build Fails Safely];
+        D -- Passes Zod Schema --> F[Deploy to Live Site];
+    ```
+    ````
+  </TabItem>
+  <TabItem icon="seti:config" label="3. Sveltia CMS Authoring">
+    *How content editors interact with Mermaid syntax inside Sveltia.*
+
+    In your Sveltia CMS markdown editor, authors simply write standard fenced code blocks tagged with `mermaid`. Because `astro-mermaid` handles the asset parsing at build time, no custom form widgets or complex UI shortcodes are required.
+
+    <Aside type="tip">
+    Mermaid diagrams automatically adapt to your Starlight theme, shifting colors cleanly between dark and light modes!
+    </Aside>
+  </TabItem>
+</Tabs>
