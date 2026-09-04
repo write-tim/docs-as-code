@@ -13,6 +13,15 @@ There are two supported paths for authoring content: the visual **Sveltia CMS** 
 
 ## The Publishing Pipeline
 
+```mermaid
+graph TD;
+    A[Local VS Code] -->|git push| C(GitHub Repository);
+    B[Sveltia CMS] -->|Direct Commit| C;
+    C -->|Webhook Trigger| D{Render CI/CD};
+    D -- Invalid Frontmatter --> E[Build Fails Safely];
+    D -- Passes Zod Schema --> F[Deploy to Live Site];
+```
+
 Every new article or major update must go through the following lifecycle before reaching the live site:
 
 <Steps>
