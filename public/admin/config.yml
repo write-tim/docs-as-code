@@ -74,18 +74,12 @@ show_preview_links: true
     name: "body"
     widget: "markdown"
     required: true
-    buttons:
-          - bold
-          - italic
-          - strikethrough
-          - code
-          - code-block
-          - link
-          - image
-          - quote
-          - bulleted-list
-          - numbered-list
     editor_components:
+      - image
+      - code-block
+      - quote
+      - bulleted-list
+      - numbered-list
       - aside
       - steps
       - filetree
