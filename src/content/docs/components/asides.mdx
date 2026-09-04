@@ -5,9 +5,19 @@ sidebar:
   order: 3
 ---
 
-import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Tabs, TabItem, Steps } from '@astrojs/starlight/components';
 
 The `<Aside>` component (often referred to as an admonition or callout) is used to draw attention to supplementary information, warnings, or helpful shortcuts without disrupting the main narrative flow of the document.
+
+## How to Write Asides
+
+Use asides to call out critical notes, warnings, or tips without disrupting the main narrative:
+
+<Steps>
+1. **Import the Aside:** Include `import { Aside } from '@astrojs/starlight/components';` at the top of your document.
+2. **Choose a Variant:** Set the `type` attribute to `note`, `tip`, `caution`, or `danger` depending on severity.
+3. **Keep it Concise:** Write short, direct warnings inside the aside block.
+</Steps>
 
 ## Behind the Curtain
 

@@ -5,9 +5,19 @@ sidebar:
   order: 7
 ---
 
-import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Aside, Steps } from '@astrojs/starlight/components';
 
 Code blocks in Starlight are powered by the Expressive Code engine. You do not need to import a special component; standard Markdown code fences are automatically upgraded with copy buttons, syntax highlighting, file titles, line markers, and visual diffs.
+
+## How to Highlight Code
+
+Enhance technical code snippets with syntax highlighting and line annotations:
+
+<Steps>
+1. **Open Code Fence:** Use triple backticks followed by the programming language identifier (e.g., `javascript`, `yaml`).
+2. **Add Line Markers:** Append curly brace line selectors like `{2}` to highlight specific rows.
+3. **Verify Output:** Ensure your build compiler parses the snippet correctly.
+</Steps>
 
 ## Behind the Curtain
 

@@ -5,9 +5,19 @@ sidebar:
   order: 5
 ---
 
-import { FileTree, Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { FileTree, Tabs, TabItem, Aside, Steps } from '@astrojs/starlight/components';
 
 The `<FileTree>` component is used to display folder structures, file hierarchies, and project architectures. It transforms standard indented Markdown lists into visual, IDE-like directory trees, automatically adding the correct file and folder icons based on file extensions.
+
+## How to Structure File Trees
+
+Display project directory structures clearly using the FileTree component:
+
+<Steps>
+1. **Import FileTree:** Add `import { FileTree } from '@astrojs/starlight/components';` to imports.
+2. **Write Nested Lists:** Construct standard Markdown bullet lists representing folders and files.
+3. **Highlight Key Files:** Append comments or keep names explicit to highlight configuration files.
+</Steps>
 
 ## Behind the Curtain
 

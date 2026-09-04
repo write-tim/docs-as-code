@@ -13,6 +13,16 @@ The `<Steps>` component is used to guide users through sequential tasks. It visu
 Use the `<Steps>` component only when **order is strictly required** to complete a task successfully (e.g., software installation, account configuration). For lists where the order does not matter, use standard unordered bullet points.
 </Aside>
 
+## How to Write Procedural Steps
+
+When guiding users through sequential workflows, break actions down into numbered steps:
+
+<Steps>
+1. **Import the Component:** Add `import { Steps } from '@astrojs/starlight/components';` to your frontmatter imports.
+2. **Wrap Your List:** Enclose a standard numbered markdown list inside the `<Steps>` component tags.
+3. **Highlight Key Actions:** Bold the first few words of each step to anchor the reader's eye.
+</Steps>
+
 ## Behind the Curtain
 
 Explore the live specimen, the raw markup required to build it, and instructions for authoring this component inside Sveltia CMS.

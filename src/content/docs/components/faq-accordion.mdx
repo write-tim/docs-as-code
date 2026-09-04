@@ -5,12 +5,22 @@ sidebar:
   order: 9
 ---
 
-import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Aside, Steps } from '@astrojs/starlight/components';
 import FAQ from '../../../components/FAQ.astro';
 
-Our documentation includes a custom, reusable `<FAQ>` component that allows you to create interactive, collapsible accordion menus[cite: 5]. This is perfect for organizing long troubleshooting pages or grouping common billing questions[cite: 5].
+Our documentation includes a custom, reusable `<FAQ>` component that allows you to create interactive, collapsible accordion menus. This is perfect for organizing long troubleshooting pages or grouping common billing questions.
 
 ---
+
+## How to Build Accordions
+
+Create clean, collapsible Q&A sections without heavy third-party plugins:
+
+<Steps>
+1. **Use Semantic HTML:** Wrap your content in standard HTML `<details>` and `<summary>` tags.
+2. **Add Question Text:** Place the question string directly inside the `<summary>` element.
+3. **Wrap the Answer:** Enclose the corresponding explanation in paragraph tags below the summary.
+</Steps>
 
 ## Behind the Curtain: FAQ Component
 

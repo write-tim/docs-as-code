@@ -5,9 +5,19 @@ sidebar:
   order: 4
 ---
 
-import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Aside, Steps } from '@astrojs/starlight/components';
 
 The `<Tabs>` component is used to group related, alternative pieces of content so users can select the context that applies to them. It is ideal for toggling between operating systems, package managers, or programming languages without forcing the reader to scroll past irrelevant instructions.
+
+## How to Build Tabs
+
+Organize multi-platform commands or alternative code implementations using tabs:
+
+<Steps>
+1. **Import Components:** Import both `Tabs` and `TabItem` from `@astrojs/starlight/components`.
+2. **Define Tab Labels:** Pass a `label` attribute and optional file-icon to each `<TabItem>`.
+3. **Nest Content:** Place code blocks or text directly inside the corresponding tab wrapper.
+</Steps>
 
 ## Behind the Curtain
 

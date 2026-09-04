@@ -5,11 +5,21 @@ sidebar:
   order: 8
 ---
 
-import { Badge, Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { Badge, Tabs, TabItem, Aside, Steps } from '@astrojs/starlight/components';
 
 Badges are compact visual indicators used to highlight document status, feature availability, version requirements, or categorical metadata inline without cluttering your prose.
 
 ---
+
+## How to Use Badges
+
+Call attention to feature statuses or version numbers using inline badges:
+
+<Steps>
+1. **Import Badge:** Include `import { Badge } from '@astrojs/starlight/components';` in your frontmatter.
+2. **Define Parameters:** Set the `text`, `variant` (e.g., `tip`, `note`, `danger`), and `size`.
+3. **Embed Inline:** Drop the component directly into sentences or headings.
+</Steps>
 
 ## Behind the Curtain
 

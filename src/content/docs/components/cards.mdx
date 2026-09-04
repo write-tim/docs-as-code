@@ -5,9 +5,19 @@ sidebar:
   order: 6
 ---
 
-import { Card, CardGrid, LinkCard, Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { Card, CardGrid, LinkCard, Tabs, TabItem, Aside, Steps } from '@astrojs/starlight/components';
 
 Cards are structural layout elements used to highlight features, group related concepts, or guide users to subsequent articles. Starlight provides three interrelated components for this: `<Card>` (for static information), `<LinkCard>` (for navigation), and `<CardGrid>` (for layout alignment).
+
+## How to Create Cards
+
+Highlight key topics or create visual landing grids using Starlight cards:
+
+<Steps>
+1. **Import Card:** Import `Card` from `@astrojs/starlight/components`.
+2. **Configure Attributes:** Set a `title` string and an optional Starlight `icon` name.
+3. **Add Body Text:** Write brief descriptive copy inside the card tags.
+</Steps>
 
 ## Behind the Curtain
 

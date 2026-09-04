@@ -5,11 +5,23 @@ sidebar:
   order: 1
 ---
 
-import { Tabs, TabItem, Aside } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Steps, Aside } from '@astrojs/starlight/components';
 
 While specialized components add interactive flair to technical documentation, clean typography and standard Markdown form the bedrock of any readable knowledge base. Starlight applies an opinionated, highly legible typographic scale optimized for technical content.
 
 ---
+
+## How to Format Typography
+
+To maintain a consistent reading rhythm across all documents, follow these authoring rules for text hierarchy:
+
+<Steps>
+1. **Establish Heading Hierarchy:** Use `##` for primary section breaks and `###` for sub-sections. Never skip heading levels.
+2. **Apply Inline Styles:** Use single asterisks `*` for *italics*, double asterisks `**` for **bold text**, and single backticks `` ` `` for inline code variables.
+3. **Build Bulleted & Numbered Lists:** Use hyphens (`-`) for unorderly bulleted lists and sequential numbers (`1.`, `2.`) for numbered instructions.
+4. **Add Links & Underlining:** Use standard markdown syntax `[Anchor Text](URL)` for hyperlinks, and semantic HTML `<u>text</u>` when specific underlining is required.
+5. **Incorporate Blockquotes:** Use standard markdown blockquotes (`>`) to emphasize core axioms or callouts.
+</Steps>
 
 ## Behind the Curtain
 
