@@ -2,7 +2,9 @@
 title: Tech Stack & Git Flow
 description: A comprehensive breakdown of the tools, frameworks, and branching strategies powering this documentation site.
 sidebar:
+  label: ''
   order: 2
+  hidden: false
 ---
 
 import { Tabs, TabItem, Aside, Code, FileTree } from '@astrojs/starlight/components';
@@ -11,21 +13,21 @@ Building a modern Docs-as-Code ecosystem requires balancing two opposing forces:
 
 This project achieves that balance by pairing a bleeding-edge static site engine with a Git-backed visual content management system.
 
----
+***
 
 ## The Technology Stack
 
 Every tool in the pipeline was selected for performance, standards compliance, and zero proprietary lock-in.
 
 | Layer | Technology | Purpose |
-| :--- | :--- | :--- |
+| --- | --- | --- |
 | **Framework** | Astro & Starlight | High-performance static site generation with a built-in, accessible documentation layout. |
 | **Content Engine** | MDX | Markdown extended with native support for interactive UI components and widgets. |
 | **Visual CMS** | Sveltia CMS | A lightweight, Git-gateway CMS that lets non-technical contributors edit content via a GUI. |
 | **Version Control** | GitHub | Hosting repository, pull request reviews, and issue tracking. |
 | **CI/CD Automation** | GitHub Actions | Automated build previews, link validation, and prose linting on every commit. |
 
----
+***
 
 ## Repository Structure
 
@@ -35,20 +37,20 @@ The project follows a standard Astro project layout, separating reusable compone
 - .github/workflows/       # CI/CD pipelines (Lint, Link Check, Build)
 - public/                  # Static assets, logos, and favicons
 - src/
-  - assets/                # Images and graphics optimized by Astro
-  - components/            # Custom interactive widgets and specimens
-  - content/
-    - docs/                # All Markdown/MDX documentation pages
-      - components/        # Component library specimen articles
-      - guides/            # Architecture and workflow documentation
-      - cms/               # Sveltia CMS configuration manual
-    - config.ts            # Content collections schema definition
-  - styles/                # Custom CSS styling and design tokens
+    - assets/                # Images and graphics optimized by Astro
+    - components/            # Custom interactive widgets and specimens
+    - content/
+        - docs/                # All Markdown/MDX documentation pages
+            - components/        # Component library specimen articles
+            - guides/            # Architecture and workflow documentation
+            - cms/               # Sveltia CMS configuration manual
+        - config.ts            # Content collections schema definition
+    - styles/                # Custom CSS styling and design tokens
 - astro.config.mjs         # Starlight and integration configuration
 - package.json             # Project dependencies and npm scripts
 </FileTree>
 
----
+***
 
 ## Git Branching Strategy
 
@@ -56,16 +58,17 @@ To maintain stability while allowing rapid iterations, the repository utilizes a
 
 <Tabs>
   <TabItem label="main" icon="seti:git">
-    **The Production Branch**
-    * Always reflects what is currently deployed live to production.
-    * Direct commits are locked; code and content enter via reviewed Pull Requests.
-    * Every successful merge automatically triggers a production build.
+        **The Production Branch**
+
+        * Always reflects what is currently deployed live to production.
+        * Direct commits are locked; code and content enter via reviewed Pull Requests.
+        * Every successful merge automatically triggers a production build.
   </TabItem>
   <TabItem label="feature / patch" icon="seti:branch">
-    **Working Branches**
-    * Branch naming convention: `feature/short-description` or `fix/issue-name`.
-    * Used for drafting new guides, updating components, or adjusting CSS tokens.
-    * Opening a pull request against `main` immediately fires automated CI preview builds.
+        **Working Branches**
+        * Branch naming convention: `feature/short-description` or `fix/issue-name`.
+        * Used for drafting new guides, updating components, or adjusting CSS tokens.
+        * Opening a pull request against `main` immediately fires automated CI preview builds.
   </TabItem>
 </Tabs>
 
@@ -73,15 +76,16 @@ To maintain stability while allowing rapid iterations, the repository utilizes a
 When contributors write via Sveltia CMS, the application automatically handles the underlying Git mechanics—committing changes to a dedicated patch branch and opening a pull request behind the scenes.
 </Aside>
 
----
+***
 
 ## The "Specimen & Source" Pattern
 
 As seen throughout the Component Library section of this site, architectural documentation often suffers from a disconnect between theory and implementation. 
 
 This project solves that via the **Specimen & Source** pattern:
-1. **The Live Specimen:** Renders the actual, interactive UI component using Starlight's built-in design system.
-2. **The Source Code:** Displays the exact raw MDX markup required to generate it inside collapsible tabs.
-3. **The Authoring Guide:** Explains how subject matter experts interact with the component inside Sveltia CMS.
 
-By keeping the documentation *about* the components inside the same codebase as the components themselves, code drift is entirely eliminated.
+- **The Live Specimen:** Renders the actual, interactive UI component using Starlight's built-in design system.
+- **The Source Code:** Displays the exact raw MDX markup required to generate it inside collapsible tabs.
+- **The Authoring Guide:** Explains how subject matter experts interact with the component inside Sveltia CMS.
+
+By keeping the documentation _about_ the components inside the same codebase as the components themselves, code drift is entirely eliminated.
