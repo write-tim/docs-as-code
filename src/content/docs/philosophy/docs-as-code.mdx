@@ -2,7 +2,9 @@
 title: Docs-as-Code Philosophy
 description: Explore the core philosophy behind treating technical documentation like software using Git, Markdown, and automated CI/CD pipelines.
 sidebar:
-  order: 1
+  label: ''
+  order: 2
+  hidden: false
 ---
 
 import { Aside, Card, CardGrid, Steps } from '@astrojs/starlight/components';
@@ -11,7 +13,7 @@ Documentation is code. That is the foundational premise of this architecture. Wh
 
 This site operates as a live specimen of that philosophy: a high-performance static site built with **Astro** and **Starlight**, coupled with a Git-backed visual CMS (**Sveltia**) so non-technical subject matter experts (SMEs) can contribute without touching a terminal.
 
----
+***
 
 ## Why Docs-as-Code?
 
@@ -34,24 +36,24 @@ Docs-as-Code flips that paradigm by aligning technical writing with modern softw
   </Card>
 </CardGrid>
 
----
+***
 
 ## The Workflow Lifecycle
 
 Moving from an idea to published documentation follows a predictable, transparent engineering lifecycle:
 
 <Steps>
-  1. **Authoring & Editing**
+1. **Authoring & Editing**
      Writers draft content either locally in an IDE using Markdown or via the web-based Sveltia CMS interface.
-  2. **Branching & Pull Requests**
+    1. **Branching & Pull Requests**
      Changes are committed to feature branches. Opening a pull request automatically triggers a preview deployment for review.
-  3. **Automated Quality Checks**
+    2. **Automated Quality Checks**
      GitHub Actions run prose linters (Vale) and link integrity checkers (Lychee) against the proposed changes.
-  4. **Merge & Deploy**
+    3. **Merge & Deploy**
      Once approved and checks pass, merging into the `main` branch triggers an automated build that publishes globally via CDN.
 </Steps>
 
----
+***
 
 ## Bridging the Gap: Engineers + SMEs
 
