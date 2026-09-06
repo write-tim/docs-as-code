@@ -88,21 +88,21 @@ export default defineConfig({
           ],
         },
         {
-          label: '2. Component Library (Behind the Curtain)',
-          items: [
-            { autogenerate: { directory: 'components' } }
-          ],
-        },
-        {
-          label: '3. Sveltia CMS Manual',
+          label: '2. Sveltia CMS Manual',
           items: [
             { autogenerate: { directory: 'cms' } }
           ],
         },
         {
-          label: '4. Automation & Quality Gates',
+          label: '3. Automation & Quality Gates',
           items: [
             { autogenerate: { directory: 'automation' } }
+          ],
+        },
+        {
+          label: '4. Component Library',
+          items: [
+            { autogenerate: { directory: 'components' } }
           ],
         },
         {
