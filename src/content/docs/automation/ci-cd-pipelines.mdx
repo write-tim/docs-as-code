@@ -22,8 +22,8 @@ Whenever a contributor pushes code or submits changes via Sveltia CMS, GitHub Ac
      Scans all Markdown and MDX files against the Google Developer Style Guide to catch passive voice, jargon, and spelling inconsistencies.
   2. **Link Integrity Check (Lychee)**
      Crawls every internal and external hyperlink across the site to ensure zero 404 errors or broken URLs exist.
-  3. **Preview Deployment (Astro Build)**
-     Performs a full static build of the site to verify that MDX components, frontmatter schemas, and content collections compile cleanly.
+  3. **Build & Frontmatter Validation (Astro + Zod)**
+     Performs a full static build of the site. If an author misses a required Zod frontmatter field (like `title`), the compiler throws an error and safely blocks the merge.
 </Steps>
 
 ---
@@ -66,7 +66,9 @@ Explore the implementation files that drive these quality checks behind the scen
   <TabItem label="3. GitHub Actions CI" icon="github">
     *Orchestrating the pipeline via `.github/workflows/ci.yml`.*
 
-    ```yaml title=".github/workflows/ci.yml"
+    This workflow chains Astro's build validation together with Lychee and Vale, creating a unified barrier against bad code and bad copy.
+
+    ```yaml title=".github/workflows/ci.yml" {23-24, 26-30, 32-36}
     name: Docs CI & Quality Gates
 
     on:
@@ -91,8 +93,19 @@ Explore the implementation files that drive these quality checks behind the scen
           - name: Install Dependencies
             run: npm ci
 
-          - name: Build Static Site
+          - name: 1. Build & Zod Validation
             run: npm run build
+
+          - name: 2. Link Checker (Lychee)
+            uses: lycheeverse/lychee-action@v1.9.0
+            with:
+              args: --exclude-loopback --no-progress './**/*.md' './**/*.mdx'
+
+          - name: 3. Prose Linting (Vale)
+            uses: errata-ai/vale-action@reviewdog
+            with:
+              files: 'src/content/docs'
+              reporter: github-pr-check
     ```
   </TabItem>
 </Tabs>

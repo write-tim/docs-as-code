@@ -5,11 +5,11 @@ sidebar:
   order: 2
 ---
 
-import { Tabs, TabItem, Aside, Code } from '@astrojs/starlight/components';
+import { Tabs, TabItem, Aside, Steps } from '@astrojs/starlight/components';
 
-The bridge between Sveltia CMS's visual interface and our Astro codebase is the **`config.yml`** file. Located in the public directory (`public/admin/config.yml`), this file defines every collection, folder path, and form field available to authors.
+Sveltia CMS operates as a lightweight, headless visual editor that commits directly to your Git repository. It doesn't require a database; instead, it relies on a single **`config.yml`** file located in the public directory (`public/admin/config.yml`). 
 
-To prevent content drift, the fields defined in this configuration map directly to the **Zod schemas** defined in our Astro content collection config (`src/content.config.ts`).
+This file is the bridge. It defines every collection, folder path, and form field available to authors, ensuring the visual CMS maps perfectly to the Zod schemas defined in our Astro backend (`src/content.config.ts`).
 
 ---
 
@@ -32,10 +32,10 @@ Explore the directory setup and the underlying YAML configuration that powers th
   <TabItem label="2. config.yml Code" icon="seti:yaml">
     *Mapping Markdown collections and frontmatter fields.*
 
-    ```yaml
+    ```yaml {2-5, 12, 15-18}
     backend:
       name: github
-      repo: write-tim/sveltia-docs-test
+      repo: write-tim/docs-as-code
       branch: main
 
     media_folder: src/assets
@@ -48,7 +48,8 @@ Explore the directory setup and the underlying YAML configuration that powers th
         create: true
         fields:
           - { name: title, label: Title, widget: string }
-          - { name: description, label: Description, widget: string }
+          - { name: description, label: Description, widget: string, required: false }
+          - { name: sidebar.order, label: Sidebar Order, widget: number, required: false }
           - { name: body, label: Body, widget: markdown }
 
       - name: components
@@ -57,7 +58,8 @@ Explore the directory setup and the underlying YAML configuration that powers th
         create: true
         fields:
           - { name: title, label: Title, widget: string }
-          - { name: description, label: Description, widget: string }
+          - { name: description, label: Description, widget: string, required: false }
+          - { name: sidebar.order, label: Sidebar Order, widget: number, required: false }
           - { name: body, label: Body, widget: markdown }
     ```
   </TabItem>
@@ -65,9 +67,19 @@ Explore the directory setup and the underlying YAML configuration that powers th
   <TabItem label="3. Connecting to Astro Zod" icon="setting">
     *Ensuring strict type safety between the CMS and Astro.*
 
-    When authors submit content through Sveltia CMS, Astro's content collection schema validates the incoming frontmatter. If a required field (like `description`) is missing, the build fails safely in CI rather than throwing a runtime error in production.
+    When authors submit content through Sveltia CMS, Astro's content collection schema validates the incoming frontmatter. If a required field is missing or the wrong data type is submitted, the build fails safely in CI rather than throwing a runtime error in production.
   </TabItem>
 </Tabs>
+
+---
+
+## How It Works Under the Hood
+
+<Steps>
+1. **The Backend:** Lines 2-5 tell Sveltia to use GitHub OAuth to authenticate users and specify which repository and branch (`main`) will receive the commits.
+2. **The Folder Mapping:** The `folder` declarations route specific content types to their proper directories (e.g., routing the *Architecture Guides* collection specifically to `src/content/docs/guides`).
+3. **The Frontmatter Fields:** The `fields` arrays define the visual input fields for authors. If an author types a title into the CMS, Sveltia formats it into the `title: ` YAML frontmatter of the compiled `.mdx` file.
+</Steps>
 
 ---
 
@@ -76,6 +88,7 @@ Explore the directory setup and the underlying YAML configuration that powers th
 Sveltia CMS supports a wide array of form widgets that make content authoring intuitive for non-technical users:
 
 * **`string`**: Used for single-line text fields like article titles and meta descriptions.
+* **`number`**: Used for integers, such as defining the `sidebar.order` to control navigation hierarchy.
 * **`markdown`**: Renders a full rich-text editor (supporting bold, lists, links, and code blocks) while maintaining clean underlying Markdown syntax.
 * **`image`**: Uploads media assets directly into the `src/assets` folder, allowing Astro to automatically optimize images during build time.
 
