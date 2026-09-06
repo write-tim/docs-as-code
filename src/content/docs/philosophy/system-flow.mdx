@@ -18,16 +18,16 @@ A robust Docs-as-Code pipeline relies on a predictable, fully automated lifecycl
 The diagram below outlines the five major milestones a documentation update traverses before reaching readers:
 
 <Steps>
-1. **Authoring & Commit**
-     The author writes content in Markdown/MDX, either locally in an IDE or through the browser-based Sveltia CMS interface, and commits to a feature branch.
-    1. **Version Control & PR Creation**
-     The branch is pushed to GitHub, automatically triggering a Pull Request against the `main` production branch.
-    2. **Automated Quality Gates**
-     GitHub Actions spins up a clean runner environment to execute prose linting (Vale), link integrity checks (Lychee), and a static site build validation.
-    3. **Human Review & Merge**
-     Once automated checks pass and reviewers approve the changes, the PR is merged into `main`.
-    4. **Global Edge Deployment**
-     The merge triggers a production build that publishes the compiled static assets globally via a high-performance content delivery network (CDN).
+1. **Authoring & Commit**  
+   The author writes content in Markdown/MDX, either locally in an IDE or through the browser-based Sveltia CMS interface, and commits to a feature branch.
+2. **Version Control & PR Creation**  
+   The branch is pushed to GitHub, automatically triggering a Pull Request against the `main` production branch.
+3. **Automated Quality Gates**  
+   GitHub Actions spins up a clean runner environment to execute prose linting (Vale), link integrity checks (Lychee), and static site build validation.
+4. **Human Review & Merge**  
+   Once automated checks pass and reviewers approve the changes, the PR is merged into `main`.
+5. **Global Edge Deployment**  
+   The merge triggers a production build that publishes compiled static assets globally via a high-performance content delivery network (CDN).
 </Steps>
 
 ***
