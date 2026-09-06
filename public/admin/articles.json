@@ -1,0 +1,205 @@
+[
+  {
+    "title": "Docs-as-Code Philosophy",
+    "route": "/philosophy/docs-as-code/",
+    "desc": "Explore the core philosophy behind treating technical documentation like software using Git, Markdown, and automated CI/CD pipelines.",
+    "category": "1. Architecture & Philosophy",
+    "file": "philosophy/docs-as-code.mdx"
+  },
+  {
+    "title": "System Flow (Local to CDN)",
+    "route": "/philosophy/system-flow/",
+    "desc": "Trace the end-to-end lifecycle of documentation changes from initial edit to global edge distribution.",
+    "category": "1. Architecture & Philosophy",
+    "file": "philosophy/system-flow.mdx"
+  },
+  {
+    "title": "Tech Stack & Git Flow",
+    "route": "/philosophy/tech-stack/",
+    "desc": "A comprehensive breakdown of the tools, frameworks, and branching strategies powering this documentation site.",
+    "category": "1. Architecture & Philosophy",
+    "file": "philosophy/tech-stack.mdx"
+  },
+  {
+    "title": "What is Docs-as-Code?",
+    "route": "/philosophy/what-is-docs-as-code/",
+    "desc": "A simple, plain-English breakdown of our documentation tech stack and how everything fits together.",
+    "category": "1. Architecture & Philosophy",
+    "file": "philosophy/what-is-docs-as-code.mdx"
+  },
+  {
+    "title": "Authoring Workflow & Best Practices",
+    "route": "/cms/authoring-workflow/",
+    "desc": "Learn best practices for drafting, reviewing, and publishing documentation using Sveltia CMS without breaking formatting standards.",
+    "category": "2. Sveltia CMS Manual",
+    "file": "cms/authoring-workflow.mdx"
+  },
+  {
+    "title": "CMS Configuration (config.yml)",
+    "route": "/cms/configuration/",
+    "desc": "Explore the underlying configuration file that maps Sveltia CMS fields directly to Astro content collections and Zod schemas.",
+    "category": "2. Sveltia CMS Manual",
+    "file": "cms/configuration.mdx"
+  },
+  {
+    "title": "CMS Setup & GitHub OAuth",
+    "route": "/cms/setup-auth/",
+    "desc": "Learn how to configure Sveltia CMS and set up GitHub OAuth authentication for secure, browser-based authoring.",
+    "category": "2. Sveltia CMS Manual",
+    "file": "cms/setup-auth.mdx"
+  },
+  {
+    "title": "Custom Editor Components (Shortcodes)",
+    "route": "/cms/custom-components/",
+    "desc": "Learn how to register custom editor components and shortcodes in Sveltia CMS.",
+    "category": "2. Sveltia CMS Manual",
+    "file": "cms/custom-components.mdx"
+  },
+  {
+    "title": "Search & Sidebar Optimization",
+    "route": "/cms/search-optimization/",
+    "desc": "Best practices for naming files, ordering the sidebar, and optimizing articles for Pagefind search.",
+    "category": "2. Sveltia CMS Manual",
+    "file": "cms/search-optimization.mdx"
+  },
+  {
+    "title": "Sveltia CMS Overview",
+    "route": "/cms/overview/",
+    "desc": "Learn how Sveltia CMS provides a Git-backed, zero-backend visual authoring interface for non-technical contributors.",
+    "category": "2. Sveltia CMS Manual",
+    "file": "cms/overview.mdx"
+  },
+  {
+    "title": "Frontmatter Schemas with Zod",
+    "route": "/automation/zod-schemas/",
+    "desc": "Enforce strict type safety and validate document metadata using Astro content collections.",
+    "category": "3. Automation & Quality Gates",
+    "file": "automation/zod-schemas.mdx"
+  },
+  {
+    "title": "Quality Automation (CI/CD)",
+    "route": "/automation/ci-cd-pipelines/",
+    "desc": "Explore how GitHub Actions, Vale, and Lychee automate prose linting, broken link detection, and preview deployments.",
+    "category": "3. Automation & Quality Gates",
+    "file": "automation/ci-cd-pipelines.mdx"
+  },
+  {
+    "title": "Badges & Status Indicators",
+    "route": "/components/badges/",
+    "desc": "Learn how to use Starlight's Badge component to highlight metadata, status levels, and feature versions.",
+    "category": "4. Component Library",
+    "file": "components/badges.mdx"
+  },
+  {
+    "title": "Callouts & Asides",
+    "route": "/components/asides/",
+    "desc": "Learn how to format notes, tips, warnings, and dangers using the Starlight Aside component.",
+    "category": "4. Component Library",
+    "file": "components/asides.mdx"
+  },
+  {
+    "title": "Cards & LinkCards",
+    "route": "/components/cards/",
+    "desc": "Learn how to group information and highlight next steps using the Starlight Card, CardGrid, and LinkCard components.",
+    "category": "4. Component Library",
+    "file": "components/cards.mdx"
+  },
+  {
+    "title": "Dynamic Architecture Diagrams",
+    "route": "/components/dynamic-architecture-diagrams/",
+    "desc": "How we use Mermaid.js and version-controlled code to render responsive system diagrams.",
+    "category": "4. Component Library",
+    "file": "components/dynamic-architecture-diagrams.mdx"
+  },
+  {
+    "title": "Expressive Code",
+    "route": "/components/expressive-code/",
+    "desc": "Learn how to enhance code blocks with file names, line highlights, and diffs using Starlight's Expressive Code integration.",
+    "category": "4. Component Library",
+    "file": "components/expressive-code.mdx"
+  },
+  {
+    "title": "FAQ Accordions",
+    "route": "/components/faq-accordion/",
+    "desc": "How to add interactive, collapsible FAQ sections to your articles.",
+    "category": "4. Component Library",
+    "file": "components/faq-accordion.mdx"
+  },
+  {
+    "title": "File Trees",
+    "route": "/components/file-trees/",
+    "desc": "Learn how to visualize directory structures and repository architectures using the Starlight FileTree component.",
+    "category": "4. Component Library",
+    "file": "components/file-trees.mdx"
+  },
+  {
+    "title": "Icon Reference & Catalog",
+    "route": "/components/icon-reference/",
+    "desc": "Complete visual catalog of all built-in Starlight icons available for your documentation.",
+    "category": "4. Component Library",
+    "file": "components/icon-reference.mdx"
+  },
+  {
+    "title": "Procedural Steps",
+    "route": "/components/steps/",
+    "desc": "Learn how to format multi-step procedures using the Starlight Steps component and Sveltia CMS.",
+    "category": "4. Component Library",
+    "file": "components/steps.mdx"
+  },
+  {
+    "title": "Tabs & Switchers",
+    "route": "/components/tabs/",
+    "desc": "Learn how to group related alternative content using the Starlight Tabs component.",
+    "category": "4. Component Library",
+    "file": "components/tabs.mdx"
+  },
+  {
+    "title": "Typography & Standard Markdown",
+    "route": "/components/typography/",
+    "desc": "Explore Starlight's native rendering for standard Markdown elements, including headings, tables, blockquotes, and lists.",
+    "category": "4. Component Library",
+    "file": "components/typography.mdx"
+  },
+  {
+    "title": "Component Standards",
+    "route": "/guides/component-usage/",
+    "desc": "Strict standards for utilizing custom UI components in our documentation.",
+    "category": "5. Style Guide & Standards",
+    "file": "guides/component-usage.mdx"
+  },
+  {
+    "title": "Grammar & Mechanics",
+    "route": "/guides/grammar-mechanics/",
+    "desc": "The definitive contract for technical writing tone, frontmatter compliance, component governance, and syntax standards.",
+    "category": "5. Style Guide & Standards",
+    "file": "guides/grammar-mechanics.mdx"
+  },
+  {
+    "title": "Voice, Tone & Accessibility",
+    "route": "/guides/voice-tone-accessibility/",
+    "desc": "Guidelines for writing clear, approachable, and accessible software documentation.",
+    "category": "5. Style Guide & Standards",
+    "file": "guides/voice-tone-accessibility.mdx"
+  },
+  {
+    "title": "Word List",
+    "route": "/guides/word-list/",
+    "desc": "Words can be slippery. Here’s how we write them. (If it’s not on this list, defer to the AP Style Guide.)",
+    "category": "5. Style Guide & Standards",
+    "file": "guides/word-list.mdx"
+  },
+  {
+    "title": "Workflow Architecture & Governance",
+    "route": "/guides/workflow-architecture-governance/",
+    "desc": "The official process for drafting, reviewing, and publishing documentation.",
+    "category": "5. Style Guide & Standards",
+    "file": "guides/workflow-architecture-governance.mdx"
+  },
+  {
+    "title": "Living Docs-as-Code Design System",
+    "route": "/",
+    "desc": "A documentation site about writing documentation. Explore modern Docs-as-Code workflows, live component specimens, and Git-backed authoring with Sveltia CMS.",
+    "category": "Home",
+    "file": "index.mdx"
+  }
+]

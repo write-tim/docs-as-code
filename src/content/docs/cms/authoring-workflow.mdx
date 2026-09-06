@@ -49,6 +49,30 @@ To prevent build failures and keep styling uniform across the entire documentati
 
 ---
 
+## Creating Internal Links
+
+Linking between guides and component documentation creates a cohesive reading experience. In Sveltia CMS, you can easily link to existing articles without having to memorize or copy-paste route paths:
+
+<Tabs>
+  <TabItem icon="external" label="Inline Links (Cmd+K / Toolbar)">
+    *Creating standard markdown links inside body prose.*
+
+    1. Highlight any word or phrase in the editor and click the **Link** icon in the toolbar (or press `Cmd+K` / `Ctrl+K`).
+    2. In the link dialog, use the **Pick from Existing Articles** section at the top.
+    3. Type in the filter box to quickly search by article title, section, or keyword.
+    4. Select the target article from the dropdown. Sveltia CMS automatically fills in the exact route URL (e.g., `/guides/voice-tone-accessibility/`) and sets the link text if none was pre-selected.
+    5. Click **Insert** or press `Enter` to place the link.
+  </TabItem>
+
+  <TabItem icon="seti:markdown" label="Visual Link Cards (Insert Menu)">
+    *Highlighting prominent next steps or related reading.*
+
+    When you want a high-visibility card pointing to another guide, click the **Insert (`+`)** dropdown in the editor toolbar and select **Starlight Link Card**. Pick the target article from the dropdown, customize the title or description if desired, and insert a styled Starlight `<LinkCard>` block with live preview in the CMS.
+  </TabItem>
+</Tabs>
+
+---
+
 ## Handling Media Assets
 
 Images and diagrams are critical for effective technical documentation. Sveltia CMS handles media uploads seamlessly through its built-in asset manager:

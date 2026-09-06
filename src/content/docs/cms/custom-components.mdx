@@ -78,3 +78,54 @@ To give editors visual control over callout boxes, you can register a custom com
 <Aside type="tip">
 Once registered, custom components appear automatically under the **Insert** dropdown menu in the Sveltia CMS rich-text editor, enabling authors to drop complex layouts into pages safely without writing raw code.
 </Aside>
+
+---
+
+## Registering a Starlight Link Card Component
+
+To allow authors to create visual navigation cards pointing to other articles in the CMS, the `linkcard` editor component provides a dropdown populated with existing articles:
+
+<Tabs>
+  <TabItem label="Component Registration" icon="seti:javascript">
+    *Registering `<LinkCard>` with an article selection dropdown.*
+
+    ```javascript
+    CMS.registerEditorComponent({
+      id: 'linkcard',
+      label: 'Starlight Link Card',
+      fields: [
+        {
+          name: 'href',
+          label: 'Target Article',
+          widget: 'select',
+          options: getArticleSelectOptions()
+        },
+        { name: 'title', label: 'Card Title (Optional)', widget: 'string', required: false },
+        { name: 'description', label: 'Card Description (Optional)', widget: 'string', required: false }
+      ],
+      pattern: /^<LinkCard\s+[^>]*?\/>/,
+      fromBlock: function (match) {
+        /* Extracts title, href, and description */
+      },
+      toBlock: function (obj) {
+        return `<LinkCard title="${obj.title}" href="${obj.href}" description="${obj.description}" />`;
+      },
+      toPreview: function (obj) {
+        /* Renders Starlight card preview in CMS editor */
+      }
+    });
+    ```
+  </TabItem>
+
+  <TabItem label="Resulting MDX Output" icon="seti:markdown">
+    *How the card saves into the document.*
+
+    ```mdx
+    <LinkCard
+      title="Voice, Tone & Accessibility"
+      href="/guides/voice-tone-accessibility/"
+      description="Guidelines for writing clear, approachable software documentation."
+    />
+    ```
+  </TabItem>
+</Tabs>

@@ -55,6 +55,7 @@ show_preview_links: true
       - filetree
       - badge
       - tabs
+      - linkcard
 
 # ---------------------------------------------------------
 # Define individual collections mapped to subfolders

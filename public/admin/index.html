@@ -67,6 +67,98 @@
         border-radius: 6px;
         white-space: pre-wrap;
       }
+
+      /* 6. Starlight Link Card Preview */
+      .starlight-preview-linkcard {
+        display: block;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 1rem 1.25rem;
+        margin: 1.2rem 0;
+        background: #f9fafb;
+        text-decoration: none;
+        color: inherit;
+        transition: border-color 0.2s, box-shadow 0.2s;
+      }
+      .starlight-preview-linkcard:hover {
+        border-color: #7c3aed;
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.08);
+      }
+      .starlight-preview-linkcard .linkcard-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #7c3aed;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.35rem;
+      }
+      .starlight-preview-linkcard .linkcard-desc {
+        font-size: 0.875rem;
+        color: #4b5563;
+        margin: 0;
+      }
+      .starlight-preview-linkcard .linkcard-url {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        margin-top: 0.35rem;
+        font-family: monospace;
+      }
+
+      /* Styles for the Link Dialog Article Picker */
+      .cms-article-picker-section {
+        margin-bottom: 1.1rem;
+        padding: 0.85rem;
+        background-color: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+      }
+      .cms-article-picker-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.45rem;
+      }
+      .cms-article-picker-title {
+        font-weight: 600;
+        font-size: 0.825rem;
+        color: #1e293b;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+      .cms-article-picker-hint {
+        font-size: 0.75rem;
+        color: #64748b;
+      }
+      .cms-article-filter-input,
+      .cms-article-select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0.45rem 0.6rem;
+        font-size: 0.85rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 6px;
+        background: #ffffff;
+        color: #0f172a;
+        font-family: inherit;
+        outline: none;
+        transition: border-color 0.15s, box-shadow 0.15s;
+      }
+      .cms-article-filter-input:focus,
+      .cms-article-select:focus {
+        border-color: #7c3aed;
+        box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
+      }
+      .cms-article-filter-wrapper {
+        margin-bottom: 0.45rem;
+      }
+      .cms-article-note {
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-top: 0.35rem;
+        line-height: 1.3;
+      }
     </style>
   </head>
   <body>
@@ -250,6 +342,366 @@
           `;
         }
       });
+
+      /**
+       * -----------------------------------------------------------------------
+       * Article Dataset & Link Management for Sveltia CMS
+       * -----------------------------------------------------------------------
+       */
+      const INITIAL_ARTICLES = [
+        { "title": "Docs-as-Code Philosophy", "route": "/philosophy/docs-as-code/", "desc": "Explore the core philosophy behind treating technical documentation like software using Git, Markdown, and automated CI/CD pipelines.", "category": "1. Architecture & Philosophy" },
+        { "title": "System Flow (Local to CDN)", "route": "/philosophy/system-flow/", "desc": "Trace the end-to-end lifecycle of documentation changes from initial edit to global edge distribution.", "category": "1. Architecture & Philosophy" },
+        { "title": "Tech Stack & Git Flow", "route": "/philosophy/tech-stack/", "desc": "A comprehensive breakdown of the tools, frameworks, and branching strategies powering this documentation site.", "category": "1. Architecture & Philosophy" },
+        { "title": "What is Docs-as-Code?", "route": "/philosophy/what-is-docs-as-code/", "desc": "A simple, plain-English breakdown of our documentation tech stack and how everything fits together.", "category": "1. Architecture & Philosophy" },
+        { "title": "Authoring Workflow & Best Practices", "route": "/cms/authoring-workflow/", "desc": "Learn best practices for drafting, reviewing, and publishing documentation using Sveltia CMS without breaking formatting standards.", "category": "2. Sveltia CMS Manual" },
+        { "title": "CMS Configuration (config.yml)", "route": "/cms/configuration/", "desc": "Explore the underlying configuration file that maps Sveltia CMS fields directly to Astro content collections and Zod schemas.", "category": "2. Sveltia CMS Manual" },
+        { "title": "CMS Setup & GitHub OAuth", "route": "/cms/setup-auth/", "desc": "Learn how to configure Sveltia CMS and set up GitHub OAuth authentication for secure, browser-based authoring.", "category": "2. Sveltia CMS Manual" },
+        { "title": "Custom Editor Components (Shortcodes)", "route": "/cms/custom-components/", "desc": "Learn how to register custom editor components and shortcodes in Sveltia CMS.", "category": "2. Sveltia CMS Manual" },
+        { "title": "Search & Sidebar Optimization", "route": "/cms/search-optimization/", "desc": "Best practices for naming files, ordering the sidebar, and optimizing articles for Pagefind search.", "category": "2. Sveltia CMS Manual" },
+        { "title": "Sveltia CMS Overview", "route": "/cms/overview/", "desc": "Learn how Sveltia CMS provides a Git-backed, zero-backend visual authoring interface for non-technical contributors.", "category": "2. Sveltia CMS Manual" },
+        { "title": "Frontmatter Schemas with Zod", "route": "/automation/zod-schemas/", "desc": "Enforce strict type safety and validate document metadata using Astro content collections.", "category": "3. Automation & Quality Gates" },
+        { "title": "Quality Automation (CI/CD)", "route": "/automation/ci-cd-pipelines/", "desc": "Explore how GitHub Actions, Vale, and Lychee automate prose linting, broken link detection, and preview deployments.", "category": "3. Automation & Quality Gates" },
+        { "title": "Badges & Status Indicators", "route": "/components/badges/", "desc": "Learn how to use Starlight's Badge component to highlight metadata, status levels, and feature versions.", "category": "4. Component Library" },
+        { "title": "Callouts & Asides", "route": "/components/asides/", "desc": "Learn how to format notes, tips, warnings, and dangers using the Starlight Aside component.", "category": "4. Component Library" },
+        { "title": "Cards & LinkCards", "route": "/components/cards/", "desc": "Learn how to group information and highlight next steps using the Starlight Card, CardGrid, and LinkCard components.", "category": "4. Component Library" },
+        { "title": "Dynamic Architecture Diagrams", "route": "/components/dynamic-architecture-diagrams/", "desc": "How we use Mermaid.js and version-controlled code to render responsive system diagrams.", "category": "4. Component Library" },
+        { "title": "Expressive Code", "route": "/components/expressive-code/", "desc": "Learn how to enhance code blocks with file names, line highlights, and diffs using Starlight's Expressive Code integration.", "category": "4. Component Library" },
+        { "title": "FAQ Accordions", "route": "/components/faq-accordion/", "desc": "How to add interactive, collapsible FAQ sections to your articles.", "category": "4. Component Library" },
+        { "title": "File Trees", "route": "/components/file-trees/", "desc": "Learn how to visualize directory structures and repository architectures using the Starlight FileTree component.", "category": "4. Component Library" },
+        { "title": "Icon Reference & Catalog", "route": "/components/icon-reference/", "desc": "Complete visual catalog of all built-in Starlight icons available for your documentation.", "category": "4. Component Library" },
+        { "title": "Procedural Steps", "route": "/components/steps/", "desc": "Learn how to format multi-step procedures using the Starlight Steps component and Sveltia CMS.", "category": "4. Component Library" },
+        { "title": "Tabs & Switchers", "route": "/components/tabs/", "desc": "Learn how to group related alternative content using the Starlight Tabs component.", "category": "4. Component Library" },
+        { "title": "Typography & Standard Markdown", "route": "/components/typography/", "desc": "Explore Starlight's native rendering for standard Markdown elements, including headings, tables, blockquotes, and lists.", "category": "4. Component Library" },
+        { "title": "Component Standards", "route": "/guides/component-usage/", "desc": "Strict standards for utilizing custom UI components in our documentation.", "category": "5. Style Guide & Standards" },
+        { "title": "Grammar & Mechanics", "route": "/guides/grammar-mechanics/", "desc": "The definitive contract for technical writing tone, frontmatter compliance, component governance, and syntax standards.", "category": "5. Style Guide & Standards" },
+        { "title": "Voice, Tone & Accessibility", "route": "/guides/voice-tone-accessibility/", "desc": "Guidelines for writing clear, approachable, and accessible software documentation.", "category": "5. Style Guide & Standards" },
+        { "title": "Word List", "route": "/guides/word-list/", "desc": "Words can be slippery. Here’s how we write them. (If it’s not on this list, defer to the AP Style Guide.)", "category": "5. Style Guide & Standards" },
+        { "title": "Workflow Architecture & Governance", "route": "/guides/workflow-architecture-governance/", "desc": "The official process for drafting, reviewing, and publishing documentation.", "category": "5. Style Guide & Standards" },
+        { "title": "Living Docs-as-Code Design System", "route": "/", "desc": "A documentation site about writing documentation. Explore modern Docs-as-Code workflows, live component specimens, and Git-backed authoring with Sveltia CMS.", "category": "Home" }
+      ];
+
+      let articlesList = [...INITIAL_ARTICLES];
+
+      function getArticleSelectOptions() {
+        return articlesList.map(function (a) {
+          const catLabel = a.category && a.category !== 'Home' ? ' (' + a.category.replace(/^[0-9.]+\s*/, '') + ')' : '';
+          return {
+            label: a.title + catLabel,
+            value: a.route
+          };
+        });
+      }
+
+      function getArticleByRoute(route) {
+        if (!route) return null;
+        const norm = route.endsWith('/') ? route : route + '/';
+        for (let i = 0; i < articlesList.length; i++) {
+          const r = articlesList[i].route;
+          const rNorm = r.endsWith('/') ? r : r + '/';
+          if (rNorm === norm || r === route) {
+            return articlesList[i];
+          }
+        }
+        return null;
+      }
+
+      function escapeAttr(str) {
+        return (str || '').replace(/"/g, '&quot;');
+      }
+
+      /**
+       * 6. Starlight Link Card (<LinkCard title="..." href="..." description="..." />)
+       */
+      CMS.registerEditorComponent({
+        id: 'linkcard',
+        label: 'Starlight Link Card',
+        fields: [
+          {
+            name: 'href',
+            label: 'Target Article',
+            widget: 'select',
+            options: getArticleSelectOptions()
+          },
+          { name: 'title', label: 'Card Title (Optional - defaults to article title)', widget: 'string', required: false },
+          { name: 'description', label: 'Card Description (Optional - defaults to article description)', widget: 'string', required: false }
+        ],
+        pattern: /^<LinkCard\s+[^>]*?\/>/,
+        fromBlock: function (match) {
+          const str = match[0] || '';
+          const titleMatch = str.match(/\btitle="([^"]*)"/);
+          const hrefMatch = str.match(/\bhref="([^"]*)"/);
+          const descMatch = str.match(/\bdescription="([^"]*)"/);
+          return {
+            title: titleMatch ? titleMatch[1] : '',
+            href: hrefMatch ? hrefMatch[1] : '',
+            description: descMatch ? descMatch[1] : ''
+          };
+        },
+        toBlock: function (obj) {
+          const art = getArticleByRoute(obj.href);
+          const title = obj.title || (art ? art.title : 'Article Link');
+          const desc = obj.description || (art ? art.desc : '');
+          const descAttr = desc ? ` description="${escapeAttr(desc)}"` : '';
+          return `<LinkCard title="${escapeAttr(title)}" href="${obj.href || '/'}"${descAttr} />`;
+        },
+        toPreview: function (obj) {
+          const art = getArticleByRoute(obj.href);
+          const title = obj.title || (art ? art.title : 'Article Link');
+          const desc = obj.description || (art ? art.desc : '');
+          const descHtml = desc ? `<p class="linkcard-desc">${desc}</p>` : '';
+          return `
+            <div class="starlight-preview-linkcard">
+              <div class="linkcard-title">
+                <span>${title}</span>
+                <span class="linkcard-arrow">&rarr;</span>
+              </div>
+              ${descHtml}
+              <div class="linkcard-url">${obj.href || '/'}</div>
+            </div>
+          `;
+        }
+      });
+
+      /**
+       * -----------------------------------------------------------------------
+       * Native Sveltia CMS Link Dialog Enhancer
+       * Injects a searchable article picker into Sveltia CMS's native Link dialog.
+       * -----------------------------------------------------------------------
+       */
+      function setInputValue(input, val) {
+        if (!input) return;
+        const descriptor = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value');
+        if (descriptor && descriptor.set) {
+          descriptor.set.call(input, val);
+        } else {
+          input.value = val;
+        }
+        input.dispatchEvent(new Event('input', { bubbles: true, cancelable: true }));
+        input.dispatchEvent(new Event('change', { bubbles: true, cancelable: true }));
+      }
+
+      function enhanceLinkDialog(dialog) {
+        if (!dialog || dialog.querySelector('.cms-article-picker-section')) {
+          return;
+        }
+
+        const urlInput = dialog.querySelector('input[id$="-url"], input[aria-label="URL"]');
+        if (!urlInput) {
+          return;
+        }
+
+        const urlRow = urlInput.closest('[role="none"]') || urlInput.parentElement;
+        if (!urlRow) {
+          return;
+        }
+
+        const picker = document.createElement('div');
+        picker.className = 'cms-article-picker-section';
+        picker.innerHTML = `
+          <div class="cms-article-picker-header">
+            <label class="cms-article-picker-title">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #7c3aed;">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+              Pick from Existing Articles
+            </label>
+            <span class="cms-article-picker-hint">(Auto-fills URL &amp; title)</span>
+          </div>
+          <div class="cms-article-filter-wrapper">
+            <input type="search" class="cms-article-filter-input" placeholder="Search articles by title or section..." />
+          </div>
+          <div>
+            <select class="cms-article-select">
+              <option value="">-- Choose an existing article (or enter URL below) --</option>
+            </select>
+          </div>
+          <div class="cms-article-note">Selecting an article populates the destination URL and link text.</div>
+        `;
+
+        const select = picker.querySelector('.cms-article-select');
+        const filterInput = picker.querySelector('.cms-article-filter-input');
+
+        function renderSelectOptions(filterText) {
+          const query = (filterText || '').toLowerCase().trim();
+          select.innerHTML = '<option value="">-- Choose an existing article (or enter URL below) --</option>';
+
+          const categories = {};
+          articlesList.forEach(function (art) {
+            const cat = art.category || 'Other';
+            if (!categories[cat]) categories[cat] = [];
+            categories[cat].push(art);
+          });
+
+          Object.keys(categories).forEach(function (cat) {
+            const matching = categories[cat].filter(function (art) {
+              if (!query) return true;
+              return (
+                art.title.toLowerCase().includes(query) ||
+                (art.desc && art.desc.toLowerCase().includes(query)) ||
+                cat.toLowerCase().includes(query) ||
+                art.route.toLowerCase().includes(query)
+              );
+            });
+
+            if (matching.length > 0) {
+              const optgroup = document.createElement('optgroup');
+              optgroup.label = cat;
+              matching.forEach(function (art) {
+                const opt = document.createElement('option');
+                opt.value = art.route;
+                opt.textContent = art.title;
+                opt.dataset.title = art.title;
+                opt.dataset.desc = art.desc || '';
+                if (urlInput.value && (urlInput.value === art.route || urlInput.value === art.route.replace(/\/$/, ''))) {
+                  opt.selected = true;
+                }
+                optgroup.appendChild(opt);
+              });
+              select.appendChild(optgroup);
+            }
+          });
+        }
+
+        renderSelectOptions('');
+
+        filterInput.addEventListener('input', function () {
+          renderSelectOptions(filterInput.value);
+        });
+
+        select.addEventListener('change', function () {
+          const selectedRoute = select.value;
+          if (!selectedRoute) return;
+
+          setInputValue(urlInput, selectedRoute);
+
+          const textInput = dialog.querySelector('input[id$="-text"], input[aria-label="Text"]');
+          const selectedOpt = select.options[select.selectedIndex];
+          const title = selectedOpt ? selectedOpt.dataset.title : '';
+
+          if (textInput && title) {
+            if (!textInput.value || textInput.value === urlInput.defaultValue || textInput.value === selectedRoute) {
+              setInputValue(textInput, title);
+            }
+          }
+        });
+
+        // Insert picker right before the URL input field
+        urlRow.parentNode.insertBefore(picker, urlRow);
+      }
+
+      function initLinkDialogObserver() {
+        const observer = new MutationObserver(function (mutations) {
+          for (let i = 0; i < mutations.length; i++) {
+            const m = mutations[i];
+            if (m.type === 'childList') {
+              for (let j = 0; j < m.addedNodes.length; j++) {
+                const node = m.addedNodes[j];
+                if (node.nodeType === Node.ELEMENT_NODE) {
+                  if (node.matches && (node.matches('dialog') || node.matches('.sui.dialog'))) {
+                    enhanceLinkDialog(node);
+                  }
+                  const dialogs = node.querySelectorAll ? node.querySelectorAll('dialog, .sui.dialog') : [];
+                  for (let k = 0; k < dialogs.length; k++) {
+                    enhanceLinkDialog(dialogs[k]);
+                  }
+                }
+              }
+            } else if (m.type === 'attributes' && m.attributeName === 'open') {
+              if (m.target && m.target.open) {
+                enhanceLinkDialog(m.target);
+              }
+            }
+          }
+        });
+
+        observer.observe(document.body, {
+          childList: true,
+          subtree: true,
+          attributes: true,
+          attributeFilter: ['open']
+        });
+
+        const existingDialogs = document.querySelectorAll('dialog, .sui.dialog');
+        for (let d = 0; d < existingDialogs.length; d++) {
+          enhanceLinkDialog(existingDialogs[d]);
+        }
+      }
+
+      async function syncArticles() {
+        try {
+          const res = await fetch('/admin/articles.json');
+          if (res.ok) {
+            const data = await res.json();
+            if (Array.isArray(data) && data.length > 0) {
+              articlesList = data;
+            }
+          }
+        } catch (e) {
+          // Fallback to INITIAL_ARTICLES
+        }
+
+        // Check IndexedDB for newly added or drafted files in this session
+        try {
+          if (window.indexedDB && window.indexedDB.databases) {
+            const dbs = await window.indexedDB.databases();
+            for (let i = 0; i < dbs.length; i++) {
+              const dbName = dbs[i].name;
+              if (dbName && (dbName.includes('docs-as-code') || dbName.startsWith('github:'))) {
+                const req = window.indexedDB.open(dbName);
+                req.onsuccess = function (ev) {
+                  const db = ev.target.result;
+                  if (db.objectStoreNames.contains('file-cache')) {
+                    const tx = db.transaction('file-cache', 'readonly');
+                    const store = tx.objectStore('file-cache');
+                    const getAllReq = store.getAll();
+                    getAllReq.onsuccess = function () {
+                      const items = getAllReq.result || [];
+                      items.forEach(function (item) {
+                        if (item && item.path && item.path.startsWith('src/content/docs/') && (item.path.endsWith('.mdx') || item.path.endsWith('.md'))) {
+                          const text = item.text || (item.data && item.data.text) || '';
+                          const titleM = text.match(/^title:\s*["'`]?(.*?)["'`]?$/m);
+                          const title = titleM ? titleM[1].trim() : '';
+                          if (title) {
+                            const rel = item.path.replace(/^src\/content\/docs\//, '');
+                            let route = '/' + rel.replace(/(index)?\.(mdx|md)$/, '');
+                            if (!route.endsWith('/') && route !== '/') route += '/';
+                            if (route === '//') route = '/';
+
+                            const exists = articlesList.some(function (a) { return a.route === route; });
+                            if (!exists) {
+                              articlesList.push({
+                                title: title,
+                                route: route,
+                                desc: '',
+                                category: 'Recent Drafts',
+                                file: rel
+                              });
+                            }
+                          }
+                        }
+                      });
+                    };
+                  }
+                };
+              }
+            }
+          }
+        } catch (err) {
+          // Graceful fallback
+        }
+      }
+
+      // Initialize
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function () {
+          initLinkDialogObserver();
+          syncArticles();
+        });
+      } else {
+        initLinkDialogObserver();
+        syncArticles();
+      }
     </script>
   </body>
 </html>
