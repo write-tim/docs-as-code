@@ -27,5 +27,6 @@ export default new Map([
 ["src/content/docs/index.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Findex.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/philosophy/docs-as-code.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fphilosophy%2Fdocs-as-code.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/philosophy/system-flow.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fphilosophy%2Fsystem-flow.mdx&astroContentModuleFlag=true")],
-["src/content/docs/philosophy/tech-stack.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fphilosophy%2Ftech-stack.mdx&astroContentModuleFlag=true")]]);
+["src/content/docs/philosophy/tech-stack.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fphilosophy%2Ftech-stack.mdx&astroContentModuleFlag=true")],
+["src/content/docs/philosophy/what-is-docs-as-code.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fphilosophy%2Fwhat-is-docs-as-code.mdx&astroContentModuleFlag=true")]]);
 		
