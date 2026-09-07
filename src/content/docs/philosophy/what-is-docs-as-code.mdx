@@ -22,7 +22,7 @@ A **Docs-as-Code** system combines static site generation, version control, and 
 ## High-Level Execution Flow
 
 ```mermaid
-graph LR
+graph TD
     A[Author / Sveltia CMS] -->|Direct Git Commit| B[GitHub Repository];
     B -->|Webhook Trigger| C[Render CI/CD Pipeline];
     C -->|Zod Validation & Build| D[Live Static Site];
