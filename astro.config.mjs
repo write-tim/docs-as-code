@@ -132,6 +132,53 @@ export default defineConfig({
             gtag('config', 'G-6JPFC14SP9');
           `,
         },
+        // 3. Automated Link Targets (New Window Support)
+        {
+          tag: 'script',
+          content: `
+            (function() {
+              function processLinks() {
+                document.querySelectorAll('a[href]').forEach(function(a) {
+                  var href = a.getAttribute('href') || '';
+                  var hasBlank = href.endsWith('#_blank') || href.includes('#_blank?') || href.includes('#_blank#');
+                  var isExt = /^(https?:)?\\/\\//i.test(href) && !href.includes(window.location.host);
+                  var isSelf = href.endsWith('#_self') || href.includes('target=_self');
+                  if ((hasBlank || isExt) && !isSelf) {
+                    a.setAttribute('target', '_blank');
+                    a.setAttribute('rel', 'noopener noreferrer');
+                    if (hasBlank) {
+                      a.setAttribute('href', href.replace(/#_blank$/, '').replace(/#_blank\\?/, '?').replace(/#_blank#/, '#'));
+                    }
+                  } else if (isSelf) {
+                    a.setAttribute('target', '_self');
+                    a.setAttribute('href', href.replace(/#_self$/, ''));
+                  }
+                });
+              }
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', processLinks);
+              } else {
+                processLinks();
+              }
+              document.addEventListener('astro:page-load', processLinks);
+              document.addEventListener('click', function(e) {
+                var a = e.target.closest('a[href]');
+                if (!a) return;
+                var href = a.getAttribute('href') || '';
+                var hasBlank = href.endsWith('#_blank') || href.includes('#_blank?') || href.includes('#_blank#');
+                var isExt = /^(https?:)?\\/\\//i.test(href) && !href.includes(window.location.host);
+                var isSelf = href.endsWith('#_self') || href.includes('target=_self');
+                if ((hasBlank || isExt) && !isSelf) {
+                  a.setAttribute('target', '_blank');
+                  a.setAttribute('rel', 'noopener noreferrer');
+                  if (hasBlank) {
+                    a.setAttribute('href', href.replace(/#_blank$/, '').replace(/#_blank\\?/, '?').replace(/#_blank#/, '#'));
+                  }
+                }
+              }, true);
+            })();
+          `,
+        },
       ],
       logo: {
         src: './src/assets/tjw_logo.png',
