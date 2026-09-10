@@ -131,3 +131,15 @@ collections:
     summary: "{{title}} ({{sidebar.order | default: '-'}})"
     sortable_fields: ["sidebar.order", "title", "commit_date"]
     fields: *DOCS_FIELDS
+
+  - name: "docs_writers"
+    label: "Docs - Writer's Guide"
+    label_singular: "Writer Guide Article"
+    folder: "src/content/docs/writers"
+    extension: "mdx"
+    format: "frontmatter"
+    create: true
+    delete: true
+    summary: "{{title}} ({{sidebar.order | default: '-'}})"
+    sortable_fields: ["sidebar.order", "title", "commit_date"]
+    fields: *DOCS_FIELDS

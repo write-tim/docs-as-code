@@ -1,0 +1,100 @@
+---
+title: The Publishing Lifecycle & Editorial Safety
+description: Understand automated validation guardrails, Git-backed version history, and the safe publishing lifecycle in Docs-as-Code.
+sidebar:
+  order: 7
+---
+
+import { Aside, Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+One of the greatest anxieties for content creators transitioning to modern developer-centric documentation platforms is the fear of breaking the website. 
+
+In our **Docs-as-Code** architecture, the opposite is true: **You have multiple safety nets protecting you at every stage of the writing process.** You can draft, revise, experiment, and test ideas with complete confidence that nothing broken can ever reach our readers.
+
+---
+
+## The Three Editorial Safety Nets
+
+Our system provides three progressive layers of protection to catch mistakes long before they could ever impact the live site:
+
+```
+[ Layer 1: Form Validation ] -> [ Layer 2: Zod Schema Guardrails ] -> [ Layer 3: CI/CD Quality Gates ]
+```
+
+<CardGrid>
+  <Card title="Layer 1: CMS Form Validation" icon="laptop">
+    Sveltia CMS prevents you from submitting incomplete forms. If a required field like **Title** is missing, the editor blocks saving and highlights the error in red.
+  </Card>
+  <Card title="Layer 2: Zod Content Schemas" icon="approve-check">
+    Astro enforces strict type checking on all metadata. If a frontmatter attribute has an invalid type, our schema engine catches it before compilation begins.
+  </Card>
+  <Card title="Layer 3: Automated CI Quality Gates" icon="rocket">
+    Every proposed change runs through automated GitHub Actions checks: Vale scans prose for grammar and tone, Lychee verifies all hyperlinks, and Astro tests the build.
+  </Card>
+  <Card title="Layer 4: Staging PR Previews" icon="external">
+    Before any change goes live, a temporary preview website is built. You can test your article in real browser conditions before merging.
+  </Card>
+</CardGrid>
+
+---
+
+## Validation Guardrails: What Happens if You Make a Mistake?
+
+Let's look at what happens in common mistake scenarios:
+
+<Tabs>
+  <TabItem label="Forgot a Required Title?" icon="close">
+    * **What happens:** The Sveltia CMS **Publish** button will be disabled or display an error message stating *"Title is required"*.
+    * **Site Impact:** Zero. The document cannot be saved in an invalid state.
+  </TabItem>
+
+  <TabItem label="Inserted a Broken Hyperlink?" icon="warning">
+    * **What happens:** When your change is submitted, our **Lychee link checker** workflow scans all hyperlinks in the document. If an external URL returns a 404 or an internal link path is misspelled, the CI check flags the exact line in your Pull Request.
+    * **Site Impact:** The Pull Request remains unmerged until the link is corrected, keeping production clean.
+  </TabItem>
+
+  <TabItem label="Off-Brand Grammar or Mechanics?" icon="pen">
+    * **What happens:** Our **Vale prose linter** reviews your text against our official style guide rules (e.g., flagging passive voice, unapproved jargon, or accessibility issues). It leaves inline comments directly on the changed lines.
+    * **Site Impact:** Provides actionable feedback for revisions without blocking safe drafting.
+  </TabItem>
+</Tabs>
+
+---
+
+## Complete Version History: You Can Never Lose Work
+
+In traditional content management systems, an accidental overwrite or browser crash can permanently destroy hours of drafting. 
+
+In Sveltia CMS, **every single save is backed by Git**:
+* **Every Save is a Commit:** Whenever you hit Save, Sveltia creates a version-controlled snapshot containing the exact timestamp, author, and changes made.
+* **Full Revision History:** You can view previous versions of any document, inspect diffs showing what was added or deleted, and restore an earlier revision at any point.
+* **Safe Experimentation:** Want to test a major rewrite or reorganize an entire guide? You can draft fearlessly. If you decide you don't like the changes, you can simply revert back to the previous commit.
+
+---
+
+## The End-to-End Publishing Routine
+
+When you are ready to share your writing with the team, follow this simple routine:
+
+<Steps>
+1. **Draft and Polish:**  
+   Compose your guide in Sveltia CMS using the visual formatting tools, custom shortcodes, and link picker.
+2. **Click Save / Publish:**  
+   Click the **Publish** button in the top right of the Sveltia editor.
+3. **Automated Branch & Pull Request:**  
+   Behind the scenes, Sveltia automatically creates a dedicated Git branch (e.g., `cms/writers/new-guide`) and opens a Pull Request on GitHub.
+4. **Automated Quality Checks Run:**  
+   GitHub Actions triggers our automated testing pipeline:
+   * **Astro Build:** Confirms all MDX components and schemas compile cleanly.
+   * **Lychee Link Checker:** Confirms all internal and external links are valid.
+   * **Vale Prose Linter:** Audits writing against our editorial voice and style guide.
+5. **Inspect the PR Preview:**  
+   GitHub Actions automatically posts a comment on your Pull Request with a unique preview link (e.g., `https://docs.timothyjohnsonwrites.com/pr-preview/pr-42/`). Open the link to review your rendered article in production conditions.
+6. **Merge to Production:**  
+   Once your checks pass and any peer reviews are complete, clicking **Merge** automatically triggers GitHub Pages deployment, pushing your article live to all readers worldwide in under 60 seconds!
+</Steps>
+
+<Aside type="tip" title="Congratulations!">
+You are now fully equipped to write, format, enhance, and publish world-class documentation using Sveltia CMS. For styling and tone standards, refer to our [Style Guide & Standards](/guides/workflow-architecture-governance/).
+</Aside>
+

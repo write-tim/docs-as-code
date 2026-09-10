@@ -1,0 +1,108 @@
+---
+title: The Custom Link Modal & Routing
+description: Master internal document linking and external reference routing using Sveltia's enhanced article picker dialog.
+sidebar:
+  order: 6
+---
+
+import { Aside, Card, CardGrid, Steps, Tabs, TabItem, LinkCard } from '@astrojs/starlight/components';
+
+Creating an interconnected, intuitive documentation site requires thoughtful internal linking. However, memorizing exact URL paths, handling relative directory traversal, and managing tab target behaviors can be tedious.
+
+Our Sveltia CMS features a **Custom Link Dialog** that turns linking into an effortless, searchable experience.
+
+---
+
+## Accessing the Link Modal
+
+You can trigger the link dialog in two ways:
+* **Keyboard Shortcut:** Highlight any word or phrase and press `Cmd+K` (macOS) or `Ctrl+K` (Windows/Linux).
+* **Toolbar Button:** Highlight text and click the **Link** icon in the editor toolbar.
+
+---
+
+## Anatomy of the Custom Link Dialog
+
+When the dialog opens, it features an enhanced **Pick from Existing Articles** section placed directly above the standard URL input:
+
+<Steps>
+1. **Search & Filter Input:**  
+   Type any keyword, section name, or article title into the search box. The dropdown list filters in real time.
+2. **Categorized Article Dropdown:**  
+   Articles are grouped cleanly by section (Architecture & Philosophy, CMS Manual, Quality Gates, Component Library, Style Guides, and Writer's Guides).
+3. **Automatic Auto-Fill:**  
+   When you select an article from the dropdown, Sveltia automatically populates the exact destination route (e.g., `/guides/word-list/`) and fills in the **Text** field if no text was pre-highlighted.
+4. **Open in New Window Checkbox:**  
+   A dedicated toggle placed cleanly beneath the text input lets you specify whether the link should open in a new browser tab.
+</Steps>
+
+---
+
+## Internal Document Routing vs. External Linking
+
+Understanding the difference between internal and external links helps preserve a smooth user experience:
+
+<Tabs>
+  <TabItem label="Internal Site Routing" icon="laptop">
+    *Links pointing to other pages within our masterclass.*
+
+    * **Format:** Clean relative paths starting and ending with a forward slash (e.g., `/philosophy/tech-stack/`).
+    * **Do NOT Include the Domain:** Never write `https://docs.timothyjohnsonwrites.com/philosophy/tech-stack/`. If the site domain changes or you are testing in a PR preview, hardcoded domains will break navigation!
+    * **Window Behavior:** Internal links should open in the **same tab** (keep "Open link in a new window" unchecked) so the reader can use standard browser forward/back buttons.
+  </TabItem>
+
+  <TabItem label="External Reference Linking" icon="external">
+    *Links pointing to third-party documentation, GitHub repos, or external tools.*
+
+    * **Format:** Full URL including protocol (e.g., `https://docs.astro.build/`).
+    * **Window Behavior:** External links should open in a **new tab** (the modal pre-checks "Open link in a new window" automatically when an external URL is detected).
+    * **Security Built In:** Astro automatically appends `rel="noopener noreferrer"` to external links to prevent reverse tabnabbing security exploits.
+  </TabItem>
+</Tabs>
+
+---
+
+## The "Open in New Window" Superpower
+
+In standard Markdown, there is no native syntax for specifying `target="_blank"`. Historically, writers had to insert raw HTML (`<a href="..." target="_blank">`) to open a tab.
+
+Our system solves this elegantly:
+* When you check **Open link in a new window**, the CMS appends an internal marker hash (`#_blank`).
+* When your page renders on the live site, our client-side runtime script automatically strips the hash, adds `target="_blank"`, and secures the link with `rel="noopener noreferrer"`.
+* If you ever uncheck the box for an external link that you want to open in the current tab, the system adds `#_self`, and the script ensures it stays in the active window.
+
+<Aside type="tip" title="Zero Manual Code Required">
+You never have to type `#_blank` or edit HTML tags manually. The checkbox in the link dialog manages everything automatically behind the scenes.
+</Aside>
+
+---
+
+## Inline Links vs. Starlight Link Cards
+
+When should you use an inline hyperlink versus a visual `<LinkCard>` block?
+
+<CardGrid>
+  <Card title="Inline Text Links" icon="external">
+    **Best for:** Passing references, citations, or glossary terms woven directly into the narrative of a paragraph.  
+    *Example:* "For more details, review our [Grammar & Mechanics](/guides/grammar-mechanics/) standards."
+  </Card>
+  <Card title="Starlight Link Cards" icon="laptop">
+    **Best for:** Prominent "Next Steps", recommended reading, or high-visibility calls to action at the end of a guide.  
+    *Example:* Drop a `<LinkCard>` to highlight the next logical guide in the learning path.
+  </Card>
+</CardGrid>
+
+---
+
+## Step-by-Step: Creating an Internal Article Link
+
+<Steps>
+1. Highlight the phrase you want to hyperlink (e.g., "Quality Automation").
+2. Press `Cmd+K` or click the **Link** icon.
+3. In the **Search articles...** box, type `automation`.
+4. Select `Quality Automation (CI/CD)` from the dropdown.
+5. Notice that the URL `/automation/ci-cd-pipelines/` is automatically populated.
+6. Leave "Open link in a new window" unchecked (since this is internal).
+7. Press **Enter** or click **Save**.
+</Steps>
+

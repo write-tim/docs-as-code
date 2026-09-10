@@ -1,0 +1,73 @@
+---
+title: Welcome to Sveltia CMS
+description: Learn how to access, log in, and navigate Sveltia CMS as a technical writer, including toggling between visual and Markdown modes.
+sidebar:
+  order: 1
+---
+
+import { Aside, Card, CardGrid, Steps } from '@astrojs/starlight/components';
+
+Welcome to the **Docs-as-Code** content platform! As a technical writer or subject matter expert, your focus should be on crafting clear, high-impact prose—not wrestling with terminal commands, git conflicts, or local development environments.
+
+**Sveltia CMS** is your visual command center. It gives you a clean, web-based editor that runs directly inside your browser while saving every keystroke cleanly to our underlying Git repository.
+
+---
+
+## Accessing and Logging In
+
+Because Sveltia CMS is a lightweight, serverless single-page app, there is no software or local application to install on your computer.
+
+<Steps>
+1. **Navigate to the Admin Portal:**  
+   Open your browser and visit [`/admin/`](/admin/) on your deployed documentation site (or local development server).
+2. **Authenticate with GitHub:**  
+   Click the **Login with GitHub** button. A secure authentication popup will appear asking you to authorize access through our OAuth gatekeeper.
+3. **Dashboard Access:**  
+   Once verified, Sveltia redirects you immediately to your content dashboard.
+</Steps>
+
+<Aside type="tip" title="Single Sign-On Security">
+Your access permissions mirror your GitHub team permissions. If you have write or collaborator access to the repository, you can draft, edit, and publish content seamlessly.
+</Aside>
+
+---
+
+## Navigating the Writer's Dashboard
+
+When you log in, the dashboard presents a high-level view of our entire knowledge base divided into structured **Collections**:
+
+<CardGrid>
+  <Card title="Collections Sidebar" icon="list-format">
+    Located on the left pane, collections map directly to our documentation categories (Architecture, CMS, Components, Guides, and Writer Guides). Click any collection to view its articles.
+  </Card>
+  <Card title="Search & Filter Bar" icon="magnifier">
+    Quickly locate existing guides by typing keywords or article titles into the top search bar. You can also sort documents by title, sort order, or last commit date.
+  </Card>
+  <Card title="Create New Article" icon="plus-circle">
+    Click the blue **New Article** button in the top right to start a fresh guide with all necessary frontmatter boilerplate pre-loaded.
+  </Card>
+  <Card title="Live Article Status" icon="document">
+    Article cards display their current title, sidebar sort number, and last modified date so you know exactly what is live in production.
+  </Card>
+</CardGrid>
+
+---
+
+## Visual WYSIWYG vs. Raw Markdown View
+
+Sveltia CMS provides two complementary editor modes. You can toggle between them at any time using the view switcher in the editor toolbar:
+
+### 1. Rich Text Mode (Visual WYSIWYG)
+* **Best for:** Everyday drafting, reading flow, quick prose revisions, and inserting visual components.
+* **Experience:** Similar to modern document editors like Notion or Google Docs. Text is formatted live with headings, styled blockquotes, interactive tables, and visual component cards.
+* **Toolbar:** Provides instant buttons for bold, italics, bulleted lists, numbered steps, links, images, and custom Starlight components.
+
+### 2. Raw Markdown / Code Mode
+* **Best for:** Fine-grained formatting adjustments, pasting pre-written Markdown snippets, or inspecting MDX props.
+* **Experience:** Direct access to standard Markdown syntax and `<Component />` tags.
+* **No Syntax Loss:** Switching back and forth between Rich Text and Markdown modes will never corrupt your custom shortcodes or frontmatter metadata.
+
+<Aside type="note" title="Live Preview Pane">
+On desktop screens, Sveltia displays a real-time preview pane on the right side of the editor. As you type, the preview renders your content using Starlight-compatible styling, including callout boxes, custom badges, and numbered steps.
+</Aside>
+

@@ -1,0 +1,103 @@
+---
+title: Managing Media & Assets
+description: Walk through the Sveltia media library, image upload workflow, accessibility alt text, and automated asset optimization.
+sidebar:
+  order: 5
+---
+
+import { Aside, Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Visuals, screenshots, and architecture diagrams play an essential role in helping readers comprehend technical documentation quickly. Sveltia CMS includes a built-in **Media Library** that streamlines uploading and managing graphical assets while maintaining our repository standards.
+
+---
+
+## The Sveltia Media Library
+
+You can access the asset manager at any time from the left navigation bar by clicking **Media**, or directly within any document editor by clicking the **Insert Image** toolbar icon.
+
+<CardGrid>
+  <Card title="Upload Assets" icon="laptop">
+    Drag and drop image files from your computer directly into the media window, or click **Upload** to browse your local filesystem.
+  </Card>
+  <Card title="Visual File Browser" icon="seti:image">
+    Browse existing screenshots and diagrams already committed to the project. Search and filter by filename to avoid uploading duplicates.
+  </Card>
+  <Card title="Direct Insertion" icon="plus-circle">
+    Click on any uploaded asset to insert it directly into your current document at your cursor location.
+  </Card>
+  <Card title="Safe Deletions" icon="warning">
+    You can remove unused images from the media library. Sveltia commits the deletion directly to Git.
+  </Card>
+</CardGrid>
+
+---
+
+## How Sveltia Handles Images Behind the Scenes
+
+In many static site setups, uploading an image places raw, uncompressed files directly into a public folder, leading to sluggish page loads. 
+
+In our Docs-as-Code Blueprint:
+1. **Target Directory:** Sveltia automatically places uploaded assets into `src/assets/images/`.
+2. **Astro Optimization Pipeline:** During the site build, Astro scans all referenced images, converts them into modern, lightweight **WebP** format, generates responsive display sizes for mobile and retina displays, and caches them globally.
+3. **Zero Configuration for Writers:** You simply upload your screenshot, and the build pipeline handles all compression and performance engineering automatically.
+
+---
+
+## Essential: Writing Accessibility Alt Text
+
+Every image inserted into our documentation must include meaningful **Alternative Text (`alt`)**. Alt text serves three vital functions:
+* **Screen Reader Accessibility:** Enables visually impaired colleagues and readers using assistive technology to understand the graphic.
+* **Network Fallbacks:** Displays if a reader experiences a slow or interrupted network connection.
+* **Search Discoverability:** Allows search engines and internal search to index diagram context.
+
+<Tabs>
+  <TabItem label="Good Alt Text Examples" icon="approve-check">
+    * `alt="Sveltia CMS editor displaying the + Insert menu with Aside and Tabs options highlighted"`
+    * `alt="Architecture diagram showing Git commit triggering GitHub Actions CI pipeline"`
+    * `alt="GitHub OAuth login prompt requesting write access to docs-as-code repository"`
+  </TabItem>
+
+  <TabItem label="Poor Alt Text Examples" icon="close">
+    * `alt="screenshot"` *(Vague, provides zero context)*
+    * `alt="image1.png"` *(File names are not accessible descriptions)*
+    * `alt="click here to see diagram"` *(Action phrases do not describe image content)*
+    * `alt=""` *(Missing alt text causes screen readers to read the full file path aloud)*
+  </TabItem>
+</Tabs>
+
+---
+
+## Step-by-Step: Inserting an Image in Sveltia
+
+<Steps>
+1. **Place Your Cursor:**  
+   Click inside the editor where you want the graphic to appear.
+2. **Click Insert Image:**  
+   Select the **Image** icon in the rich text toolbar.
+3. **Choose or Upload:**  
+   Select an existing asset from the media library, or click **Upload** to add a new file from your desktop.
+4. **Enter Descriptive Alt Text:**  
+   When prompted, enter a concise, descriptive alt text phrase.
+5. **Confirm Insertion:**  
+   Click **Insert**. The image will render immediately in your rich text editor and live preview pane.
+</Steps>
+
+---
+
+## Image Best Practices
+
+<CardGrid>
+  <Card title="Use Kebab-Case Filenames" icon="setting">
+    Name files descriptively using lowercase and hyphens (e.g., `sveltia-insert-menu.png` rather than `Screen Shot 2026-09-10 at 4.21.32 PM.png`).
+  </Card>
+  <Card title="Crop to the Focal Point" icon="pen">
+    Avoid uploading full 4K desktop captures. Crop your screenshot tightly to the relevant dialog, button, or workflow step.
+  </Card>
+  <Card title="Avoid Text Inside Images" icon="warning">
+    Whenever possible, convey information in Markdown prose rather than embedding text inside an image where it cannot be translated, copied, or searched.
+  </Card>
+  <Card title="Supported Formats" icon="approve-check">
+    Use **PNG** for screenshots, software UIs, and line art; use **JPEG/WebP** for photographic content; use **SVG** for vector icons and logos.
+  </Card>
+</CardGrid>
+

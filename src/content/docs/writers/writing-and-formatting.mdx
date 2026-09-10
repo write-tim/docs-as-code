@@ -1,0 +1,110 @@
+---
+title: Writing & Formatting in Sveltia
+description: Master everyday text styling, typography standards, lists, and code blocks using Sveltia's visual toolbar.
+sidebar:
+  order: 3
+---
+
+import { Aside, Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Creating clear, accessible documentation requires a balance of clean typography, structured formatting, and scannable page design. In Sveltia CMS, you can format your writing using either visual toolbar buttons or standard Markdown keyboard shortcuts.
+
+---
+
+## Daily Formatting Toolbar Shortcuts
+
+When composing in **Rich Text Mode**, the top editor toolbar provides one-click access to standard styling controls:
+
+<CardGrid>
+  <Card title="Bold & Italic" icon="pen">
+    Use **Bold** (`Cmd+B` / `Ctrl+B`) sparingly to highlight UI elements, buttons, or critical keywords. Use *Italics* (`Cmd+I` / `Ctrl+I`) for emphasis or book titles.
+  </Card>
+  <Card title="Headings (H2, H3, H4)" icon="document">
+    Select text and choose **Heading 2** or **Heading 3** from the format dropdown. The page's main title is already `H1`, so start your document sections with `H2` (`##`).
+  </Card>
+  <Card title="Bulleted & Numbered Lists" icon="list-format">
+    Create unordered bullet lists for item catalogs, and numbered lists for strict sequential procedures.
+  </Card>
+  <Card title="Blockquotes" icon="quote">
+    Click the quote icon to indent citations or notable excerpts. For warnings and tips, prefer our custom `<Aside>` component instead.
+  </Card>
+</CardGrid>
+
+---
+
+## Formatting Code & Technical Variables
+
+Technical documentation frequently refers to file names, configuration keys, terminal commands, and code snippets. Distinguishing between **inline code** and **multi-line code blocks** is crucial:
+
+<Tabs>
+  <TabItem label="Inline Code (Variables & Keys)" icon="laptop">
+    *Use for short technical terms inside running sentences.*
+
+    * **When to use:** File paths (e.g., `astro.config.mjs`), environment variables (`GITHUB_TOKEN`), keyboard shortcuts (`Cmd+K`), or CLI flags (`--help`).
+    * **How to format:** Highlight the word and click the **Inline Code** (`<>`) icon in the toolbar, or wrap the term in single backticks: `` `code` ``.
+    * **Example in prose:** "Open the `.nvmrc` file and verify that the version string is set to `24`."
+  </TabItem>
+
+  <TabItem label="Multi-line Code Blocks" icon="seti:markdown">
+    *Use for scripts, terminal commands, and configuration payloads.*
+
+    * **When to use:** Any snippet that spans more than one line or requires syntax coloring.
+    * **How to format:** Click the **Code Block** button in the toolbar, or type three backticks (```` ``` ````) followed by the programming language identifier.
+    * **Language Identifiers:**
+      * Shell / Terminal: `bash`, `sh`, `zsh`
+      * JavaScript / TypeScript: `javascript`, `typescript`, `js`, `ts`
+      * Markup / Config: `json`, `yaml`, `html`, `css`
+  </TabItem>
+</Tabs>
+
+<Aside type="tip" title="Expressive Code Superpowers">
+Our documentation site uses Starlight's **Expressive Code** engine. You can add titles and highlight lines directly in code fences:
+```bash title="Terminal (Deploy Command)"
+npm run build
+```
+</Aside>
+
+---
+
+## Headings and Page Hierarchy
+
+Search engines and screen readers rely on strict heading hierarchies to navigate content. Follow these structural rules:
+
+```markdown
+# Page Title (Automatically generated from the frontmatter 'title' field)
+
+## Major Section (H2)
+Introductory paragraph explaining the section concept.
+
+### Subsection (H3)
+Detailed breakdown of a specific subtask.
+
+#### Deep Dive or Edge Case (H4)
+Only use when dividing a complex subsection further.
+```
+
+<Aside type="caution" title="Never Skip Heading Levels">
+Never jump directly from an `H2` (`##`) down to an `H4` (`####`) just for styling reasons. Skipping heading levels breaks accessibility tree navigation for readers using screen readers.
+</Aside>
+
+---
+
+## Writing Dos and Don'ts
+
+To ensure our entire masterclass maintains a polished, cohesive editorial voice:
+
+<CardGrid>
+  <Card title="DO: Use Active Voice" icon="approve-check">
+    Write "Click **Save** to commit changes" instead of "Changes are saved by clicking the button."
+  </Card>
+  <Card title="DON'T: Hardcode Raw HTML" icon="close">
+    Avoid inserting raw HTML tags like `<div style="...">` or `<font>`. Sveltia and Starlight provide built-in components that handle styling responsively.
+  </Card>
+  <Card title="DO: Write Descriptive Link Text" icon="external">
+    Link meaningful phrases like "read the [Voice and Tone Guide](/guides/voice-tone-accessibility/)" rather than "click [here](/guides/voice-tone-accessibility/)".
+  </Card>
+  <Card title="DON'T: Overuse Bold Text" icon="warning">
+    If everything is bolded, nothing stands out. Reserve bold text strictly for UI labels, buttons, and high-impact keywords.
+  </Card>
+</CardGrid>
+

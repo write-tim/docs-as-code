@@ -1,0 +1,104 @@
+---
+title: The Anatomy of an Article
+description: A plain-English breakdown of frontmatter metadata, SEO descriptions, and sidebar ordering in Sveltia CMS.
+sidebar:
+  order: 2
+---
+
+import { Aside, Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Every article in our Docs-as-Code knowledge base is built from two fundamental layers:
+
+1. **Frontmatter Metadata:** Structured configuration attributes located at the top of the file.
+2. **Body Content:** The narrative prose, headings, code snippets, and visual components that make up the article itself.
+
+In traditional static site generators, authors must manually construct YAML syntax—where a single missing space or misplaced quote can crash the entire build. In Sveltia CMS, you interact with intuitive form fields that generate compliant frontmatter automatically.
+
+---
+
+## Frontmatter Fields Demystified
+
+Here is a breakdown of the key metadata fields you will see at the top of the Sveltia editor:
+
+<CardGrid>
+  <Card title="1. Page Title (Required)" icon="document">
+    **What it does:** Sets the primary `<h1>` heading on the page, the browser tab title, and the default link label in the sidebar navigation.  
+    **Best Practice:** Keep titles clear, action-oriented, and under 60 characters.
+  </Card>
+  <Card title="2. Description (SEO & Search)" icon="magnifier">
+    **What it does:** Powers search indexing in Pagefind, provides Google search engine meta tags, and generates social card previews when shared on Slack or LinkedIn.  
+    **Best Practice:** Write 1–2 complete, engaging sentences summarizing the reader's takeaway.
+  </Card>
+  <Card title="3. Sidebar Sort Order" icon="list-format">
+    **What it does:** Controls where this article appears in the left navigation tree. Lower numbers float to the top; higher numbers follow sequentially.  
+    **Best Practice:** Use integers (`1, 2, 3...`) to structure a logical reading progression.
+  </Card>
+  <Card title="4. Sidebar Label & Hidden" icon="setting">
+    **What it does:** Optionally overrides the title displayed in the sidebar (useful if the page title is long) or hides unlisted/draft guides from navigation altogether.
+  </Card>
+</CardGrid>
+
+---
+
+## How Sveltia Fields Translate to Markdown
+
+You can see how your visual form entries map to the underlying document code:
+
+<Tabs>
+  <TabItem label="Sveltia Form Fields" icon="laptop">
+    *What you interact with in the CMS interface:*
+    
+    * **Title:** `The Anatomy of an Article`
+    * **Description:** `A plain-English breakdown of frontmatter metadata, SEO descriptions, and sidebar ordering.`
+    * **Sidebar Navigation (Collapsible Section):**
+      * **Sort Order:** `2`
+      * **Sidebar Label:** *(Leave blank to default to Title)*
+      * **Hidden from Sidebar:** `false`
+  </TabItem>
+
+  <TabItem label="Underlying MDX File" icon="seti:markdown">
+    *How Sveltia commits the file to GitHub behind the scenes:*
+
+    ```yaml
+    ---
+    title: The Anatomy of an Article
+    description: A plain-English breakdown of frontmatter metadata, SEO descriptions, and sidebar ordering.
+    sidebar:
+      order: 2
+    ---
+    ```
+  </TabItem>
+</Tabs>
+
+<Aside type="tip" title="No Broken YAML Errors">
+Because Sveltia renders inputs as native web controls (text fields, number steppers, and checkboxes), you never have to worry about indentation errors or escaping special characters like colons (`:`) or quotation marks (`"`). The CMS handles serialization safely.
+</Aside>
+
+---
+
+## Why the Description Field Matters for SEO & Search
+
+When users visit our documentation, they rely heavily on instant search (`Cmd+K`). 
+
+Our search engine (**Pagefind**) indexes both the page content and the frontmatter `description`. When a reader searches for a term:
+1. The **Title** provides immediate recognition.
+2. The **Description** appears as the highlighted summary beneath the search result.
+
+If an article omits a description, search engines and internal search tools must guess an excerpt from the first paragraph, which may be an introductory sentence rather than a concise summary of the page topic.
+
+---
+
+## Controlling Sidebar Navigation with Sort Order
+
+The left sidebar in our documentation site is designed to present a logical, progressive learning journey:
+
+<Steps>
+1. **Overview / Fundamentals First:** Assign `order: 1` to introductory articles (e.g., *Welcome*, *Overview*, *Getting Started*).
+2. **Sequential Tasks in the Middle:** Assign `order: 2`, `order: 3`, and `order: 4` to procedural or progressive authoring guides.
+3. **Advanced Reference at the End:** Assign higher numbers to governance, advanced schemas, and syntax references.
+</Steps>
+
+<Aside type="note" title="Checking Existing Orders">
+When viewing a collection list in Sveltia CMS, notice that article cards display their sort number in parentheses next to their title (e.g., `The Anatomy of an Article (2)`). This makes it easy to see which numbers are currently taken before assigning a new one.
+</Aside>
+

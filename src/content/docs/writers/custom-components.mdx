@@ -1,0 +1,178 @@
+---
+title: Inserting Custom Components (CMS Magic)
+description: A visual guide to inserting and populating custom Starlight UI components using Sveltia's visual block dropdowns.
+sidebar:
+  order: 4
+---
+
+import { Aside, Badge, Card, CardGrid, Steps, Tabs, TabItem, LinkCard, FileTree } from '@astrojs/starlight/components';
+
+One of the greatest superpowers of our **Docs-as-Code** setup is that writers can drop rich, interactive UI components directly into documents without writing complex React, Astro, or HTML markup.
+
+In Sveltia CMS, these components are registered as **Custom Editor Shortcodes**. When you insert one, Sveltia presents an easy-to-use form with clear input fields, dropdown menus, and validation rules.
+
+---
+
+## How to Insert Components in Rich Text Mode
+
+Inserting any custom component takes just three steps:
+
+<Steps>
+1. **Open the Insert Menu:**  
+   In the editor toolbar, click the **`+` (Add Block)** dropdown button (or press `Slash` (`/`) on an empty line if quick-insert is enabled).
+2. **Select Your Component:**  
+   Choose from the registered components list: *Aside / Callout*, *Steps*, *Tabs*, *Badge*, *File Tree*, or *Link Card*.
+3. **Populate the Form Fields:**  
+   Fill in the generated form fields (e.g., choosing a color variant or typing content). Sveltia immediately renders a live preview block inside your editor.
+</Steps>
+
+---
+
+## Available Custom Components
+
+Explore the six custom editor components available in Sveltia CMS:
+
+### 1. Starlight Aside / Callout (`<Aside>`)
+Use asides to call out critical notes, tips, warnings, or danger notices without breaking the flow of your document.
+
+<Tabs>
+  <TabItem label="CMS Form Fields" icon="laptop">
+    * **Type (Select Dropdown):** Choose `note` (purple), `tip` (green), `caution` (yellow/orange), or `danger` (red).
+    * **Title (Optional Text Input):** Overrides the default label (e.g., "Important Requirement" instead of "CAUTION").
+    * **Callout Content (Markdown Area):** Type your message using standard Markdown (bold, links, inline code).
+  </TabItem>
+
+  <TabItem label="Rendered Result" icon="laptop">
+    <Aside type="tip" title="Pro Tip for Writers">
+      Always keep callout messages concise—ideally 1 to 2 sentences.
+    </Aside>
+  </TabItem>
+</Tabs>
+
+---
+
+### 2. Dual-Tab Switcher (`<Tabs>`)
+Use tabs to present alternative workflows side-by-side (such as macOS vs. Windows instructions, or Terminal commands vs. GUI steps).
+
+<Tabs>
+  <TabItem label="CMS Form Fields" icon="laptop">
+    * **Tab 1 Label:** Heading for the first tab (e.g., `macOS / Linux`).
+    * **Tab 1 Content:** Content displayed inside the first tab.
+    * **Tab 2 Label:** Heading for the second tab (e.g., `Windows`).
+    * **Tab 2 Content:** Content displayed inside the second tab.
+  </TabItem>
+
+  <TabItem label="Rendered Result" icon="laptop">
+    <Tabs>
+      <TabItem label="macOS / Linux">
+        Run `brew install node` to install the runtime.
+      </TabItem>
+      <TabItem label="Windows">
+        Download and run the `.msi` installer from nodejs.org.
+      </TabItem>
+    </Tabs>
+  </TabItem>
+</Tabs>
+
+---
+
+### 3. Numbered Sequential Steps (`<Steps>`)
+Use steps for procedural tutorials where order is paramount. Starlight automatically converts standard ordered lists into high-visibility circled number badges.
+
+<Tabs>
+  <TabItem label="CMS Form Fields" icon="laptop">
+    * **Ordered Steps (Markdown Area):** Enter your steps as a standard Markdown numbered list:
+      ```markdown
+      1. Open the project dashboard.
+      2. Click the **Publish** button.
+      3. Verify the deployment preview.
+      ```
+  </TabItem>
+
+  <TabItem label="Rendered Result" icon="laptop">
+    <Steps>
+      1. Open the project dashboard.
+      2. Click the **Publish** button.
+      3. Verify the deployment preview.
+    </Steps>
+  </TabItem>
+</Tabs>
+
+---
+
+### 4. Status Badges (`<Badge>`)
+Use badges to highlight feature versions, draft flags, or API status indicators inline.
+
+<Tabs>
+  <TabItem label="CMS Form Fields" icon="laptop">
+    * **Badge Text:** The label displayed inside the badge (e.g., `v2.0`, `Required`, `Beta`).
+    * **Color Variant (Select):** `default`, `note`, `tip`, `caution`, `danger`, or `success`.
+    * **Size (Select):** `small`, `medium`, or `large`.
+  </TabItem>
+
+  <TabItem label="Rendered Result" icon="laptop">
+    Current Status: <Badge text="Production Ready" variant="success" size="medium" /> &nbsp; Level: <Badge text="Recommended" variant="tip" size="medium" />
+  </TabItem>
+</Tabs>
+
+---
+
+### 5. Directory File Trees (`<FileTree>`)
+Use file trees to visualize repository directory structures, project layouts, or file organization.
+
+<Tabs>
+  <TabItem label="CMS Form Fields" icon="laptop">
+    * **File Tree Structure (Markdown Area):** Enter directory names with trailing slashes and files as indented list items:
+      ```markdown
+      - src/
+        - content/
+          - docs/
+            - index.mdx
+        - assets/
+          - logo.png
+      - package.json
+      ```
+  </TabItem>
+
+  <TabItem label="Rendered Result" icon="laptop">
+    <FileTree>
+      - src/
+        - content/
+          - docs/
+            - index.mdx
+        - assets/
+          - logo.png
+      - package.json
+    </FileTree>
+  </TabItem>
+</Tabs>
+
+---
+
+### 6. Starlight Link Card (`<LinkCard>`)
+Use link cards to provide prominent, beautifully styled cards that direct readers to the next logical article or reference guide.
+
+<Tabs>
+  <TabItem label="CMS Form Fields" icon="laptop">
+    * **Target Article (Searchable Dropdown):** Pick an existing article from across the entire site. The CMS automatically fills the route URL!
+    * **Card Title (Optional):** Overrides the destination article title.
+    * **Card Description (Optional):** Overrides the destination article teaser description.
+  </TabItem>
+
+  <TabItem label="Rendered Result" icon="laptop">
+    <LinkCard
+      title="Component Standards Guide"
+      href="/guides/component-usage/"
+      description="Read strict usage standards and governance rules for our design system."
+    />
+  </TabItem>
+</Tabs>
+
+---
+
+## Exploring the Component Library
+
+Curious about how these components render in various edge cases, or looking for design inspiration? 
+
+Visit the **[Component Library](/components/asides/)** section of this masterclass. Each specimen page features a **Behind the Curtain** tab showing the live design specimen, the underlying MDX props, and Sveltia authoring tips.
+

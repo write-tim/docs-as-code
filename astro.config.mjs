@@ -32,6 +32,7 @@ function generateArticlesManifest() {
     automation: '3. Automation & Quality Gates',
     components: '4. Component Library',
     guides: '5. Style Guide & Standards',
+    writers: "6. Technical Writer's Guide",
   };
 
   const articles = files.map((file) => {
@@ -236,6 +237,12 @@ export default defineConfig({
           label: '5. Style Guide & Standards',
           items: [
             { autogenerate: { directory: 'guides' } }
+          ],
+        },
+        {
+          label: "6. Technical Writer's Guide",
+          items: [
+            { autogenerate: { directory: 'writers' } }
           ],
         },
       ],
