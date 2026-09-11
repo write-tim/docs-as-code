@@ -1,0 +1,47 @@
+---
+import Default from '@astrojs/starlight/components/SocialIcons.astro';
+import { Image } from 'astro:assets';
+import tjIcon from '../assets/tj-icon.png';
+---
+
+<Default {...Astro.props}><slot /></Default>
+<a
+	href="https://timothyjohnsonwrites.com"
+	target="_blank"
+	rel="noopener noreferrer"
+	class="sl-flex custom-tj-link"
+	title="Timothy Johnson Writes"
+>
+	<span class="sr-only">Timothy Johnson Writes</span>
+	<Image
+		src={tjIcon}
+		alt="Timothy Johnson Writes"
+		width={48}
+		height={48}
+		class="tj-social-icon"
+	/>
+</a>
+
+<style>
+	@layer starlight.core {
+		.custom-tj-link {
+			color: var(--sl-color-text-accent);
+			padding: 0.5em;
+			margin: -0.5em;
+			align-items: center;
+			display: flex;
+		}
+		.custom-tj-link:hover {
+			opacity: 0.85;
+			transform: scale(1.05);
+			transition: transform 0.15s ease, opacity 0.15s ease;
+		}
+		.tj-social-icon {
+			width: 1.25rem;
+			height: 1.25rem;
+			border-radius: 50%;
+			object-fit: cover;
+			display: block;
+		}
+	}
+</style>

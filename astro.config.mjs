@@ -197,6 +197,9 @@ export default defineConfig({
           href: 'https://www.linkedin.com/in/timothy-michael-johnson/' 
         },
       ],
+      components: {
+        SocialIcons: './src/components/SocialIcons.astro',
+      },
       editLink: {
         baseUrl: 'https://github.com/write-tim/docs-as-code/edit/main/',
       },
