@@ -49,6 +49,8 @@ Use asides to call out critical notes, tips, warnings, or danger notices without
   </TabItem>
 </Tabs>
 
+> 🔍 **Deep Dive Specimen:** For live examples of all four color variants and custom title overrides, explore the [Callouts & Asides Specimen](/components/asides/).
+
 ---
 
 ### 2. Dual-Tab Switcher (`<Tabs>`)
@@ -74,6 +76,8 @@ Use tabs to present alternative workflows side-by-side (such as macOS vs. Window
   </TabItem>
 </Tabs>
 
+> 🔍 **Deep Dive Specimen:** For advanced multi-tab patterns and tab-syncing behavior, explore the [Tabs & Switchers Specimen](/components/tabs/).
+
 ---
 
 ### 3. Numbered Sequential Steps (`<Steps>`)
@@ -98,6 +102,8 @@ Use steps for procedural tutorials where order is paramount. Starlight automatic
   </TabItem>
 </Tabs>
 
+> 🔍 **Deep Dive Specimen:** For complex procedural hierarchies, explore the [Procedural Steps Specimen](/components/steps/).
+
 ---
 
 ### 4. Status Badges (`<Badge>`)
@@ -114,6 +120,8 @@ Use badges to highlight feature versions, draft flags, or API status indicators 
     Current Status: <Badge text="Production Ready" variant="success" size="medium" /> &nbsp; Level: <Badge text="Recommended" variant="tip" size="medium" />
   </TabItem>
 </Tabs>
+
+> 🔍 **Deep Dive Specimen:** For all size variations, color schemes, and header usage patterns, explore the [Badges & Status Indicators Specimen](/components/badges/).
 
 ---
 
@@ -147,6 +155,8 @@ Use file trees to visualize repository directory structures, project layouts, or
   </TabItem>
 </Tabs>
 
+> 🔍 **Deep Dive Specimen:** For file trees with bold targets and inline comments, explore the [File Trees Specimen](/components/file-trees/).
+
 ---
 
 ### 6. Starlight Link Card (`<LinkCard>`)
@@ -168,11 +178,32 @@ Use link cards to provide prominent, beautifully styled cards that direct reader
   </TabItem>
 </Tabs>
 
+> 🔍 **Deep Dive Specimen:** For multi-column card grids and regular informational cards, explore the [Cards & LinkCards Specimen](/components/cards/).
+
 ---
 
-## Exploring the Component Library
+## Additional Visual Components Available to Writers
 
-Curious about how these components render in various edge cases, or looking for design inspiration? 
+Beyond the registered CMS shortcodes, Starlight includes several built-in visual elements you can incorporate when authoring in raw Markdown or MDX mode:
 
-Visit the **[Component Library](/components/asides/)** section of this masterclass. Each specimen page features a **Behind the Curtain** tab showing the live design specimen, the underlying MDX props, and Sveltia authoring tips.
+<CardGrid>
+  <Card title="Icon Reference & Catalog" icon="star">
+    Browse over 200+ built-in Starlight SVG icons you can use in cards, tabs, and badges. Explore the [Icon Catalog](/components/icon-reference/).
+  </Card>
+  <Card title="Expressive Code" icon="seti:javascript">
+    Add file titles (`title="app.js"`), terminal frames, line highlights (`{3-5}`), and git diffs (`+` / `-`). Explore [Expressive Code](/components/expressive-code/).
+  </Card>
+  <Card title="Architecture Diagrams (Mermaid)" icon="seti:graphql">
+    Create clean, version-controlled flowcharts, sequence diagrams, and mind maps with plain text. Explore [Dynamic Architecture Diagrams](/components/dynamic-architecture-diagrams/).
+  </Card>
+  <Card title="FAQ Accordions" icon="down-caret">
+    Create interactive, collapsible disclosure sections for frequently asked questions. Explore [FAQ Accordions](/components/faq-accordion/).
+  </Card>
+</CardGrid>
+
+---
+
+## Component Usage Governance
+
+Before introducing multiple visual elements onto a single page, review our official **[Component Standards Guide](/guides/component-usage/)** for rules on avoiding callout fatigue, preserving responsive readability, and choosing the right visual component for your audience.
 

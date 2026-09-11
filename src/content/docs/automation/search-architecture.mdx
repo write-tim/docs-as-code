@@ -1,0 +1,107 @@
+---
+title: Zero-Backend Search Architecture (Pagefind)
+description: Explore how Starlight and Pagefind compile static WebAssembly search indexes with zero server cost, no SaaS crawler bots, and instant client-side retrieval.
+sidebar:
+  order: 5
+---
+
+import { Aside, Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Search is the primary navigation mechanism for technical documentation. When a developer or writer visits a knowledge base, they rarely browse through hierarchical trees; they press `Cmd+K` and type keywords.
+
+Historically, implementing full-text search in static documentation required integrating hosted SaaS search engines (like Algolia DocSearch, Swiftype, or Elasticsearch). While effective, these services introduce recurring infrastructure costs, crawler indexing delays, API key management, and data privacy concerns.
+
+This documentation blueprint eliminates third-party dependencies by utilizing **Pagefind**—a state-of-the-art, **zero-backend, static WebAssembly search engine**.
+
+---
+
+## Why Pagefind? (Zero-Backend vs. SaaS Search)
+
+<CardGrid>
+  <Card title="$0 Infrastructure Cost" icon="approve-check">
+    There is no cloud database or monthly SaaS bill. The entire search index compiles into static static files hosted directly on GitHub Pages.
+  </Card>
+  <Card title="Instant Indexing (Zero Delay)" icon="rocket">
+    Unlike web crawler bots that may take hours or days to re-index changed documentation, Pagefind generates its index in milliseconds during `npm run build`.
+  </Card>
+  <Card title="Sub-10ms Search Latency" icon="laptop">
+    Compiled WebAssembly runs directly inside the reader's browser, fetching chunked index files over standard HTTP range requests.
+  </Card>
+  <Card title="100% Data Privacy" icon="setting">
+    Reader search queries never leave their browser. No tracking pixels, external API logs, or analytics bots monitor internal search terms.
+  </Card>
+</CardGrid>
+
+---
+
+## The Build-Time Indexing Pipeline
+
+When you run `npm run build`, Astro and Pagefind execute a two-stage compilation pipeline:
+
+```
+[ 1. Astro Build ]               [ 2. Pagefind Indexing ]           [ 3. Deployment ]
+MDX Files -> HTML in /dist  --->  HTML Scanned -> WASM in /dist/pagefind  --->  Pushed to CDN / GitHub Pages
+```
+
+<Steps>
+1. **Astro Compiles HTML:**  
+   Astro generates all static routes, transforming MDX prose into optimized HTML files inside the `./dist` folder.
+2. **Pagefind Analyzes Content:**  
+   Starlight invokes Pagefind against `./dist`. Pagefind parses heading structures, text bodies, and metadata.
+3. **Index Chunking & WASM Serialization:**  
+   Pagefind splits the index into small, deduplicated binary chunks (`.pf_fragment` and `.pf_index`) and generates the WebAssembly runtime files inside `./dist/pagefind/`.
+</Steps>
+
+```bash title="Build Output Example"
+16:58:00 [build] ✓ Completed in 1.79s.
+16:58:00 [starlight:pagefind] Building search index with Pagefind...
+16:58:00 [starlight:pagefind] Found 38 HTML files.
+16:58:00 [starlight:pagefind] Finished building search index in 74ms.
+16:58:00 [@astrojs/sitemap] `sitemap-index.xml` created at `dist`
+```
+
+---
+
+## How Client-Side Search Works
+
+When a user visits our documentation and opens the search dialog (`Cmd+K`):
+
+<Tabs>
+  <TabItem label="1. Micro-WASM Loading" icon="laptop">
+    The browser downloads a lightweight WebAssembly binary (~30 KB gzip). It initializes instantly without impacting initial page load performance.
+  </TabItem>
+
+  <TabItem label="2. Chunked Range Requests" icon="external">
+    As the user types letters, Pagefind uses HTTP range requests to download only the specific index chunks containing the matching words, rather than downloading the entire multi-megabyte site index.
+  </TabItem>
+
+  <TabItem label="3. Local Ranking & Highlight" icon="star">
+    Pagefind scores results locally based on term frequency, heading depth, and proximity, displaying highlighted excerpts and direct section links in real time.
+  </TabItem>
+</Tabs>
+
+---
+
+## Search Index Tuning & Data Attributes
+
+Starlight automatically configures Pagefind's indexing rules, but technical writers and developers can fine-tune what gets indexed using HTML data attributes:
+
+| Attribute | Behavior | Where to use |
+|:---|:---|:---|
+| `data-pagefind-body` | Explicitly marks the container element as the primary searchable text body. | Starlight injects this automatically on the `<main>` article wrapper. |
+| `data-pagefind-ignore` | Completely excludes an element and its children from the search index. | Used on navigation sidebars, breadcrumbs, and "Behind the Curtain" tabs. |
+| `data-pagefind-weight` | Multiplies the ranking relevance of a heading or block. | Starlight automatically assigns higher weights to `H1` and `H2` titles. |
+
+<Aside type="tip" title="Why Description Fields Matter">
+Pagefind indexes both page headings and the frontmatter `description` field. Providing concise, keyword-rich descriptions in your [Article Frontmatter](/writers/article-anatomy/) significantly improves the ranking and clarity of search results!
+</Aside>
+
+---
+
+## Multi-Language & Multi-Collection Support
+
+Because Pagefind compiles directly from compiled static HTML rather than raw Markdown, it natively supports:
+* Multi-language character sets (including CJK and Latin diacritics).
+* Automated code snippet tokenization.
+* Seamless offline searching inside local intranet or disconnected enterprise networks.
+

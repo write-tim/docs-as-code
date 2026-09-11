@@ -1,0 +1,140 @@
+---
+title: Astro Content Layer & Schema Evolution
+description: Deep dive into Astro 5's Content Layer, docsLoader(), and strategies for safely extending and evolving Zod frontmatter schemas.
+sidebar:
+  order: 3
+---
+
+import { Aside, Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+As documentation platforms grow, metadata requirements change. Engineering teams might need to introduce new attributes—such as `lastUpdatedBy`, `difficultyLevel`, or custom `category` taxonomies—without breaking hundreds of existing legacy articles.
+
+In **Astro 5**, the content management pipeline was overhauled with the **Astro Content Layer**. This architecture decouples content storage from static routes, enabling high-performance content loading, strict schema enforcement, and safe metadata evolution.
+
+---
+
+## Astro 5 Content Layer Architecture
+
+Prior versions of Astro required collections to live inside strict file locations with limited loader customization. In Astro 5, content collections are defined centrally in `src/content.config.ts` using modern **Loaders**:
+
+<Tabs>
+  <TabItem label="src/content.config.ts" icon="seti:typescript">
+    ```typescript
+    import { defineCollection, z } from 'astro:content';
+    import { docsLoader, i18nLoader } from '@astrojs/starlight/loaders';
+    import { docsSchema, i18nSchema } from '@astrojs/starlight/schema';
+
+    export const collections = {
+      docs: defineCollection({
+        // 1. Built-in Starlight Content Loader
+        loader: docsLoader(),
+        // 2. Extensible Zod Schema Validation
+        schema: docsSchema({
+          extend: z.object({
+            category: z.string().optional(),
+            lastUpdatedBy: z.string().optional(),
+          }),
+        }),
+      }),
+      i18n: defineCollection({
+        loader: i18nLoader(),
+        schema: i18nSchema(),
+      }),
+    };
+    ```
+  </TabItem>
+
+  <TabItem label="How the Loader Works" icon="laptop">
+    * **`docsLoader()`:** Automatically scans all files within `src/content/docs/`, parses frontmatter YAML, caches parsed ASTs into an in-memory data store (`.astro/data-store.json`), and generates type definitions.
+    * **`docsSchema()`:** Provides Starlight's core metadata rules (`title`, `description`, `sidebar`, `tableOfContents`, `head`, `prev`, `next`).
+    * **`extend`:** Allows your team to append custom domain-specific metadata without modifying core Starlight code.
+  </TabItem>
+</Tabs>
+
+---
+
+## Schema Evolution Best Practices
+
+When evolving content schemas across an active engineering organization, follow these four rules to avoid breaking CI pipelines or blocking writer contributions:
+
+<CardGrid>
+  <Card title="1. Always Default or Make Optional" icon="approve-check">
+    Never add a required field without a default value to an existing schema. Making a field strictly required (`z.string()`) will instantly cause all existing articles lacking that field to fail the build.
+  </Card>
+  <Card title="2. Use Explicit Defaults" icon="setting">
+    If a field is conceptually required for new pages, provide a fallback default:
+    `z.enum(['draft', 'published']).default('published')`
+  </Card>
+  <Card title="3. Graceful Deprecation" icon="warning">
+    When retiring a field, do not delete it immediately. Mark it optional or use `.transform()` to remap old values into the new structure.
+  </Card>
+  <Card title="4. Mirror in Sveltia CMS" icon="laptop">
+    Whenever you add a field to `src/content.config.ts`, immediately add the corresponding UI widget in `public/admin/config.yml` so writers can edit it visually.
+  </Card>
+</CardGrid>
+
+---
+
+## Example: Adding a "Reviewer" and "Status" Field
+
+Here is how to safely evolve the schema to track editorial reviews and draft statuses:
+
+<Tabs>
+  <TabItem label="Step 1: Extend Zod Schema" icon="seti:typescript">
+    *Update `src/content.config.ts`:*
+
+    ```typescript
+    schema: docsSchema({
+      extend: z.object({
+        category: z.string().optional(),
+        lastUpdatedBy: z.string().optional(),
+        // New safe additions:
+        status: z.enum(['draft', 'in-review', 'published']).default('published'),
+        reviewedBy: z.string().optional(),
+      }),
+    })
+    ```
+  </TabItem>
+
+  <TabItem label="Step 2: Update Sveltia CMS UI" icon="seti:yaml">
+    *Add the fields to `.docs_fields` in `public/admin/config.yml`:*
+
+    ```yaml
+    - label: "Document Status"
+      name: "status"
+      widget: "select"
+      options: ["draft", "in-review", "published"]
+      default: "published"
+      required: false
+
+    - label: "Reviewed By"
+      name: "reviewedBy"
+      widget: "string"
+      required: false
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+## Type Generation & IDE Autocomplete
+
+Whenever you modify `src/content.config.ts` or add new documents, Astro generates TypeScript declaration files in `.astro/types.d.ts`.
+
+<Steps>
+1. **Trigger Sync:**  
+   Run `npx astro sync` (or start the dev server with `npm run dev`).
+2. **Type Safety in Custom Astro Components:**  
+   If you create a custom page or component querying docs via `getCollection('docs')`, TypeScript will enforce and autocomplete your custom fields with zero runtime overhead:
+   ```typescript
+   import { getCollection } from 'astro:content';
+
+   const allDocs = await getCollection('docs');
+   const published = allDocs.filter(doc => doc.data.status === 'published');
+   ```
+</Steps>
+
+<Aside type="tip" title="Zero Production Impact">
+Schema validation executes strictly at build time. Zero validation overhead or parsing scripts are shipped to the reader's browser, keeping your edge CDN delivery blazingly fast.
+</Aside>
+

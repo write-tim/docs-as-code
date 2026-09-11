@@ -28,11 +28,11 @@ function generateArticlesManifest() {
   const files = getFiles(docsDir);
   const catMap = {
     philosophy: '1. Architecture & Philosophy',
-    cms: '2. Sveltia CMS Manual',
+    cms: '2. CMS Platform Engineering',
     automation: '3. Automation & Quality Gates',
-    components: '4. Component Library',
-    guides: '5. Style Guide & Standards',
-    writers: "6. Technical Writer's Guide",
+    writers: "4. Technical Writer's Guide",
+    components: '5. Component Library',
+    guides: '6. Style Guide & Standards',
   };
 
   const articles = files.map((file) => {
@@ -216,7 +216,7 @@ export default defineConfig({
           ],
         },
         {
-          label: '2. Sveltia CMS Manual',
+          label: '2. CMS Platform Engineering',
           items: [
             { autogenerate: { directory: 'cms' } }
           ],
@@ -228,21 +228,21 @@ export default defineConfig({
           ],
         },
         {
-          label: '4. Component Library',
+          label: "4. Technical Writer's Guide",
+          items: [
+            { autogenerate: { directory: 'writers' } }
+          ],
+        },
+        {
+          label: '5. Component Library',
           items: [
             { autogenerate: { directory: 'components' } }
           ],
         },
         {
-          label: '5. Style Guide & Standards',
+          label: '6. Style Guide & Standards',
           items: [
             { autogenerate: { directory: 'guides' } }
-          ],
-        },
-        {
-          label: "6. Technical Writer's Guide",
-          items: [
-            { autogenerate: { directory: 'writers' } }
           ],
         },
       ],

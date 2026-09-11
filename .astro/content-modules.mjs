@@ -1,6 +1,9 @@
 
 export default new Map([
 ["src/content/docs/automation/ci-cd-pipelines.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fautomation%2Fci-cd-pipelines.mdx&astroContentModuleFlag=true")],
+["src/content/docs/automation/content-layer.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fautomation%2Fcontent-layer.mdx&astroContentModuleFlag=true")],
+["src/content/docs/automation/local-environment.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fautomation%2Flocal-environment.mdx&astroContentModuleFlag=true")],
+["src/content/docs/automation/search-architecture.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fautomation%2Fsearch-architecture.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/automation/zod-schemas.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fautomation%2Fzod-schemas.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/cms/authoring-workflow.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fcms%2Fauthoring-workflow.mdx&astroContentModuleFlag=true")],
 ["src/content/docs/cms/configuration.mdx", () => import("astro:content-layer-deferred-module?astro%3Acontent-layer-deferred-module=&fileName=src%2Fcontent%2Fdocs%2Fcms%2Fconfiguration.mdx&astroContentModuleFlag=true")],

@@ -26,10 +26,10 @@ Our system provides three progressive layers of protection to catch mistakes lon
     Sveltia CMS prevents you from submitting incomplete forms. If a required field like **Title** is missing, the editor blocks saving and highlights the error in red.
   </Card>
   <Card title="Layer 2: Zod Content Schemas" icon="approve-check">
-    Astro enforces strict type checking on all metadata. If a frontmatter attribute has an invalid type, our schema engine catches it before compilation begins.
+    Astro enforces strict type checking on all metadata. If a frontmatter attribute has an invalid type, our schema engine catches it before compilation begins. Learn more in [Frontmatter Schemas with Zod](/automation/zod-schemas/).
   </Card>
   <Card title="Layer 3: Automated CI Quality Gates" icon="rocket">
-    Every proposed change runs through automated GitHub Actions checks: Vale scans prose for grammar and tone, Lychee verifies all hyperlinks, and Astro tests the build.
+    Every proposed change runs through automated GitHub Actions checks: Vale scans prose for grammar and tone, Lychee verifies all hyperlinks, and Astro tests the build. Learn more in [Quality Automation CI/CD](/automation/ci-cd-pipelines/).
   </Card>
   <Card title="Layer 4: Staging PR Previews" icon="external">
     Before any change goes live, a temporary preview website is built. You can test your article in real browser conditions before merging.

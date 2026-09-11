@@ -72,8 +72,32 @@ collections:
     summary: "{{title}}"
     fields: *DOCS_FIELDS
 
+  - name: "docs_philosophy"
+    label: "Docs - 1. Architecture & Philosophy"
+    label_singular: "Philosophy Article"
+    folder: "src/content/docs/philosophy"
+    extension: "mdx"
+    format: "frontmatter"
+    create: true
+    delete: true
+    summary: "{{title}} ({{sidebar.order | default: '-'}})"
+    sortable_fields: ["sidebar.order", "title", "commit_date"]
+    fields: *DOCS_FIELDS
+
+  - name: "docs_cms"
+    label: "Docs - 2. CMS Platform Engineering"
+    label_singular: "CMS Platform Article"
+    folder: "src/content/docs/cms"
+    extension: "mdx"
+    format: "frontmatter"
+    create: true
+    delete: true
+    summary: "{{title}} ({{sidebar.order | default: '-'}})"
+    sortable_fields: ["sidebar.order", "title", "commit_date"]
+    fields: *DOCS_FIELDS
+
   - name: "docs_automation"
-    label: "Docs - Automation"
+    label: "Docs - 3. Automation & Quality Gates"
     label_singular: "Automation Article"
     folder: "src/content/docs/automation"
     extension: "mdx"
@@ -84,10 +108,10 @@ collections:
     sortable_fields: ["sidebar.order", "title", "commit_date"]
     fields: *DOCS_FIELDS
 
-  - name: "docs_cms"
-    label: "Docs - CMS Workflow"
-    label_singular: "CMS Article"
-    folder: "src/content/docs/cms"
+  - name: "docs_writers"
+    label: "Docs - 4. Technical Writer's Guide"
+    label_singular: "Writer Guide Article"
+    folder: "src/content/docs/writers"
     extension: "mdx"
     format: "frontmatter"
     create: true
@@ -97,7 +121,7 @@ collections:
     fields: *DOCS_FIELDS
 
   - name: "docs_components"
-    label: "Docs - Components"
+    label: "Docs - 5. Component Library"
     label_singular: "Component Article"
     folder: "src/content/docs/components"
     extension: "mdx"
@@ -109,33 +133,9 @@ collections:
     fields: *DOCS_FIELDS
 
   - name: "docs_guides"
-    label: "Docs - Guides"
+    label: "Docs - 6. Style Guide & Standards"
     label_singular: "Guide Article"
     folder: "src/content/docs/guides"
-    extension: "mdx"
-    format: "frontmatter"
-    create: true
-    delete: true
-    summary: "{{title}} ({{sidebar.order | default: '-'}})"
-    sortable_fields: ["sidebar.order", "title", "commit_date"]
-    fields: *DOCS_FIELDS
-
-  - name: "docs_philosophy"
-    label: "Docs - Philosophy"
-    label_singular: "Philosophy Article"
-    folder: "src/content/docs/philosophy"
-    extension: "mdx"
-    format: "frontmatter"
-    create: true
-    delete: true
-    summary: "{{title}} ({{sidebar.order | default: '-'}})"
-    sortable_fields: ["sidebar.order", "title", "commit_date"]
-    fields: *DOCS_FIELDS
-
-  - name: "docs_writers"
-    label: "Docs - Writer's Guide"
-    label_singular: "Writer Guide Article"
-    folder: "src/content/docs/writers"
     extension: "mdx"
     format: "frontmatter"
     create: true

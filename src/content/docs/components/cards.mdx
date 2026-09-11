@@ -81,14 +81,20 @@ Explore the live specimens, the raw markup required to build them, and instructi
   <TabItem label="3. Sveltia CMS Authoring" icon="setting">
     *How writers add this component using the Sveltia CMS interface.*
 
-    Unlike Asides or Steps, which are frequent mid-article elements, Cards are structural layout tools. Because we configured `astro-auto-import` in `astro.config.mjs`, authors can type these directly into the raw editor without needing complex CMS widgets or `import` statements.
+    **In Rich Text Mode (Visual LinkCard):**
+    1. Click the **+** (Add Block) button in the editor toolbar.
+    2. Select **Starlight Link Card** from the dropdown menu.
+    3. Choose your target article from the searchable dropdown list to auto-fill the URL, or enter custom titles and descriptions.
 
-    **In Raw Markdown Mode:**
-    1. Type `<CardGrid>` to open the layout block.
+    **In Raw Markdown Mode (CardGrid & Layouts):**
+    1. Type `<CardGrid>` to open the multi-column layout block.
     2. Add your individual `<Card>` or `<LinkCard>` tags inside the grid.
     3. Ensure you close the block with `</CardGrid>`.
     
     > **Pro Tip:** For `<LinkCard>`, you can link to relative internal pages (e.g., `href="/components/steps/"`) or external URLs (e.g., `href="https://github.com"`).
+
+    <br/>
+    *For a complete visual walkthrough of inserting Link Cards in Sveltia CMS, see [Inserting Custom Components (CMS Magic)](/writers/custom-components/).*
   </TabItem>
 </Tabs>
 

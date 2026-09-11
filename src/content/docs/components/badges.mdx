@@ -49,9 +49,21 @@ Call attention to feature statuses or version numbers using inline badges:
   </TabItem>
 
   <TabItem label="3. Sveltia CMS Authoring" icon="setting">
-    *How badges are managed through the CMS.*
+    *How writers add this component using the Sveltia CMS visual interface.*
 
-    Because badges are typically embedded inside tables or headings, technical writers can insert them via custom shortcodes or custom CMS editor components configured in `public/admin/index.html`.
+    Thanks to the custom `badge` component registered in `public/admin/index.html`, writers can insert badges directly in Rich Text mode:
+
+    **In Rich Text Mode:**
+    1. Click the **+** (Add Block) button in the editor toolbar.
+    2. Select **Starlight Badge** from the dropdown menu.
+    3. Enter the **Badge Text** (e.g., `v2.0` or `Required`).
+    4. Select your **Color Variant** (`default`, `note`, `tip`, `caution`, `danger`, `success`) and **Size**.
+
+    **In Raw Markdown Mode:**
+    Use standard JSX tags: `<Badge text="Production Ready" variant="success" size="medium" />`
+
+    <br/>
+    *For a complete step-by-step walkthrough of visual component insertion, see [Inserting Custom Components (CMS Magic)](/writers/custom-components/).*
   </TabItem>
 </Tabs>
 

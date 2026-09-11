@@ -5,35 +5,59 @@ sidebar:
   order: 4
 ---
 
-import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside, Card, CardGrid, Tabs, TabItem } from '@astrojs/starlight/components';
 
-Consistency is the key to a world-class user experience. To maintain a clean and readable interface, all authors must adhere to these structural standards when using Astro Starlight components and native Markdown.
+Consistency is the key to a world-class user experience. To maintain a clean, scannable, and accessible interface, all authors must adhere to these structural standards when incorporating UI components and technical formatting.
+
+---
 
 ## The Aside Component
 
-The `<Aside>` component draws the reader's attention to critical information. **Rule of thumb: If a page has more than three asides, the core text needs to be rewritten.**
+The [`<Aside>`](/components/asides/) component draws the reader's attention to critical information without breaking paragraph flow. **Rule of thumb: If a page has more than three asides, the core text needs to be rewritten into the main narrative.**
 
-*   **Tip (Green):** Use for workflow shortcuts, best practices, or optional enhancements.
-*   **Caution (Yellow):** Use when an action might disrupt a workflow, cause minor data loss, or requires specific prerequisites.
-*   **Danger (Red):** Use strictly for irreversible, destructive actions (e.g., deleting a repository or dropping a database).
+*   **Note (Purple):** General supplementary information, background context, or non-blocking trivia.
+*   **Tip (Green):** Workflow shortcuts, best practices, or optional efficiency enhancements.
+*   **Caution (Yellow):** Potential edge cases, minor data loss, or tricky prerequisites where mistakes commonly happen.
+*   **Danger (Red):** Irreversible, destructive actions strictly impacting system stability (e.g., deleting a database or destroying an API token).
 
 <Aside type="danger">
-Never use a Danger aside for stylistic emphasis. It is strictly reserved for critical warnings that impact system stability.
+Never use a Danger aside for stylistic emphasis or simple advice. It is strictly reserved for critical warnings that prevent severe outages or permanent data loss.
 </Aside>
+
+> 📘 **Authoring Reference:** Learn how to drop callouts visually in [Inserting Custom Components](/writers/custom-components/) or review live variants in [Callouts & Asides](/components/asides/).
+
+---
+
+## Procedural Steps & Tabs
+
+When guiding users through multi-step workflows or alternative options:
+
+*   **Procedural Steps ([`<Steps>`](/components/steps/)):** Use steps for sequential tasks where the reader must follow an exact chronological order. Each step should begin with an active imperative verb (*Click*, *Navigate*, *Configure*).
+*   **Alternative Tabs ([`<Tabs>`](/components/tabs/)):** Use tabs to present mutually exclusive paths (such as macOS vs. Windows or npm vs. pnpm). Never place linear sequences inside separate tabs.
+
+---
+
+## Cards, Badges & File Trees
+
+*   **Visual Link Cards ([`<LinkCard>`](/components/cards/)):** Highly recommended at the bottom of procedural articles under a "Next Steps" or "Related Reading" heading to guide reader navigation.
+*   **Status Badges ([`<Badge>`](/components/badges/)):** Use sparingly within running body text. They are most effective when placed inside tables, component headers, or sidebar summaries.
+*   **Directory Trees ([`<FileTree>`](/components/file-trees/)):** Prune irrelevant directories (like `node_modules/` or `.git/`) to focus the diagram strictly on the files the reader needs to touch.
+
+---
 
 ## Code Formatting
 
-Documentation often requires mixing plain English with technical syntax. Use the appropriate formatting for the context:
+Technical documentation frequently mixes plain English with code syntax. Choose the appropriate format for the context:
 
 ### Inline Code
-Use single backticks (` `) for inline code when referencing file names, UI button labels, or short variables within a sentence (e.g., open the `config.yml` file).
+Use single backticks (`` `code` ``) for file names (`package.json`), environment variables (`GITHUB_TOKEN`), CLI flags (`--verbose`), or UI button labels within a sentence.
 
 ### Fenced Code Blocks
-Use triple backticks for multi-line scripts or terminal commands. Always specify the language for proper syntax highlighting.
+Use triple backticks for multi-line scripts or terminal commands. Always specify the language identifier for syntax highlighting. Explore all styling options in [Expressive Code](/components/expressive-code/).
 
 <Tabs>
   <TabItem label="Do" icon="check">
-    ```javascript
+    ```javascript title="greeting.js"
     // Always include the language tag (e.g., javascript, bash, yaml)
     const greeting = "Hello, world!";
     ```
@@ -45,10 +69,15 @@ Use triple backticks for multi-line scripts or terminal commands. Always specify
   </TabItem>
 </Tabs>
 
+---
+
 ## Image & Media Guidelines
 
-Images should clarify complex UI interactions, not replace well-written text.
+Images should clarify complex UI interactions, not replace well-written prose.
 
-1.  **Keep it Focused:** Crop screenshots to the relevant UI element. Do not upload full-desktop screenshots unless the overall context is strictly necessary.
-2.  **File Formats:** Use `.png` for crisp UI screenshots and `.webp` or `.jpg` for larger, complex images.
+1.  **Keep it Focused:** Crop screenshots tightly to the relevant UI dialog or button. Avoid full 4K desktop captures.
+2.  **File Formats:** Use `.png` for crisp UI screenshots and `.webp` or `.jpg` for larger, complex images. Astro compresses and converts images to WebP automatically.
 3.  **No Text in Images:** Never embed critical instructions directly inside an image graphic. Screen readers cannot parse it, and it cannot be easily translated.
+4.  **Always Add Alt Text:** Screen readers and search indexers require descriptive alternative text for every uploaded graphic.
+
+> 🖼️ **Media Walkthrough:** Learn how to upload assets and write high-value alt text in [Managing Media & Assets](/writers/media-management/).

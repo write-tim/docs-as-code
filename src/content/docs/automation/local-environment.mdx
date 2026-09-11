@@ -1,0 +1,163 @@
+---
+title: Local Environment & Developer Tooling
+description: Set up your local development environment with Node.js 24, VS Code extensions, and CLI linters to test docs locally before pushing.
+sidebar:
+  order: 1
+---
+
+import { Aside, Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+
+While technical writers and content contributors often interact with documentation via [Sveltia CMS](/writers/welcome/), software engineers, platform architects, and DevOps teams live inside local code editors and terminal sessions.
+
+This guide details the local engineering setup required to run, develop, lint, and test the **Docs-as-Code Blueprint** knowledge base on your workstation.
+
+---
+
+## Runtime Prerequisites
+
+Our documentation engine is built on **Astro 5** and **Starlight**, which requires modern Node.js features:
+
+<CardGrid>
+  <Card title="Node.js >= 22.12.0 (Node 24 Recommended)" icon="seti:javascript">
+    Astro 5 enforces Node.js `>= 22.12.0`. Our repository is pinned to **Node.js 24** via the `.nvmrc` file to ensure consistent builds across macOS, Linux, and CI runners.
+  </Card>
+  <Card title="Package Manager: npm" icon="laptop">
+    We utilize standard `npm` for deterministic dependency locking through `package-lock.json`.
+  </Card>
+</CardGrid>
+
+<Tabs>
+  <TabItem label="Using NVM (Node Version Manager)" icon="laptop">
+    ```bash
+    # Switch to the repository's required Node version
+    nvm use
+    
+    # If Node 24 is not installed locally:
+    nvm install 24
+    nvm use 24
+    ```
+  </TabItem>
+
+  <TabItem label="Using FNM (Fast Node Manager)" icon="rocket">
+    ```bash
+    # Automatically reads .nvmrc
+    fnm use --install-if-missing
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+## Repository Setup & Scripts
+
+Clone the repository and install all dependencies:
+
+```bash title="Terminal"
+git clone https://github.com/write-tim/docs-as-code.git
+cd docs-as-code
+npm install
+```
+
+### Available Package Scripts
+
+Our `package.json` defines four primary commands:
+
+| Script | Command | Purpose |
+|:---|:---|:---|
+| `npm run dev` | `astro dev` | Starts the local Vite development server with Hot Module Replacement (HMR) at `http://localhost:4321`. |
+| `npm run build` | `astro build` | Compiles the production static site into `/dist` and generates the **Pagefind** search index. |
+| `npm run preview` | `astro preview` | Spawns a local static file server pointing to `/dist` to test production builds before pushing. |
+| `npm run astro` | `astro` | Accesses the Astro CLI directly (e.g., `npm run astro sync` or `npm run astro check`). |
+
+<Aside type="tip" title="Telemetry Management">
+If developing inside an automated script or sandboxed shell, disable anonymous telemetry by setting the environment variable:
+```bash
+export ASTRO_TELEMETRY_DISABLED=1
+```
+</Aside>
+
+---
+
+## IDE Configuration (VS Code)
+
+To ensure consistent formatting and real-time schema validation while authoring raw MDX files, we recommend the following VS Code workspace configuration:
+
+<Tabs>
+  <TabItem label="Recommended Extensions" icon="puzzle">
+    Install these extensions from the VS Code Marketplace:
+    * **Astro** (`astro-build.astro-vscode`): Language server providing syntax highlighting and component autocomplete.
+    * **MDX** (`unifiedjs.vscode-mdx`): Syntax support and IntelliSense for JSX-in-Markdown.
+    * **Prettier** (`esbenp.prettier-vscode`): Code formatting for JavaScript, CSS, and Markdown.
+    * **YAML** (`redhat.vscode-yaml`): Schema validation for `public/admin/config.yml`.
+    * **Vale CLI** (`errata-ai.vale-server`): Real-time prose linting annotations directly inside your editor.
+  </TabItem>
+
+  <TabItem label="Workspace Settings (.vscode/settings.json)" icon="setting">
+    ```json
+    {
+      "editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "[mdx]": {
+        "editor.wordWrap": "on",
+        "editor.quickSuggestions": {
+          "strings": true
+        }
+      },
+      "[astro]": {
+        "editor.defaultFormatter": "astro-build.astro-vscode"
+      }
+    }
+    ```
+  </TabItem>
+</Tabs>
+
+---
+
+## Running Quality Gates Locally
+
+Before opening a pull request, you can run the exact automated checks that execute in GitHub Actions:
+
+<Steps>
+1. **Frontmatter Schema & TypeScript Check:**  
+   Verify that all MDX metadata conforms to our [Zod Content Schemas](/automation/zod-schemas/):
+   ```bash
+   npx astro check
+   ```
+
+2. **Prose Linting (Vale):**  
+   Run our prose linter against all documentation files to catch style, grammar, and terminology violations locally:
+   ```bash
+   npx vale src/content/docs
+   ```
+
+3. **Production Compilation & Search Indexing:**  
+   Run a test build to ensure all Starlight components compile and Pagefind completes its search indexing:
+   ```bash
+   npm run build
+   ```
+
+4. **Broken Link Detection (Lychee):**  
+   Scan all compiled HTML files for dead internal links and rotted external URLs:
+   ```bash
+   npx lychee --config .lychee.toml './dist/**/*.html'
+   ```
+</Steps>
+
+---
+
+## Troubleshooting & Cache Clearing
+
+If you experience unexpected development server caching or stale content layers:
+
+```bash title="Terminal"
+# Clear Astro content layer cache and Vite artifacts
+rm -rf .astro dist node_modules/.vite
+
+# Re-synchronize content types
+npm run astro sync
+```
+
+<Aside type="tip">
+Next, explore how we enforce strict type safety across all document frontmatter in [Frontmatter Schemas with Zod](/automation/zod-schemas/).
+</Aside>
+
