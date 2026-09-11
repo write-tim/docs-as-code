@@ -73,7 +73,7 @@ collections:
     fields: *DOCS_FIELDS
 
   - name: "docs_philosophy"
-    label: "Docs - 1. Architecture & Philosophy"
+    label: "Docs - 1. Philosophy & Architecture"
     label_singular: "Philosophy Article"
     folder: "src/content/docs/philosophy"
     extension: "mdx"

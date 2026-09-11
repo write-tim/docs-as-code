@@ -27,7 +27,7 @@ function generateArticlesManifest() {
 
   const files = getFiles(docsDir);
   const catMap = {
-    philosophy: '1. Architecture & Philosophy',
+    philosophy: '1. Philosophy & Architecture',
     cms: '2. CMS Platform Engineering',
     automation: '3. Automation & Quality Gates',
     writers: "4. Technical Writer's Guide",
@@ -210,7 +210,7 @@ export default defineConfig({
           link: '/',
         },
         {
-          label: '1. Architecture & Philosophy',
+          label: '1. Philosophy & Architecture',
           items: [
             { autogenerate: { directory: 'philosophy' } }
           ],
