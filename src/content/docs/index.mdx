@@ -11,13 +11,17 @@ hero:
       link: /philosophy/docs-as-code/
       icon: right-arrow
       variant: primary
-    - text: Explore the Component Library
-      link: /components/typography/
-      icon: puzzle
+    - text: Technical Writer's Guide
+      link: /writers/welcome/
+      icon: open-book
       variant: primary
-    - text: Tim's Portfolio
-      link: https://timothyjohnsonwrites.com
-      icon: external
+    - text: Component Library
+      link: /components/asides/
+      icon: puzzle
+      variant: secondary
+    - text: Platform Engineering
+      link: /automation/local-environment/
+      icon: setting
       variant: secondary
 ---
 
@@ -49,23 +53,33 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 <CardGrid>
   <LinkCard
-    title="Procedural Steps"
-    description="Inspect how sequential task workflows are styled, rendered, and authored."
-    href="/components/steps/"
+    title="1. Philosophy & Architecture"
+    description="The core philosophy behind treating documentation like software using Git, Markdown, and CI/CD."
+    href="/philosophy/docs-as-code/"
   />
   <LinkCard
-    title="Callouts & Asides"
-    description="Learn how to configure notes, tips, warnings, and danger callouts in Starlight and Sveltia."
+    title="2. CMS Platform Engineering"
+    description="Zero-backend Git-backed visual CMS architecture, collection schemas, and OAuth authentication."
+    href="/cms/overview/"
+  />
+  <LinkCard
+    title="3. Automation & Quality Gates"
+    description="Local dev tooling, Vale prose linting, Lychee link checking, and Astro Content Layer validation."
+    href="/automation/local-environment/"
+  />
+  <LinkCard
+    title="4. Technical Writer's Guide"
+    description="Daily authoring workflows, visual component shortcodes, link modals, and publishing safety nets."
+    href="/writers/welcome/"
+  />
+  <LinkCard
+    title="5. Component Library"
+    description="Explore 11 live rendered MDX components with 'Behind the Curtain' specs and CMS authoring controls."
     href="/components/asides/"
   />
   <LinkCard
-    title="CI/CD Pipelines & Linting"
-    description="See how GitHub Actions enforce style guidelines, catch 404s, and generate preview builds."
-    href="/automation/ci-cd-pipelines/"
-  />
-  <LinkCard
-    title="Sveltia CMS Configuration"
-    description="Walk through setting up collections, authentication, and custom shortcode components."
-    href="/cms/overview/"
+    title="6. Style Guide & Standards"
+    description="Editorial voice, the documentation word list, grammar contracts, and component usage standards."
+    href="/guides/grammar-mechanics/"
   />
 </CardGrid>
