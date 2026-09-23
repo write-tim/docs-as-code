@@ -11,6 +11,8 @@ hero:
       link: /philosophy/docs-as-code/
       icon: right-arrow
       variant: primary
+    - text: Explore the Component Library
+      link: /components/typography/
     - text: Technical Writer's Guide
       link: /writers/welcome/
       icon: open-book
@@ -18,6 +20,10 @@ hero:
     - text: Component Library
       link: /components/asides/
       icon: puzzle
+      variant: primary
+    - text: Tim's Portfolio
+      link: https://timothyjohnsonwrites.com
+      icon: external
       variant: secondary
     - text: Platform Engineering
       link: /automation/local-environment/
@@ -53,21 +59,33 @@ import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
 
 <CardGrid>
   <LinkCard
+    title="Procedural Steps"
+    description="Inspect how sequential task workflows are styled, rendered, and authored."
+    href="/components/steps/"
     title="1. Philosophy & Architecture"
     description="The core philosophy behind treating documentation like software using Git, Markdown, and CI/CD."
     href="/philosophy/docs-as-code/"
   />
   <LinkCard
+    title="Callouts & Asides"
+    description="Learn how to configure notes, tips, warnings, and danger callouts in Starlight and Sveltia."
+    href="/components/asides/"
     title="2. CMS Platform Engineering"
     description="Zero-backend Git-backed visual CMS architecture, collection schemas, and OAuth authentication."
     href="/cms/overview/"
   />
   <LinkCard
+    title="CI/CD Pipelines & Linting"
+    description="See how GitHub Actions enforce style guidelines, catch 404s, and generate preview builds."
+    href="/automation/ci-cd-pipelines/"
     title="3. Automation & Quality Gates"
     description="Local dev tooling, Vale prose linting, Lychee link checking, and Astro Content Layer validation."
     href="/automation/local-environment/"
   />
   <LinkCard
+    title="Sveltia CMS Configuration"
+    description="Walk through setting up collections, authentication, and custom shortcode components."
+    href="/cms/overview/"
     title="4. Technical Writer's Guide"
     description="Daily authoring workflows, visual component shortcodes, link modals, and publishing safety nets."
     href="/writers/welcome/"
