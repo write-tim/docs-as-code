@@ -31,3 +31,4 @@ exclude = [
   'https://twitter\.com/.*',
   'https://x\.com/.*',
 ]
+
