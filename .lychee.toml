@@ -1,0 +1,33 @@
+# Lychee Link Checker Configuration
+# Documentation: https://lychee.cli.rs/
+
+# Root directory for resolving absolute / root-relative URLs (e.g. /components/asides/)
+root_dir = "./dist"
+
+# Verbose program output
+verbose = false
+
+# Maximum number of allowed retries before a link is declared dead
+max_retries = 3
+
+# Website timeout from connect to response finished (in seconds)
+timeout = 20
+
+# Comma-separated list of accepted status codes for valid links
+# 200: OK, 204: No Content, 206: Partial Content, 429: Too Many Requests
+accept = [200, 204, 206, 429]
+
+# Exclude loopback and private networks
+exclude_all_private = true
+
+# Exclude specific external domains or URLs that block automated CI bots or scrapers
+exclude = [
+  # LinkedIn blocks automated CI crawlers with HTTP 999 / 403
+  'https://www\.linkedin\.com/.*',
+  # Local development URLs
+  '^https?://localhost.*',
+  '^https?://127\.0\.0\.1.*',
+  # Social platforms that rate-limit or block headless bots
+  'https://twitter\.com/.*',
+  'https://x\.com/.*',
+]
