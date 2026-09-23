@@ -4,8 +4,8 @@
 # Root directory for resolving absolute / root-relative URLs (e.g. /components/asides/)
 root_dir = "./dist"
 
-# Verbose program output
-verbose = false
+# Verbose program output ("error", "warn", "info", "debug", "trace")
+verbose = "info"
 
 # Maximum number of allowed retries before a link is declared dead
 max_retries = 3
@@ -13,9 +13,8 @@ max_retries = 3
 # Website timeout from connect to response finished (in seconds)
 timeout = 20
 
-# Comma-separated list of accepted status codes for valid links
-# 200: OK, 204: No Content, 206: Partial Content, 429: Too Many Requests
-accept = [200, 204, 206, 429]
+# Accepted status codes for valid links
+accept = ["200..=204", "206", "429"]
 
 # Exclude loopback and private networks
 exclude_all_private = true

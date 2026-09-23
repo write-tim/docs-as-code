@@ -58,10 +58,11 @@ Google.We = suggestion
 
     Lychee is a fast, async link checker written in Rust. It scans all generated HTML output during CI to verify that referenced resources are online and responsive.
 
-```toml title="lychee.toml"
-verbose = true
-accept = [200, 429]
-timeout = 10
+```toml title=".lychee.toml"
+root_dir = "./dist"
+verbose = "info"
+accept = ["200..=204", "206", "429"]
+timeout = 20
 exclude_all_private = true
 ```
 
