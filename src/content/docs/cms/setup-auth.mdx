@@ -2,31 +2,33 @@
 title: CMS Setup & GitHub OAuth
 description: Learn how to configure Sveltia CMS and set up GitHub OAuth authentication for secure, browser-based authoring.
 sidebar:
-  order: 1
+  label: ''
+  order: 2
+  hidden: false
 ---
 
 import { Steps, Aside, Tabs, TabItem, Code } from '@astrojs/starlight/components';
 
 Because Sveltia CMS operates entirely as a static single-page application (SPA) inside the browser, it requires a secure authentication bridge to interact with GitHub's API. This connection is established using **GitHub OAuth**, ensuring that subject matter experts can safely log in, edit content, and generate pull requests using their own credentials.
 
----
+***
 
 ## Architecture of Authentication
 
 The authentication flow relies on a secure token exchange between the browser CMS client and GitHub:
 
 <Steps>
-  1. **Login Trigger**
+1. **Login Trigger**
      The user navigates to `/admin/` and clicks **Login with GitHub**.
-  2. **OAuth Handshake**
+    1. **OAuth Handshake**
      The browser redirects to GitHub's authorization page, prompting the user to grant repository access permissions.
-  3. **Token Issuance**
+    2. **Token Issuance**
      Upon approval, GitHub returns an OAuth access token back to the authentication gateway.
-  4. **API Communication**
+    3. **API Communication**
      Sveltia CMS uses this token to fetch files, commit changes, and open pull requests directly on behalf of the authenticated user.
 </Steps>
 
----
+***
 
 ## Configuring the GitHub OAuth App
 
@@ -34,26 +36,27 @@ To enable authentication for your repository, you must register an OAuth applica
 
 <Tabs>
   <TabItem icon="github" label="1. Register Application">
-    *Navigate to GitHub Settings > Developer Settings > OAuth Apps > New OAuth App.*
+        _Navigate to GitHub Settings > Developer Settings > OAuth Apps > New OAuth App._
 
-    * **Application Name:** `Sveltia Docs CMS (Local/Production)`
-    * **Homepage URL:** `https://docs.timothyjohnsonwrites.com` (or `http://localhost:4321` for local testing)
-    * **Authorization Callback URL:** `https://api.netlify.com/auth/done` (or your chosen OAuth gateway provider URL)
+        * **Application Name:** `Sveltia Docs CMS (Local/Production)`
+        * **Homepage URL:** `https://docs.timothyjohnsonwrites.com` (or `http://localhost:4321` for local testing)
+        * **Authorization Callback URL:** `https://api.netlify.com/auth/done` (or your chosen OAuth gateway provider URL)
   </TabItem>
 
   <TabItem icon="seti:config" label="2. Environment Variables">
-    *Securing your Client ID and Client Secret.*
+        _Securing your Client ID and Client Secret._
 
     Your deployment host (such as Netlify, Vercel, or a custom OAuth server) requires two environment variables to handle the handshake securely:
 
-    ```ini
-    OAUTH_CLIENT_ID=your_github_oauth_client_id
-    OAUTH_CLIENT_SECRET=your_github_oauth_client_secret
-    ```
+```ini
+OAUTH_CLIENT_ID=your_github_oauth_client_id
+OAUTH_CLIENT_SECRET=your_github_oauth_client_secret
+```
+
   </TabItem>
 </Tabs>
 
----
+***
 
 ## Connecting `config.yml` to the Backend
 
@@ -66,3 +69,4 @@ backend:
   branch: main
   base_url: [https://your-oauth-gateway-provider.com](https://your-oauth-gateway-provider.com)
   auth_endpoint: auth
+```
