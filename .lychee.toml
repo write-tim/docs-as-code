@@ -23,6 +23,10 @@ exclude_all_private = true
 exclude = [
   # LinkedIn blocks automated CI crawlers with HTTP 999 / 403
   'https://www\.linkedin\.com/.*',
+  # The 404 error page canonical URL naturally returns a 404 status from the live server
+  '^https?://docs\.timothyjohnsonwrites\.com/404/?$',
+  # GitHub "Edit page" links redirect to login when accessed unauthenticated
+  'https://github\.com/write-tim/docs-as-code/edit/.*',
   # Local development URLs
   '^https?://localhost.*',
   '^https?://127\.0\.0\.1.*',
